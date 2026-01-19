@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Note 系统 - Ethan Khoo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050510;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-cyan: #22D3EE;
+            --accent-purple: #A78BFA;
+            --accent-orange: #FB923C;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(251, 146, 60, 0.12), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 100% 50%, rgba(34, 211, 238, 0.08), transparent 50%),
+                var(--bg-primary);
+        }
+
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            z-index: 100;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        main {
+            padding: 8rem 4rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .project-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: rgba(251, 146, 60, 0.2);
+            color: var(--accent-orange);
+            border: 1px solid rgba(251, 146, 60, 0.3);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--glass-border), transparent);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(251, 146, 60, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 1rem 1.25rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                padding: 8rem 2rem 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="bg-gradient"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Ethan.K</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="projects.html">作品</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <a href="projects.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            返回作品列表
+        </a>
+
+        <div class="project-header">
+            <span class="project-badge">内部系统</span>
+            <h1 class="project-title">Service Note 服务管理系统</h1>
+            <p class="project-desc">
+                企业级服务工单管理系统，集成 CRM 客户关系管理功能。提供直观的仪表板视图、
+                服务追踪和客户数据分析功能，帮助企业高效管理服务流程。
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">Laravel</span>
+                <span class="tech-tag">MySQL</span>
+                <span class="tech-tag">CRM</span>
+                <span class="tech-tag">Dashboard</span>
+                <span class="tech-tag">服务管理</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">系统截图</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="img/servicenote/servicenotelogin.png" alt="登录页面">
+                <div class="gallery-caption">系统登录页面</div>
+            </div>
+            <div class="gallery-item">
+                <img src="img/servicenote/servicenotedashboard.png" alt="仪表板">
+                <div class="gallery-caption">数据仪表板 - 实时数据概览</div>
+            </div>
+            <div class="gallery-item">
+                <img src="img/servicenote/servicenote.png" alt="服务管理">
+                <div class="gallery-caption">服务工单管理</div>
+            </div>
+            <div class="gallery-item">
+                <img src="img/servicenote/servicenoteCRM.png" alt="CRM模块">
+                <div class="gallery-caption">客户关系管理 (CRM) 模块</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            dotX += (mouseX - dotX) * 0.25;
+            dotY += (mouseY - dotY) * 0.25;
+            cursor.style.left = cursorX - 12 + 'px';
+            cursor.style.top = cursorY - 12 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, .gallery-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+    </script>
+</body>
+
+</html>

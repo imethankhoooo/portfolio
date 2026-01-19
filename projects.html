@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Ethan Khoo</title>
+    <meta name="description"
+        content="Ethan Khoo's project portfolio - Live websites, enterprise systems, and academic projects">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050510;
+            --bg-secondary: #0A0A1A;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-bg-hover: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-cyan: #22D3EE;
+            --accent-purple: #A78BFA;
+            --accent-pink: #F472B6;
+            --accent-green: #34D399;
+            --accent-orange: #FB923C;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Cursor - FASTER */
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, background 0.15s ease, width 0.15s ease, height 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        /* Background */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34, 211, 238, 0.12), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 100% 50%, rgba(167, 139, 250, 0.08), transparent 50%),
+                var(--bg-primary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 100;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.375rem 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            padding: 8rem 4rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .page-title .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.5s;
+        }
+
+        .filter-tab {
+            padding: 0.625rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-color: transparent;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            cursor: none;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.6s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
+        .project-card:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .project-card:nth-child(5) {
+            animation-delay: 1.0s;
+        }
+
+        .project-card:nth-child(6) {
+            animation-delay: 1.1s;
+        }
+
+        .project-card:nth-child(7) {
+            animation-delay: 1.2s;
+        }
+
+        .project-card:nth-child(8) {
+            animation-delay: 1.3s;
+        }
+
+        .project-card:nth-child(9) {
+            animation-delay: 1.4s;
+        }
+
+        .project-card:nth-child(10) {
+            animation-delay: 1.5s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 24px 60px rgba(34, 211, 238, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-image-gradient {
+            position: absolute;
+            inset: 0;
+            opacity: 0.85;
+        }
+
+        .project-image-bg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            opacity: 0.15;
+            transition: all 0.4s ease;
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5, 5, 16, 0.95) 0%, transparent 60%);
+        }
+
+        /* Project Type Badge */
+        .project-type-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 10;
+        }
+
+        .badge-live {
+            background: rgba(52, 211, 153, 0.2);
+            color: var(--accent-green);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .badge-internal {
+            background: rgba(251, 146, 60, 0.2);
+            color: var(--accent-orange);
+            border: 1px solid rgba(251, 146, 60, 0.3);
+        }
+
+        .badge-academic {
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-tag {
+            padding: 0.375rem 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .project-title {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-title {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+            cursor: none;
+        }
+
+        .project-link:hover {
+            gap: 0.875rem;
+        }
+
+        /* Featured Project */
+        .featured-project {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+        }
+
+        .featured-project .project-image {
+            height: 100%;
+            min-height: 320px;
+        }
+
+        .featured-project .project-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Gradient backgrounds for projects */
+        .p-kathok .project-image-gradient {
+            background: linear-gradient(135deg, #1E3A5F, #3B82F6);
+        }
+
+        .p-prime .project-image-gradient {
+            background: linear-gradient(135deg, #065F46, #34D399);
+        }
+
+        .p-mage .project-image-gradient {
+            background: linear-gradient(135deg, #4C1D95, #A78BFA);
+        }
+
+        .p-service .project-image-gradient {
+            background: linear-gradient(135deg, #7C2D12, #FB923C);
+        }
+
+        .p-erp .project-image-gradient {
+            background: linear-gradient(135deg, #1E40AF, #60A5FA);
+        }
+
+        .p-chatbot .project-image-gradient {
+            background: linear-gradient(135deg, #4C1D95, #F472B6);
+        }
+
+        .p-java .project-image-gradient {
+            background: linear-gradient(135deg, #7C2D12, #EF4444);
+        }
+
+        .p-asm .project-image-gradient {
+            background: linear-gradient(135deg, #1F2937, #6B7280);
+        }
+
+        .p-aiquiz .project-image-gradient {
+            background: linear-gradient(135deg, #0D9488, #22D3EE);
+        }
+
+        /* Page Nav */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .page-nav a {
+            width: 48px;
+            height: 48px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .page-nav a:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .page-nav a.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-project {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+
+            .featured-project .project-image {
+                min-height: 220px;
+            }
+
+            main {
+                padding: 8rem 2rem 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Mobile Navigation */
+            nav {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+                padding: 0.625rem 1rem;
+                gap: 0.75rem;
+                justify-content: space-between;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .lang-toggle {
+                padding: 0.125rem;
+            }
+
+            .lang-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.6875rem;
+            }
+
+            /* Mobile Main */
+            main {
+                padding: 6rem 1.25rem 2.5rem;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9375rem;
+            }
+
+            /* Mobile Filter Tabs */
+            .filter-tabs {
+                gap: 0.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .filter-tab {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            /* Mobile Projects Grid */
+            .projects-grid {
+                gap: 1.25rem;
+            }
+
+            .project-card {
+                border-radius: 20px;
+            }
+
+            .project-image {
+                height: 160px;
+            }
+
+            .featured-project .project-image {
+                min-height: 160px;
+            }
+
+            .project-content {
+                padding: 1.25rem;
+            }
+
+            .project-tags {
+                gap: 0.375rem;
+                margin-bottom: 0.625rem;
+            }
+
+            .project-tag {
+                padding: 0.25rem 0.625rem;
+                font-size: 0.625rem;
+            }
+
+            .project-title {
+                font-size: 1.125rem;
+                margin-bottom: 0.375rem;
+            }
+
+            .project-description {
+                font-size: 0.8125rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+
+            .project-link {
+                font-size: 0.8125rem;
+            }
+
+            .project-type-badge {
+                padding: 0.25rem 0.625rem;
+                font-size: 0.625rem;
+            }
+
+            /* Hide page nav on mobile */
+            .page-nav {
+                display: none;
+            }
+
+            /* Disable custom cursor */
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .filter-tab {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.6875rem;
+            }
+
+            .project-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* ============================================
+           📱 MOBILE BOTTOM NAVIGATION
+           ============================================ */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(5, 5, 16, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 0 1rem;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+
+        .mobile-bottom-nav .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mobile-bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 64px;
+            z-index: 1;
+        }
+
+        .mobile-bottom-nav .nav-item .icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 4px;
+        }
+
+        .mobile-bottom-nav .nav-item .icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-bottom-nav .nav-item .label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-bottom-nav .nav-item.active {
+            color: var(--accent-cyan);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon {
+            background: rgba(34, 211, 238, 0.15);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon svg {
+            stroke: var(--accent-cyan);
+            filter: drop-shadow(0 0 6px var(--accent-cyan));
+        }
+
+        .mobile-bottom-nav .nav-item.active .label {
+            opacity: 1;
+            color: var(--accent-cyan);
+        }
+
+        .mobile-bottom-nav .nav-item.pressed {
+            transform: scale(0.95);
+        }
+
+        .mobile-bottom-nav .nav-item.touch-active .icon {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-bottom-nav .nav-ripple {
+            position: absolute;
+            background: rgba(34, 211, 238, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: navRipple 0.6s ease-out forwards;
+            pointer-events: none;
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        @keyframes navRipple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .mobile-bottom-nav .nav-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 0 0 3px 3px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 10px var(--accent-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 90px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="bg-gradient"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Ethan.K</a>
+        <ul class="nav-links">
+            <li><a href="index.html" data-en="Home" data-cn="首页">Home</a></li>
+            <li><a href="projects.html" class="active" data-en="Projects" data-cn="作品">Projects</a></li>
+            <li><a href="about.html" data-en="About" data-cn="关于">About</a></li>
+            <li><a href="contact.html" data-en="Contact" data-cn="联系">Contact</a></li>
+        </ul>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title"><span data-en="Featured" data-cn="精选">Featured</span> <span class="gradient-text"
+                    data-en="Projects" data-cn="作品">Projects</span></h1>
+            <p class="page-subtitle"
+                data-en="From live websites to enterprise systems, from AI integration to low-level assembly — explore my technical journey"
+                data-cn="从上线网站到企业系统，从 AI 集成到底层汇编，探索我的技术之旅">From live websites to enterprise systems, from AI integration
+                to low-level assembly — explore my technical journey</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all" data-en="All" data-cn="全部">All</button>
+            <button class="filter-tab" data-filter="live" data-en="Live Sites" data-cn="上线项目">Live Sites</button>
+            <button class="filter-tab" data-filter="internal" data-en="Enterprise" data-cn="企业系统">Enterprise</button>
+            <button class="filter-tab" data-filter="academic" data-en="Academic" data-cn="学术项目">Academic</button>
+        </div>
+
+        <div class="projects-grid">
+            <!-- 1. Kathok Website - Featured -->
+            <div class="project-card featured-project p-kathok" data-category="live">
+                <div class="project-image">
+                    <img src="img/噶玛/index.png" alt="Kathok Website">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-live" data-en="LIVE" data-cn="上线">LIVE</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">HTML/CSS/JS</span>
+                        <span class="project-tag">Responsive</span>
+                        <span class="project-tag">Multilingual</span>
+                    </div>
+                    <h3 class="project-title" data-en="Kathok Buddhist Center" data-cn="噶陀佛教中心官网">Kathok Buddhist Center
+                    </h3>
+                    <p class="project-description"
+                        data-en="Official website for Malaysia's Tibetan Buddhist center. Modern design with traditional cultural content, multilingual support, event calendar and online registration."
+                        data-cn="为马来西亚藏传佛教中心设计开发的官方网站。采用现代设计语言呈现传统文化内容，支持多语言切换，实现活动日历与在线报名功能。">Official website for
+                        Malaysia's Tibetan Buddhist center. Modern design with traditional cultural content,
+                        multilingual support, event calendar and online registration.</p>
+                    <a href="https://kathok.org.my/Kathok-Website%20-%20online/index.html" target="_blank"
+                        class="project-link">
+                        <span data-en="Visit Site" data-cn="访问网站">Visit Site</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. PrimeSMS -->
+            <div class="project-card p-prime" data-category="live">
+                <div class="project-image">
+                    <img src="img/sms/index.png" alt="PrimeSMS">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-live" data-en="LIVE" data-cn="上线">LIVE</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">API</span>
+                    </div>
+                    <h3 class="project-title" data-en="PrimeSMS Platform" data-cn="PrimeSMS 短信平台">PrimeSMS Platform</h3>
+                    <p class="project-description"
+                        data-en="Enterprise SMS service platform for Indonesian market. Bulk messaging, API integration, and analytics."
+                        data-cn="印尼市场的企业级 SMS 服务平台，提供批量短信发送、API 接口和数据分析功能。">Enterprise SMS service platform for
+                        Indonesian market. Bulk messaging, API integration, and analytics.</p>
+                    <a href="https://primesms.id/" target="_blank" class="project-link">
+                        <span data-en="Visit Site" data-cn="访问网站">Visit Site</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. Mage AI Media -->
+            <div class="project-card p-mage" data-category="live">
+                <div class="project-image">
+                    <img src="img/mage/index.png" alt="Mage AI Media">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-live" data-en="LIVE" data-cn="上线">LIVE</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">React</span>
+                        <span class="project-tag">Node.js</span>
+                        <span class="project-tag">AI</span>
+                    </div>
+                    <h3 class="project-title">Mage AI Media</h3>
+                    <p class="project-description"
+                        data-en="AI-powered media content platform with advanced content generation and management features."
+                        data-cn="AI 驱动的媒体内容平台，集成先进的内容生成和管理功能。">AI-powered media content platform with advanced content
+                        generation and management features.</p>
+                    <a href="https://www.mageaimedia.com/register.html" target="_blank" class="project-link">
+                        <span data-en="Visit Site" data-cn="访问网站">Visit Site</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. AI Quiz System - NEW -->
+            <div class="project-card p-aiquiz" data-category="internal">
+                <div class="project-image">
+                    <img src="img/aiquiz/dashboard.png" alt="AI Quiz System">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-internal" data-en="INTERNAL" data-cn="内部">INTERNAL</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">AI/LLM</span>
+                        <span class="project-tag">PDF Parser</span>
+                    </div>
+                    <h3 class="project-title" data-en="AI Quiz Generator" data-cn="AI 智能测验系统">AI Quiz Generator</h3>
+                    <p class="project-description"
+                        data-en="Smart quiz system: PDF notes parsing, AI-generated quizzes based on content, precise grading, wrong answer tracking and adaptive weakness training."
+                        data-cn="智能测验系统：PDF 笔记自动解析、基于内容的智能 Quiz 生成、精准批改、错题追踪与自适应弱点训练。">Smart quiz system: PDF notes
+                        parsing, AI-generated quizzes based on content, precise grading, wrong answer tracking and
+                        adaptive weakness training.</p>
+                    <a href="project-aiquiz.html" class="project-link">
+                        <span data-en="View Details" data-cn="查看详情">View Details</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5. Service Note System -->
+            <div class="project-card p-service" data-category="internal">
+                <div class="project-image">
+                    <img src="img/servicenote/servicenotedashboard.png" alt="Service Note Dashboard">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-internal" data-en="INTERNAL" data-cn="内部">INTERNAL</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">CRM</span>
+                        <span class="project-tag">Dashboard</span>
+                    </div>
+                    <h3 class="project-title" data-en="Service Note System" data-cn="Service Note 服务管理系统">Service Note
+                        System</h3>
+                    <p class="project-description"
+                        data-en="Enterprise service ticket management with CRM, dashboard analytics and customer tracking."
+                        data-cn="企业级服务工单管理系统，集成 CRM 功能、仪表板分析和客户追踪。">Enterprise service ticket management with CRM,
+                        dashboard analytics and customer tracking.</p>
+                    <a href="project-servicenote.html" class="project-link">
+                        <span data-en="View Details" data-cn="查看详情">View Details</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6. ERP System -->
+            <div class="project-card p-erp" data-category="internal">
+                <div class="project-image">
+                    <img src="img/ERP/ERPproductpage1.png" alt="ERP System">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-internal" data-en="INTERNAL" data-cn="内部">INTERNAL</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Laravel</span>
+                        <span class="project-tag">AWS</span>
+                        <span class="project-tag">Redis</span>
+                        <span class="project-tag">Dusk</span>
+                    </div>
+                    <h3 class="project-title" data-en="ERP System" data-cn="ERP 企业资源管理系统">ERP System</h3>
+                    <p class="project-description"
+                        data-en="Full ERP with product, warehouse, and customer management. Deployed on AWS with Redis caching and Laravel Dusk testing."
+                        data-cn="全功能 ERP 系统，包含产品管理、仓库管理、客户管理等模块。AWS 部署，Redis 缓存，配有 Dusk 自动化测试。">Full ERP with product,
+                        warehouse, and customer management. Deployed on AWS with Redis caching and Laravel Dusk testing.
+                    </p>
+                    <a href="project-erp.html" class="project-link">
+                        <span data-en="View Details" data-cn="查看详情">View Details</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7. AI Chatbot -->
+            <div class="project-card p-chatbot" data-category="internal">
+                <div class="project-image">
+                    <img src="img/AIChatbot/output.png" alt="AI Chatbot">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-internal" data-en="LOCAL" data-cn="本地">LOCAL</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Llama 8B</span>
+                        <span class="project-tag">Local AI</span>
+                    </div>
+                    <h3 class="project-title" data-en="AI Chatbot" data-cn="AI Chatbot 本地对话系统">AI Chatbot</h3>
+                    <p class="project-description"
+                        data-en="Locally deployed Llama 8B model for offline intelligent Q&A on a standard laptop."
+                        data-cn="在本地笔记本电脑上运行 Llama 8B 模型的 AI 对话系统，实现离线智能问答功能。">Locally deployed Llama 8B model for
+                        offline intelligent Q&A on a standard laptop.</p>
+                    <a href="project-chatbot.html" class="project-link">
+                        <span data-en="View Details" data-cn="查看详情">View Details</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8. Java CLI Assignment -->
+            <div class="project-card p-java" data-category="academic">
+                <div class="project-image">
+                    <img src="img/javaass/register.png" alt="Java Assignment">
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-academic" data-en="ACADEMIC" data-cn="学术">ACADEMIC</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">OOP</span>
+                        <span class="project-tag">CLI</span>
+                    </div>
+                    <h3 class="project-title" data-en="Java CLI System" data-cn="Java CLI 管理系统">Java CLI System</h3>
+                    <p class="project-description"
+                        data-en="University assignment: Java-based command line management system showcasing OOP design skills."
+                        data-cn="大学课程作业：基于 Java 的命令行界面管理系统，展示面向对象编程设计能力。">University assignment: Java-based command line
+                        management system showcasing OOP design skills.</p>
+                    <a href="project-java.html" class="project-link">
+                        <span data-en="View Details" data-cn="查看详情">View Details</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 9. Assembly Language -->
+            <div class="project-card p-asm" data-category="academic">
+                <div class="project-image">
+                    <div class="project-image-gradient"></div>
+                    <div class="project-image-bg">ASM</div>
+                    <div class="project-overlay"></div>
+                    <span class="project-type-badge badge-academic" data-en="ACADEMIC" data-cn="学术">ACADEMIC</span>
+                </div>
+                <div class="project-content">
+                    <div class="project-tags">
+                        <span class="project-tag">x86 Assembly</span>
+                        <span class="project-tag">System Programming</span>
+                        <span class="project-tag">2700+ LOC</span>
+                    </div>
+                    <h3 class="project-title" data-en="Assembly - Leisure Club System" data-cn="汇编语言 - 休闲俱乐部系统">Assembly
+                        - Leisure Club System</h3>
+                    <p class="project-description"
+                        data-en="Complete club management system written in x86 assembly. Member login, facility booking, staff management. 2700+ lines of low-level code."
+                        data-cn="使用 x86 汇编语言编写的完整俱乐部管理系统，包含会员登录、设施预订、员工管理等功能。超过 2700 行底层代码。">Complete club management
+                        system written in x86 assembly. Member login, facility booking, staff management. 2700+ lines of
+                        low-level code.</p>
+                    <a href="project-assembly.html" class="project-link">
+                        <span data-en="View Source" data-cn="查看源码">View Source</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="page-nav">
+        <a href="index.html" title="Home">01</a>
+        <a href="projects.html" class="active" title="Projects">02</a>
+        <a href="about.html" title="About">03</a>
+        <a href="contact.html" title="Contact">04</a>
+    </div>
+
+    <script>
+        // FASTER Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            dotX += (mouseX - dotX) * 0.4;
+            dotY += (mouseY - dotY) * 0.4;
+            cursor.style.left = cursorX - 12 + 'px';
+            cursor.style.top = cursorY - 12 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .project-card, .filter-tab, .lang-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const filter = tab.dataset.filter;
+
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeUp 0.5s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Bilingual Support
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en][data-cn]').forEach(el => {
+                const text = lang === 'cn' ? el.dataset.cn : el.dataset.en;
+                el.textContent = text;
+            });
+
+            document.documentElement.lang = lang === 'cn' ? 'zh-CN' : 'en';
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        setLanguage(currentLang);
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-item" data-page="index">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Home" data-cn="首页">Home</span>
+            </a>
+            <a href="projects.html" class="nav-item" data-page="projects">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Projects" data-cn="作品">Projects</span>
+            </a>
+            <a href="about.html" class="nav-item" data-page="about">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </span>
+                <span class="label" data-en="About" data-cn="关于">About</span>
+            </a>
+            <a href="contact.html" class="nav-item" data-page="contact">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Contact" data-cn="联系">Contact</span>
+            </a>
+            <div class="nav-indicator"></div>
+        </div>
+    </nav>
+    <script src="js/mobile-nav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Ethan Khoo</title>
+    <meta name="description" content="Contact Ethan Khoo - Email, WhatsApp, GitHub, LinkedIn">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050510;
+            --bg-secondary: #0A0A1A;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-bg-hover: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-cyan: #22D3EE;
+            --accent-purple: #A78BFA;
+            --accent-pink: #F472B6;
+            --accent-green: #34D399;
+            --accent-orange: #FB923C;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease, background 0.15s ease, width 0.15s ease, height 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34, 211, 238, 0.12), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 100% 50%, rgba(167, 139, 250, 0.08), transparent 50%),
+                var(--bg-primary);
+        }
+
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 100;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+            cursor: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.375rem 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+        }
+
+        main {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 4rem 4rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .page-title .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 500px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards;
+            cursor: none;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .contact-card:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .contact-card:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+
+        .contact-card:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+
+        .contact-card:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 16px 48px rgba(34, 211, 238, 0.15);
+        }
+
+        .contact-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-card:nth-child(1) .contact-icon {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(34, 211, 238, 0.05));
+        }
+
+        .contact-card:nth-child(2) .contact-icon {
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(52, 211, 153, 0.05));
+        }
+
+        .contact-card:nth-child(3) .contact-icon {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(167, 139, 250, 0.05));
+        }
+
+        .contact-card:nth-child(4) .contact-icon {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(96, 165, 250, 0.05));
+        }
+
+        .contact-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card:hover .contact-value {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-arrow {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            transform: translate(4px, -4px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.9s;
+        }
+
+        .cta-text {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-highlight {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            border: none;
+            cursor: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            box-shadow: 0 4px 24px rgba(34, 211, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(167, 139, 250, 0.4);
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Page Nav */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .page-nav a {
+            width: 48px;
+            height: 48px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .page-nav a:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+        }
+
+        .page-nav a.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            /* Mobile Navigation */
+            nav {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+                padding: 0.625rem 1rem;
+                gap: 0.75rem;
+                justify-content: space-between;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .lang-toggle {
+                padding: 0.125rem;
+            }
+
+            .lang-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.6875rem;
+            }
+
+            /* Mobile Main */
+            main {
+                padding: 6rem 1.25rem 2.5rem;
+                min-height: auto;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.9375rem;
+            }
+
+            /* Mobile Contact Grid */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .contact-card {
+                padding: 1.5rem;
+                border-radius: 20px;
+            }
+
+            .contact-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .contact-label {
+                font-size: 0.6875rem;
+            }
+
+            .contact-value {
+                font-size: 1rem;
+            }
+
+            .contact-arrow {
+                width: 28px;
+                height: 28px;
+                bottom: 1.25rem;
+                right: 1.25rem;
+            }
+
+            /* Mobile CTA */
+            .cta-text {
+                font-size: 1.125rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+                font-size: 0.875rem;
+            }
+
+            /* Hide page nav on mobile */
+            .page-nav {
+                display: none;
+            }
+
+            /* Disable custom cursor */
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .contact-value {
+                font-size: 0.9375rem;
+            }
+        }
+
+        /* ============================================
+           📱 MOBILE BOTTOM NAVIGATION
+           ============================================ */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(5, 5, 16, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 0 1rem;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+
+        .mobile-bottom-nav .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mobile-bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 64px;
+            z-index: 1;
+        }
+
+        .mobile-bottom-nav .nav-item .icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 4px;
+        }
+
+        .mobile-bottom-nav .nav-item .icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-bottom-nav .nav-item .label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-bottom-nav .nav-item.active {
+            color: var(--accent-cyan);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon {
+            background: rgba(34, 211, 238, 0.15);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon svg {
+            stroke: var(--accent-cyan);
+            filter: drop-shadow(0 0 6px var(--accent-cyan));
+        }
+
+        .mobile-bottom-nav .nav-item.active .label {
+            opacity: 1;
+            color: var(--accent-cyan);
+        }
+
+        .mobile-bottom-nav .nav-item.pressed {
+            transform: scale(0.95);
+        }
+
+        .mobile-bottom-nav .nav-item.touch-active .icon {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .mobile-bottom-nav .nav-ripple {
+            position: absolute;
+            background: rgba(34, 211, 238, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: navRipple 0.6s ease-out forwards;
+            pointer-events: none;
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        @keyframes navRipple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .mobile-bottom-nav .nav-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 0 0 3px 3px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 10px var(--accent-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            body {
+                padding-bottom: 90px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="bg-gradient"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Ethan.K</a>
+        <ul class="nav-links">
+            <li><a href="index.html" data-en="Home" data-cn="首页">Home</a></li>
+            <li><a href="projects.html" data-en="Projects" data-cn="作品">Projects</a></li>
+            <li><a href="about.html" data-en="About" data-cn="关于">About</a></li>
+            <li><a href="contact.html" class="active" data-en="Contact" data-cn="联系">Contact</a></li>
+        </ul>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title"><span data-en="Get in" data-cn="联系">Get in</span> <span class="gradient-text"
+                    data-en="Touch" data-cn="我">Touch</span></h1>
+            <p class="page-subtitle" data-en="Have a project in mind? Let's work together to bring your ideas to life."
+                data-cn="有项目想法？让我们一起将创意变为现实。">Have a project in mind? Let's work together to bring your ideas to life.
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Email -->
+            <a href="mailto:ethankhoo05@gmail.com" class="contact-card">
+                <div class="contact-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                </div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">ethankhoo05@gmail.com</div>
+                <div class="contact-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/601126100907" target="_blank" class="contact-card">
+                <div class="contact-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" />
+                    </svg>
+                </div>
+                <div class="contact-label">WhatsApp</div>
+                <div class="contact-value">+60 11-2610 0907</div>
+                <div class="contact-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/imethankhoooo" target="_blank" class="contact-card">
+                <div class="contact-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
+                    </svg>
+                </div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">@imethankhoooo</div>
+                <div class="contact-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/tsui-ern-khoo/" target="_blank" class="contact-card">
+                <div class="contact-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" />
+                        <rect x="2" y="9" width="4" height="12" />
+                        <circle cx="4" cy="4" r="2" />
+                    </svg>
+                </div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">Tsui Ern Khoo</div>
+                <div class="contact-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7v10" />
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <div class="cta-section">
+            <p class="cta-text" data-en="Ready to start a project?" data-cn="准备开始项目？">Ready to start a project?</p>
+            <div class="cta-buttons">
+                <a href="mailto:ethankhoo05@gmail.com" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <span data-en="Send Email" data-cn="发送邮件">Send Email</span>
+                </a>
+                <a href="projects.html" class="btn btn-glass" data-en="View My Work" data-cn="查看作品">View My Work</a>
+            </div>
+        </div>
+    </main>
+
+    <div class="page-nav">
+        <a href="index.html" title="Home">01</a>
+        <a href="projects.html" title="Projects">02</a>
+        <a href="about.html" title="About">03</a>
+        <a href="contact.html" class="active" title="Contact">04</a>
+    </div>
+
+    <script>
+        // Faster Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            dotX += (mouseX - dotX) * 0.4;
+            dotY += (mouseY - dotY) * 0.4;
+            cursor.style.left = cursorX - 12 + 'px';
+            cursor.style.top = cursorY - 12 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .contact-card, .lang-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Bilingual Support
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en][data-cn]').forEach(el => {
+                const text = lang === 'cn' ? el.dataset.cn : el.dataset.en;
+                el.textContent = text;
+            });
+
+            document.documentElement.lang = lang === 'cn' ? 'zh-CN' : 'en';
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        setLanguage(currentLang);
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-item" data-page="index">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Home" data-cn="首页">Home</span>
+            </a>
+            <a href="projects.html" class="nav-item" data-page="projects">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Projects" data-cn="作品">Projects</span>
+            </a>
+            <a href="about.html" class="nav-item" data-page="about">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </span>
+                <span class="label" data-en="About" data-cn="关于">About</span>
+            </a>
+            <a href="contact.html" class="nav-item" data-page="contact">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Contact" data-cn="联系">Contact</span>
+            </a>
+            <div class="nav-indicator"></div>
+        </div>
+    </nav>
+    <script src="js/mobile-nav.js"></script>
+</body>
+
+</html>

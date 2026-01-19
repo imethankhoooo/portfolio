@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汇编语言系统 - Ethan Khoo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050510;
+            --bg-code: #0D1117;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-cyan: #22D3EE;
+            --accent-purple: #A78BFA;
+            --accent-green: #34D399;
+            --accent-orange: #FB923C;
+            --accent-pink: #F472B6;
+            --code-keyword: #FF7B72;
+            --code-string: #A5D6FF;
+            --code-comment: #8B949E;
+            --code-register: #79C0FF;
+            --code-label: #D2A8FF;
+            --code-number: #FFA657;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+        }
+
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(107, 114, 128, 0.15), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 100% 50%, rgba(167, 139, 250, 0.08), transparent 50%),
+                var(--bg-primary);
+        }
+
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            z-index: 100;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        main {
+            padding: 8rem 4rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .project-header {
+            margin-bottom: 3rem;
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: rgba(167, 139, 250, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6B7280, var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--glass-border), transparent);
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--glass-border);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .feature-card:nth-child(1) .feature-icon {
+            background: rgba(34, 211, 238, 0.2);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: rgba(167, 139, 250, 0.2);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: rgba(52, 211, 153, 0.2);
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: rgba(251, 146, 60, 0.2);
+        }
+
+        .feature-card:nth-child(5) .feature-icon {
+            background: rgba(244, 114, 182, 0.2);
+        }
+
+        .feature-card:nth-child(6) .feature-icon {
+            background: rgba(96, 165, 250, 0.2);
+        }
+
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Code Block */
+        .code-container {
+            background: var(--bg-code);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .code-filename {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot:nth-child(1) {
+            background: #FF5F56;
+        }
+
+        .code-dot:nth-child(2) {
+            background: #FFBD2E;
+        }
+
+        .code-dot:nth-child(3) {
+            background: #27C93F;
+        }
+
+        .code-content {
+            padding: 1.5rem;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .code-content pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8125rem;
+            line-height: 1.7;
+            color: #E6EDF3;
+            margin: 0;
+        }
+
+        .code-content .keyword {
+            color: var(--code-keyword);
+        }
+
+        .code-content .string {
+            color: var(--code-string);
+        }
+
+        .code-content .comment {
+            color: var(--code-comment);
+            font-style: italic;
+        }
+
+        .code-content .register {
+            color: var(--code-register);
+        }
+
+        .code-content .label {
+            color: var(--code-label);
+        }
+
+        .code-content .number {
+            color: var(--code-number);
+        }
+
+        .code-content .directive {
+            color: var(--accent-pink);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            cursor: none;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(34, 211, 238, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                padding: 8rem 2rem 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    <div class="bg-gradient"></div>
+
+    <nav>
+        <a href="index.html" class="logo">Ethan.K</a>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="projects.html">作品</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="contact.html">联系</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <a href="projects.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            返回作品列表
+        </a>
+
+        <div class="project-header">
+            <span class="project-badge">学术项目</span>
+            <h1 class="project-title">x86 汇编语言 - 休闲俱乐部系统</h1>
+            <p class="project-desc">
+                使用 x86 汇编语言从零编写的完整俱乐部管理系统。这个项目展示了对计算机底层架构的深入理解，
+                包括内存管理、寄存器操作、中断调用和程序流程控制。所有功能均通过直接操作 CPU 寄存器实现。
+            </p>
+            <div class="tech-tags">
+                <span class="tech-tag">x86 Assembly</span>
+                <span class="tech-tag">DOS 中断</span>
+                <span class="tech-tag">内存管理</span>
+                <span class="tech-tag">系统编程</span>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">2784</div>
+                <div class="stat-label">代码行数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">62K</div>
+                <div class="stat-label">文件大小</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">6</div>
+                <div class="stat-label">核心模块</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">20+</div>
+                <div class="stat-label">子程序</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">系统功能模块</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <div class="feature-title">会员管理</div>
+                <div class="feature-desc">会员注册、登录验证、密码加密存储、IC 和电话验证</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👨‍💼</div>
+                <div class="feature-title">员工管理</div>
+                <div class="feature-desc">员工添加、密码修改、信息显示、权限控制</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏢</div>
+                <div class="feature-title">设施管理</div>
+                <div class="feature-desc">设施添加、价格设置、时段管理</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <div class="feature-title">预订系统</div>
+                <div class="feature-desc">设施预订、时段选择、冲突检测</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💳</div>
+                <div class="feature-title">支付处理</div>
+                <div class="feature-desc">多种支付方式、税费计算、总额显示</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">数据展示</div>
+                <div class="feature-desc">格式化表格输出、动态数据更新</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">源代码展示</h2>
+        <div class="code-container">
+            <div class="code-header">
+                <div class="code-dots">
+                    <span class="code-dot"></span>
+                    <span class="code-dot"></span>
+                    <span class="code-dot"></span>
+                </div>
+                <div class="code-filename">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                        <polyline points="14,2 14,8 20,8" />
+                    </svg>
+                    code.asm
+                </div>
+            </div>
+            <div class="code-content">
+                <pre><span class="directive">.MODEL</span> small
+<span class="directive">.STACK</span> <span class="number">100h</span>
+<span class="directive">.DATA</span>
+<span class="comment">; ============================================</span>
+<span class="comment">; 数据段 - 系统消息和变量定义</span>
+<span class="comment">; ============================================</span>
+
+logo         <span class="keyword">DB</span> <span class="string">"WELCOME TO LEISURE CLUB SYSTEM"</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>, <span class="string">"$"</span>
+mainMenu     <span class="keyword">DB</span> <span class="string">"1. Staff"</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>
+             <span class="keyword">DB</span> <span class="string">"2. Member"</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>
+             <span class="keyword">DB</span> <span class="string">"3. Exit"</span>, <span class="number">0Dh</span>, <span class="number">0Ah</span>
+             <span class="keyword">DB</span> <span class="string">"Please Enter Your Selection : $"</span>
+
+<span class="comment">; 会员数据数组 - 支持最多 20 个会员</span>
+MAX_MEMBERS  <span class="keyword">EQU</span> <span class="number">20</span>
+memberIDArray        <span class="keyword">DB</span> MAX_MEMBERS * <span class="number">5</span> <span class="keyword">DUP</span>(<span class="string">'$'</span>)
+memberPasswordArray  <span class="keyword">DB</span> MAX_MEMBERS * <span class="number">5</span> <span class="keyword">DUP</span>(<span class="string">'$'</span>)
+memberNameArray      <span class="keyword">DB</span> MAX_MEMBERS * <span class="number">20</span> <span class="keyword">DUP</span>(<span class="string">'$'</span>)
+
+<span class="directive">.CODE</span>
+<span class="label">main</span> <span class="keyword">PROC</span>
+    <span class="comment">; 初始化数据段</span>
+    <span class="keyword">mov</span> <span class="register">ax</span>, @data
+    <span class="keyword">mov</span> <span class="register">ds</span>, <span class="register">ax</span>
+
+<span class="label">mainLoop:</span>
+    <span class="comment">; 显示欢迎信息</span>
+    <span class="keyword">lea</span> <span class="register">dx</span>, logo
+    <span class="keyword">mov</span> <span class="register">ah</span>, <span class="number">09h</span>
+    <span class="keyword">int</span> <span class="number">21h</span>
+
+    <span class="comment">; 显示主菜单</span>
+    <span class="keyword">lea</span> <span class="register">dx</span>, mainMenu
+    <span class="keyword">mov</span> <span class="register">ah</span>, <span class="number">09h</span>
+    <span class="keyword">int</span> <span class="number">21h</span>
+
+    <span class="comment">; 读取用户输入</span>
+    <span class="keyword">mov</span> <span class="register">ah</span>, <span class="number">01h</span>
+    <span class="keyword">int</span> <span class="number">21h</span>
+
+    <span class="comment">; 根据输入跳转</span>
+    <span class="keyword">cmp</span> <span class="register">al</span>, <span class="string">'1'</span>
+    <span class="keyword">je</span> <span class="label">handleStaff</span>
+    <span class="keyword">cmp</span> <span class="register">al</span>, <span class="string">'2'</span>
+    <span class="keyword">je</span> <span class="label">handleMember</span>
+    <span class="keyword">cmp</span> <span class="register">al</span>, <span class="string">'3'</span>
+    <span class="keyword">jmp</span> <span class="label">exitProgram</span>
+
+<span class="comment">; ============================================</span>
+<span class="comment">; 登录验证 - 比较用户输入与存储的凭据</span>
+<span class="comment">; ============================================</span>
+<span class="label">loginStaff:</span>
+    <span class="keyword">mov</span> <span class="register">ax</span>, <span class="number">0</span>
+    <span class="keyword">mov</span> <span class="register">al</span>, staffCounter
+    <span class="keyword">mov</span> <span class="register">cx</span>, <span class="register">ax</span>
+    <span class="keyword">mov</span> <span class="register">si</span>, <span class="number">2</span>    <span class="comment">; 用户输入偏移</span>
+    <span class="keyword">mov</span> <span class="register">di</span>, <span class="number">0</span>    <span class="comment">; 数组索引</span>
+
+<span class="label">IDValidationL1:</span>
+    <span class="keyword">mov</span> <span class="register">al</span>, inputIDBuffer[<span class="register">si</span>]
+    <span class="keyword">mov</span> <span class="register">bl</span>, staffIDArray[<span class="register">di</span>]
+    <span class="keyword">inc</span> <span class="register">si</span>
+    <span class="keyword">inc</span> <span class="register">di</span>
+    <span class="keyword">cmp</span> <span class="register">bl</span>, <span class="string">"$"</span>
+    <span class="keyword">je</span> <span class="label">loginStaffPassword</span>
+    <span class="keyword">cmp</span> <span class="register">al</span>, <span class="register">bl</span>
+    <span class="keyword">jne</span> <span class="label">IDvalidationL2</span>
+    <span class="keyword">jmp</span> <span class="label">IDvalidationL1</span>
+
+<span class="comment">; ... 更多代码 (共 2784 行) ...</span>
+
+<span class="label">main</span> <span class="keyword">ENDP</span>
+<span class="keyword">END</span> main</pre>
+            </div>
+        </div>
+
+        <a href="img/assemblecode/code.asm" download class="download-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            下载完整源代码
+        </a>
+    </main>
+
+    <script>
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            dotX += (mouseX - dotX) * 0.25;
+            dotY += (mouseY - dotY) * 0.25;
+            cursor.style.left = cursorX - 12 + 'px';
+            cursor.style.top = cursorY - 12 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, .feature-card, .stat-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+    </script>
+</body>
+
+</html>
