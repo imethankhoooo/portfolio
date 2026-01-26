@@ -109,7 +109,11 @@ export default function Home() {
                                 className="featured-card"
                             >
                                 <div className="featured-image" style={{ background: project.gradient }}>
-                                    <div className="featured-image-bg">{project.title[lang].charAt(0)}</div>
+                                    {project.image ? (
+                                        <img src={project.image} alt={project.title[lang]} />
+                                    ) : (
+                                        <div className="featured-image-bg">{project.title[lang].charAt(0)}</div>
+                                    )}
                                 </div>
                                 <div className="featured-content">
                                     <div className="featured-tags">

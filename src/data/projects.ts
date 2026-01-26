@@ -23,7 +23,7 @@ export const projects: Project[] = [
         type: 'live',
         featured: true,
         gradient: 'linear-gradient(135deg, #1E3A5F, #3B82F6)',
-        image: 'img/噶玛/index.png',
+        image: '/img/噶玛/index.png',
         tags: ['HTML/CSS/JS', 'Responsive', 'Multilingual'],
         title: {
             en: 'Kathok Buddhist Center',
@@ -39,7 +39,7 @@ export const projects: Project[] = [
         id: 'primesms',
         type: 'live',
         gradient: 'linear-gradient(135deg, #065F46, #34D399)',
-        image: 'img/sms/index.png',
+        image: '/img/sms/index.png',
         tags: ['Laravel', 'MySQL', 'API'],
         title: {
             en: 'PrimeSMS Platform',
@@ -55,7 +55,7 @@ export const projects: Project[] = [
         id: 'mage-ai-media',
         type: 'live',
         gradient: 'linear-gradient(135deg, #4C1D95, #A78BFA)',
-        image: 'img/mage/index.png',
+        image: '/img/mage/index.png',
         tags: ['React', 'Node.js', 'AI'],
         title: {
             en: 'Mage AI Media',
@@ -73,7 +73,7 @@ export const projects: Project[] = [
         id: 'aiquiz',
         type: 'internal',
         gradient: 'linear-gradient(135deg, #0D9488, #22D3EE)',
-        image: 'img/aiquiz/dashboard.png',
+        image: '/img/aiquiz/dashboard.png',
         tags: ['Python', 'AI/LLM', 'PDF Parser'],
         title: {
             en: 'AI Quiz Generator',
@@ -88,7 +88,7 @@ export const projects: Project[] = [
         id: 'servicenote',
         type: 'internal',
         gradient: 'linear-gradient(135deg, #7C2D12, #FB923C)',
-        image: 'img/servicenote/servicenotedashboard.png',
+        image: '/img/servicenote/servicenotedashboard.png',
         tags: ['Laravel', 'CRM', 'Dashboard'],
         title: {
             en: 'Service Note System',
@@ -103,7 +103,7 @@ export const projects: Project[] = [
         id: 'erp',
         type: 'internal',
         gradient: 'linear-gradient(135deg, #1E40AF, #60A5FA)',
-        image: 'img/ERP/ERPproductpage1.png',
+        image: '/img/ERP/ERPproductpage1.png',
         tags: ['Laravel', 'AWS', 'Redis', 'Dusk'],
         title: {
             en: 'ERP System',
@@ -118,7 +118,7 @@ export const projects: Project[] = [
         id: 'chatbot',
         type: 'internal',
         gradient: 'linear-gradient(135deg, #4C1D95, #F472B6)',
-        image: 'img/AIChatbot/output.png',
+        image: '/img/AIChatbot/output.png',
         tags: ['Python', 'Llama 8B', 'Local AI'],
         title: {
             en: 'AI Chatbot',
@@ -135,7 +135,7 @@ export const projects: Project[] = [
         id: 'java',
         type: 'academic',
         gradient: 'linear-gradient(135deg, #7C2D12, #EF4444)',
-        image: 'img/javaass/register.png',
+        image: '/img/javaass/register.png',
         tags: ['Java', 'OOP', 'CLI'],
         title: {
             en: 'Java CLI System',

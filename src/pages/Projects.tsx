@@ -52,7 +52,11 @@ export default function Projects() {
                             className="project-card"
                         >
                             <div className="project-image" style={{ background: project.gradient }}>
-                                <div className="project-image-bg">{project.title[lang].charAt(0)}</div>
+                                {project.image ? (
+                                    <img src={project.image} alt={project.title[lang]} />
+                                ) : (
+                                    <div className="project-image-bg">{project.title[lang].charAt(0)}</div>
+                                )}
                                 <div className="project-overlay" />
                                 <span className={`project-type-badge badge-${project.type}`}>
                                     {t(`projects.badge_${project.type}`)}
