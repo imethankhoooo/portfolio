@@ -1,0 +1,99 @@
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(5, 5, 16, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    z-index: 1000;
+    padding: 0 1rem;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+@media (max-width: 768px) {
+    .mobile-bottom-nav {
+        display: block;
+    }
+}
+
+.mobile-bottom-nav .nav-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.mobile-bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    min-width: 64px;
+    z-index: 1;
+}
+
+.mobile-bottom-nav .nav-item .icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-bottom: 4px;
+}
+
+.mobile-bottom-nav .nav-item .icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.mobile-bottom-nav .nav-item .label {
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+.mobile-bottom-nav .nav-item.active {
+    color: var(--accent-cyan);
+}
+
+.mobile-bottom-nav .nav-item.active .icon {
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.2), rgba(167, 139, 250, 0.2));
+    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.2);
+}
+
+.mobile-bottom-nav .nav-item.active .label {
+    opacity: 1;
+}
+
+.mobile-bottom-nav .nav-indicator {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    width: 48px;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 3px 3px 0 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}

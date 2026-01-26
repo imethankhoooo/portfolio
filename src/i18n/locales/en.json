@@ -1,0 +1,78 @@
+{
+    "nav": {
+        "home": "Home",
+        "projects": "Projects",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "hero": {
+        "status": "Available for Projects",
+        "greeting": "Hi, I'm Ethan,",
+        "name": "Full Stack Developer",
+        "title": "& System Architect",
+        "tagline": "Building Ideas into Digital Reality",
+        "description": "Freelance developer specializing in high-performance web applications and enterprise systems. From frontend interactions to backend architecture, from ERP systems to AI integration — turning code into value.",
+        "cta_projects": "View Projects",
+        "cta_contact": "Contact Me"
+    },
+    "card": {
+        "name": "Ethan Khoo",
+        "role": "Full Stack Developer",
+        "location": "Malaysia",
+        "years": "10+",
+        "years_label": "Projects",
+        "projects": "3",
+        "projects_label": "Live Sites",
+        "skills": "∞",
+        "skills_label": "Passion"
+    },
+    "featured": {
+        "title": "Featured Projects",
+        "description": "Showcasing my best work across web development, enterprise systems, and AI integration",
+        "view_all": "View All Projects"
+    },
+    "skills": {
+        "title": "Skills & Expertise",
+        "description": "Technologies and tools I work with"
+    },
+    "projects": {
+        "title": "Featured Projects",
+        "subtitle": "From live websites to enterprise systems, from AI integration to low-level assembly — explore my technical journey",
+        "filter_all": "All",
+        "filter_live": "Live Sites",
+        "filter_internal": "Enterprise",
+        "filter_academic": "Academic",
+        "badge_live": "LIVE",
+        "badge_internal": "INTERNAL",
+        "badge_academic": "ACADEMIC",
+        "view_project": "View Project",
+        "back_to_projects": "Back to Projects"
+    },
+    "about": {
+        "title": "About Me",
+        "subtitle": "Passionate about technology, dedicated to turning ideas into reality",
+        "education_title": "Education",
+        "experience_title": "Experience",
+        "skills_title": "Technical Skills",
+        "technologies_title": "Technologies",
+        "frontend": "Frontend",
+        "backend": "Backend",
+        "tools": "Tools & Others"
+    },
+    "contact": {
+        "title": "Get in Touch",
+        "subtitle": "Have a project in mind? Let's work together to bring your ideas to life.",
+        "email": "Email",
+        "phone": "WhatsApp",
+        "location": "Location",
+        "linkedin": "LinkedIn",
+        "github": "GitHub"
+    },
+    "footer": {
+        "copyright": "© 2024 Ethan Khoo. All rights reserved."
+    },
+    "common": {
+        "scroll_down": "Scroll Down",
+        "loading": "Loading..."
+    }
+}

@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethan Khoo - Full Stack Developer</title>
+    <meta name="description"
+        content="Ethan Khoo's Portfolio - Full Stack Developer specializing in Laravel, React, Flutter, and AI Integration">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #050510;
+            --bg-secondary: #0A0A1A;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-bg-hover: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-hover: rgba(255, 255, 255, 0.15);
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-blue: #60A5FA;
+            --accent-purple: #A78BFA;
+            --accent-pink: #F472B6;
+            --accent-cyan: #22D3EE;
+            --accent-green: #34D399;
+            --glow-blue: rgba(96, 165, 250, 0.4);
+            --glow-purple: rgba(167, 139, 250, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ============================================
+           🧲 MAGNETIC CUSTOM CURSOR - FASTER
+           ============================================ */
+        .cursor {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease,
+                background 0.15s ease,
+                border-color 0.15s ease,
+                width 0.15s ease,
+                height 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .cursor.hover {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 211, 238, 0.1);
+            border-color: var(--accent-purple);
+        }
+
+        .cursor.click {
+            transform: scale(0.8);
+        }
+
+        /* ============================================
+           🌊 LIQUID AURORA BACKGROUND
+           ============================================ */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34, 211, 238, 0.12), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 100% 50%, rgba(167, 139, 250, 0.1), transparent 50%),
+                radial-gradient(ellipse 50% 40% at 0% 80%, rgba(244, 114, 182, 0.08), transparent 50%),
+                var(--bg-primary);
+            z-index: -2;
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: blobFloat 30s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+            top: -20%;
+            left: -15%;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+            bottom: -20%;
+            right: -15%;
+            animation-delay: -10s;
+        }
+
+        .blob-3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-pink), transparent 70%);
+            top: 40%;
+            left: 50%;
+            animation-delay: -20s;
+        }
+
+        @keyframes blobFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(80px, -60px) scale(1.15) rotate(5deg);
+            }
+
+            50% {
+                transform: translate(-60px, 40px) scale(0.9) rotate(-5deg);
+            }
+
+            75% {
+                transform: translate(40px, 80px) scale(1.1) rotate(3deg);
+            }
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        nav:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--glass-border-hover);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.25rem 0;
+            cursor: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            padding: 0.25rem;
+        }
+
+        .lang-btn {
+            padding: 0.375rem 0.75rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 100px;
+            cursor: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 4rem;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--accent-green), 0 0 20px rgba(52, 211, 153, 0.5);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 🎬 TEXT LINE REVEAL ANIMATION */
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .line span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: lineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-title .line:nth-child(1) span {
+            animation-delay: 0.3s;
+        }
+
+        .hero-title .line:nth-child(2) span {
+            animation-delay: 0.45s;
+        }
+
+        .hero-title .line:nth-child(3) span {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes lineReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Tagline */
+        .hero-tagline {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s;
+        }
+
+        .hero-description {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 520px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.9s;
+        }
+
+        /* 🧲 MAGNETIC BUTTONS */
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            border: none;
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            box-shadow: 0 4px 24px rgba(34, 211, 238, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px var(--glow-purple);
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* ============================================
+           💎 GLASS PROFILE CARD
+           ============================================ */
+        .hero-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s;
+            transition: all 0.4s ease;
+        }
+
+        /* 💎 TOP HIGHLIGHT LINE */
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), transparent, rgba(167, 139, 250, 0.05));
+            pointer-events: none;
+        }
+
+        .hero-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(34, 211, 238, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 🔄 ROTATING AVATAR RING */
+        .avatar-ring {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            animation: rotateRing 8s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes rotateRing {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            animation: rotateRing 8s linear infinite reverse;
+        }
+
+        .card-info h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-info p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .card-info .location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            color: var(--accent-cyan);
+            font-size: 0.8125rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .tech-item:hover {
+            background: rgba(34, 211, 238, 0.1);
+            border-color: var(--accent-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+        }
+
+        /* Stats */
+        .card-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.6875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease forwards 1.2s;
+        }
+
+        .scroll-text {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent-cyan), transparent);
+            position: relative;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: var(--accent-cyan);
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                top: 0;
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           FEATURED PROJECTS SECTION
+           ============================================ */
+        .featured-section,
+        .skills-section {
+            padding: 6rem 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.0625rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .featured-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: none;
+        }
+
+        .featured-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(34, 211, 238, 0.15);
+        }
+
+        .featured-image {
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-card:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-content {
+            padding: 1.25rem;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            border-radius: 100px;
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.625rem;
+        }
+
+        .featured-tag.live {
+            background: rgba(52, 211, 153, 0.2);
+            color: var(--accent-green);
+        }
+
+        .featured-tag.internal {
+            background: rgba(251, 146, 60, 0.2);
+            color: #FB923C;
+        }
+
+        .featured-tag.ai {
+            background: rgba(34, 211, 238, 0.2);
+            color: var(--accent-cyan);
+        }
+
+        .featured-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+            transition: color 0.3s ease;
+        }
+
+        .featured-card:hover .featured-content h3 {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .featured-content p {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .view-all-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin: 0 auto;
+            width: fit-content;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .view-all-btn:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .skill-block {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-block:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(34, 211, 238, 0.12);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-block h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-block p {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 4rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Page Navigation */
+        .page-nav {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .page-nav a {
+            width: 48px;
+            height: 48px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .page-nav a:hover {
+            background: var(--glass-bg-hover);
+            border-color: var(--accent-cyan);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .page-nav a.active {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero {
+                padding: 8rem 2rem 4rem;
+            }
+
+            nav {
+                padding: 0.5rem 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-section,
+            .skills-section {
+                padding: 4rem 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Mobile Navigation */
+            nav {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+                transform: none;
+                padding: 0.625rem 1rem;
+                gap: 0.75rem;
+                justify-content: space-between;
+            }
+
+            .logo {
+                font-size: 1.125rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .lang-toggle {
+                padding: 0.125rem;
+            }
+
+            .lang-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.6875rem;
+            }
+
+            /* Mobile Hero */
+            .hero {
+                padding: 6rem 1.25rem 2.5rem;
+                min-height: auto;
+            }
+
+            .hero-container {
+                gap: 2rem;
+            }
+
+            .hero-tag {
+                padding: 0.4rem 1rem;
+                font-size: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-title {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero-tagline {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .hero-description {
+                font-size: 0.9375rem;
+                line-height: 1.7;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.875rem 1.5rem;
+                font-size: 0.875rem;
+            }
+
+            /* Mobile Card */
+            .hero-card {
+                padding: 1.25rem;
+                border-radius: 20px;
+            }
+
+            .card-header {
+                gap: 1rem;
+                margin-bottom: 1.25rem;
+                padding-bottom: 1rem;
+            }
+
+            .avatar-ring {
+                width: 60px;
+                height: 60px;
+            }
+
+            .card-info h3 {
+                font-size: 1.125rem;
+            }
+
+            .card-info p {
+                font-size: 0.8125rem;
+            }
+
+            .tech-stack {
+                gap: 0.375rem;
+            }
+
+            .tech-item {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.6875rem;
+            }
+
+            .card-stats {
+                gap: 0.5rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.375rem;
+            }
+
+            .stat-label {
+                font-size: 0.625rem;
+            }
+
+            /* Mobile Featured Section */
+            .featured-section,
+            .skills-section {
+                padding: 3rem 1.25rem;
+            }
+
+            .section-heading {
+                font-size: 1.5rem;
+            }
+
+            .section-desc {
+                font-size: 0.9375rem;
+                margin-bottom: 2rem;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .featured-image {
+                height: 140px;
+            }
+
+            .featured-content {
+                padding: 1rem;
+            }
+
+            .featured-content h3 {
+                font-size: 1rem;
+            }
+
+            .view-all-btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.875rem;
+                width: 100%;
+            }
+
+            /* Mobile Skills */
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.75rem;
+            }
+
+            .skill-block {
+                padding: 1.25rem 1rem;
+                border-radius: 16px;
+            }
+
+            .skill-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .skill-block h3 {
+                font-size: 0.875rem;
+            }
+
+            .skill-block p {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            /* Hide scroll indicator */
+            .scroll-indicator {
+                display: none;
+            }
+
+            /* Hide page nav on mobile */
+            .page-nav {
+                display: none;
+            }
+
+            /* Footer */
+            footer {
+                padding: 1.5rem 1.25rem;
+                font-size: 0.75rem;
+            }
+
+            /* Disable custom cursor */
+            body {
+                cursor: auto;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-tagline {
+                font-size: 0.9375rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* ============================================
+           📱 MOBILE BOTTOM NAVIGATION
+           ============================================ */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(5, 5, 16, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 0 1rem;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+
+        .mobile-bottom-nav .nav-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mobile-bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 64px;
+            z-index: 1;
+        }
+
+        .mobile-bottom-nav .nav-item .icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 4px;
+        }
+
+        .mobile-bottom-nav .nav-item .icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-bottom-nav .nav-item .label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        /* Active State */
+        .mobile-bottom-nav .nav-item.active {
+            color: var(--accent-cyan);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon {
+            background: rgba(34, 211, 238, 0.15);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            box-shadow: 0 4px 20px rgba(34, 211, 238, 0.25);
+        }
+
+        .mobile-bottom-nav .nav-item.active .icon svg {
+            stroke: var(--accent-cyan);
+            filter: drop-shadow(0 0 6px var(--accent-cyan));
+        }
+
+        .mobile-bottom-nav .nav-item.active .label {
+            opacity: 1;
+            color: var(--accent-cyan);
+        }
+
+        /* Touch & Press Effects */
+        .mobile-bottom-nav .nav-item.pressed {
+            transform: scale(0.95);
+        }
+
+        .mobile-bottom-nav .nav-item.touch-active .icon {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Ripple effect */
+        .mobile-bottom-nav .nav-ripple {
+            position: absolute;
+            background: rgba(34, 211, 238, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: navRipple 0.6s ease-out forwards;
+            pointer-events: none;
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
+            margin-top: -50px;
+        }
+
+        @keyframes navRipple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Indicator line at top of nav */
+        .mobile-bottom-nav .nav-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 0 0 3px 3px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 10px var(--accent-cyan);
+        }
+
+        /* Show on mobile */
+        @media (max-width: 768px) {
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            /* Add bottom padding to main content to prevent overlap */
+            body {
+                padding-bottom: 90px;
+            }
+
+            /* Adjust footer margin */
+            footer {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <div class="bg-gradient"></div>
+    <div class="bg-mesh">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+    </div>
+
+    <nav>
+        <a href="index.html" class="logo">Ethan.K</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active" data-en="Home" data-cn="首页">Home</a></li>
+            <li><a href="projects.html" data-en="Projects" data-cn="作品">Projects</a></li>
+            <li><a href="about.html" data-en="About" data-cn="关于">About</a></li>
+            <li><a href="contact.html" data-en="Contact" data-cn="联系">Contact</a></li>
+        </ul>
+        <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="cn">中文</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <span class="status-dot"></span>
+                    <span data-en="Available for Projects" data-cn="开放合作中">Available for Projects</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="line"><span data-en="Hi, I'm Ethan," data-cn="你好，我是 Ethan,">Hi, I'm
+                            Ethan,</span></span>
+                    <span class="line"><span><span class="gradient-text" data-en="Full Stack Developer"
+                                data-cn="全栈开发者">Full Stack Developer</span></span></span>
+                    <span class="line"><span data-en="& System Architect" data-cn="& 系统架构师">& System
+                            Architect</span></span>
+                </h1>
+                <p class="hero-tagline" data-en="Building Ideas into Digital Reality" data-cn="将创意转化为数字现实">Building
+                    Ideas into Digital Reality</p>
+                <p class="hero-description"
+                    data-en="Freelance developer specializing in high-performance web applications and enterprise systems. From frontend interactions to backend architecture, from ERP systems to AI integration — turning code into value."
+                    data-cn="自由职业开发者，专注于构建高性能 Web 应用与企业级系统。从前端交互到后端架构，从 ERP 系统到 AI 集成，用代码创造价值。">Freelance developer
+                    specializing in high-performance web applications and enterprise systems. From frontend interactions
+                    to backend architecture, from ERP systems to AI integration — turning code into value.</p>
+                <div class="cta-group">
+                    <a href="projects.html" class="btn btn-primary magnetic-btn">
+                        <span data-en="View Projects" data-cn="查看作品">View Projects</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="contact.html" class="btn btn-glass magnetic-btn" data-en="Contact Me" data-cn="联系我">Contact
+                        Me</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <div class="card-header">
+                    <div class="avatar-ring">
+                        <div class="avatar">E</div>
+                    </div>
+                    <div class="card-info">
+                        <h3>Ethan Khoo</h3>
+                        <p>Full Stack Developer</p>
+                        <span class="location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                            Malaysia
+                        </span>
+                    </div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-item">Laravel</span>
+                    <span class="tech-item">React</span>
+                    <span class="tech-item">Flutter</span>
+                    <span class="tech-item">Node.js</span>
+                    <span class="tech-item">Python</span>
+                    <span class="tech-item">AI Coding</span>
+                    <span class="tech-item">MCP</span>
+                    <span class="tech-item">LangChain</span>
+                    <span class="tech-item">n8n Agents</span>
+                </div>
+
+                <div class="card-stats">
+                    <div class="stat">
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label" data-en="Projects" data-cn="项目">Projects</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label" data-en="Live Sites" data-cn="上线网站">Live Sites</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label" data-en="Passion" data-cn="热情">Passion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span class="scroll-text" data-en="Scroll Down" data-cn="向下滚动">Scroll Down</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="featured-section" id="featured">
+        <div class="section-container">
+            <h2 class="section-heading">
+                <span data-en="Featured" data-cn="精选">Featured</span>
+                <span class="gradient-text" data-en="Projects" data-cn="项目">Projects</span>
+            </h2>
+            <p class="section-desc" data-en="A glimpse of my recent work — from live websites to enterprise systems"
+                data-cn="精选项目展示 — 从上线网站到企业级系统">A glimpse of my recent work — from live websites to enterprise systems
+            </p>
+
+            <div class="featured-grid">
+                <a href="projects.html" class="featured-card">
+                    <div class="featured-image">
+                        <img src="img/噶玛/index.png" alt="Kathok Website">
+                    </div>
+                    <div class="featured-content">
+                        <span class="featured-tag live" data-en="LIVE" data-cn="上线">LIVE</span>
+                        <h3 data-en="Kathok Buddhist Center" data-cn="噶陀佛教中心">Kathok Buddhist Center</h3>
+                        <p data-en="Official website with multilingual support and event calendar"
+                            data-cn="官方网站，支持多语言切换和活动日历">Official website with multilingual support and event calendar
+                        </p>
+                    </div>
+                </a>
+                <a href="project-erp.html" class="featured-card">
+                    <div class="featured-image">
+                        <img src="img/ERP/ERPproductpage1.png" alt="ERP System">
+                    </div>
+                    <div class="featured-content">
+                        <span class="featured-tag internal" data-en="ENTERPRISE" data-cn="企业">ENTERPRISE</span>
+                        <h3 data-en="ERP System" data-cn="ERP 企业系统">ERP System</h3>
+                        <p data-en="Full ERP with AWS deployment and Redis caching" data-cn="AWS 部署，Redis 缓存，Dusk 测试">
+                            Full ERP with AWS deployment and Redis caching</p>
+                    </div>
+                </a>
+                <a href="project-aiquiz.html" class="featured-card">
+                    <div class="featured-image">
+                        <img src="img/aiquiz/dashboard.png" alt="AI Quiz">
+                    </div>
+                    <div class="featured-content">
+                        <span class="featured-tag ai" data-en="AI" data-cn="AI">AI</span>
+                        <h3 data-en="AI Quiz Generator" data-cn="AI 智能测验">AI Quiz Generator</h3>
+                        <p data-en="Smart quiz generation from PDF notes with adaptive learning"
+                            data-cn="PDF 笔记解析，智能出题，自适应训练">Smart quiz generation from PDF notes with adaptive learning
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <a href="projects.html" class="view-all-btn">
+                <span data-en="View All Projects" data-cn="查看全部项目">View All Projects</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="section-container">
+            <h2 class="section-heading">
+                <span data-en="What I" data-cn="我能">What I</span>
+                <span class="gradient-text" data-en="Do" data-cn="做的">Do</span>
+            </h2>
+
+            <div class="skills-grid">
+                <div class="skill-block">
+                    <div class="skill-icon">⚡</div>
+                    <h3 data-en="Full Stack Development" data-cn="全栈开发">Full Stack Development</h3>
+                    <p data-en="Laravel, React, Node.js — building complete web applications from database to UI"
+                        data-cn="Laravel, React, Node.js — 从数据库到界面的完整 Web 应用">Laravel, React, Node.js — building
+                        complete web applications from database to UI</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">🧠</div>
+                    <h3 data-en="AI & MCP Agents" data-cn="AI 与 MCP 智能体">AI & MCP Agents</h3>
+                    <p data-en="Cursor, Gemini CLI, Model Context Protocol — next-gen AI-assisted coding"
+                        data-cn="Cursor, Gemini CLI, 模型上下文协议 — 下一代 AI 辅助编程">Cursor, Gemini CLI, Model Context Protocol —
+                        next-gen AI-assisted coding</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">🎨</div>
+                    <h3 data-en="AI UI/UX Design" data-cn="AI 辅助 UI/UX">AI UI/UX Design</h3>
+                    <p data-en="Generative UI, AI prototyping, and smart design systems"
+                        data-cn="生成式 UI、AI 原型设计与智能设计系统">Generative UI, AI prototyping, and smart design systems</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">👤</div>
+                    <h3 data-en="Digital Humans" data-cn="数字人技术">Digital Humans</h3>
+                    <p data-en="Interactive AI avatars and real-time conversation agents" data-cn="交互式 AI 数字人与实时对话智能体">
+                        Interactive AI avatars and real-time conversation agents</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">🔬</div>
+                    <h3 data-en="Frontier AI Research" data-cn="前沿 AI 研究">Frontier AI Research</h3>
+                    <p data-en="Tracking latest papers (Arxiv) and testing SOTA models immediately"
+                        data-cn="追踪最新 Arxiv 论文并即时测试 SOTA 模型">Tracking latest papers (Arxiv) and testing SOTA models
+                        immediately</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">☁️</div>
+                    <h3 data-en="Cloud & DevOps" data-cn="云端与运维">Cloud & DevOps</h3>
+                    <p data-en="AWS deployment, Redis caching, automated testing with Playwright & Dusk"
+                        data-cn="AWS 部署、Redis 缓存、Playwright 与 Dusk 自动化测试">AWS deployment, Redis caching, automated
+                        testing with Playwright & Dusk</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">🤖</div>
+                    <h3 data-en="AI Integration" data-cn="AI 集成">AI Integration</h3>
+                    <p data-en="LLM applications, local model deployment, AI-powered content generation"
+                        data-cn="LLM 应用、本地模型部署、AI 内容生成">LLM applications, local model deployment, AI-powered content
+                        generation</p>
+                </div>
+                <div class="skill-block">
+                    <div class="skill-icon">🔄</div>
+                    <h3 data-en="Process Automation" data-cn="流程自动化">Process Automation</h3>
+                    <p data-en="UIPath RPA, n8n workflows, browser automation for business processes"
+                        data-cn="UIPath RPA、n8n 工作流、业务流程浏览器自动化">UIPath RPA, n8n workflows, browser automation for
+                        business processes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Ethan Khoo. All rights reserved.</p>
+    </footer>
+
+    <div class="page-nav">
+        <a href="index.html" class="active" title="Home">01</a>
+        <a href="projects.html" title="Projects">02</a>
+        <a href="about.html" title="About">03</a>
+        <a href="contact.html" title="Contact">04</a>
+    </div>
+
+    <script>
+        // ============================================
+        // 🧲 MAGNETIC CURSOR SYSTEM - FASTER
+        // ============================================
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        let dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            // FASTER: increased from 0.1 to 0.2 for outer cursor
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+
+            // FASTER: increased from 0.25 to 0.4 for inner dot
+            dotX += (mouseX - dotX) * 0.4;
+            dotY += (mouseY - dotY) * 0.4;
+
+            cursor.style.left = cursorX - 12 + 'px';
+            cursor.style.top = cursorY - 12 + 'px';
+            cursorDot.style.left = dotX - 3 + 'px';
+            cursorDot.style.top = dotY - 3 + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .tech-item, .hero-card, .lang-btn');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Click effect
+        document.addEventListener('mousedown', () => cursor.classList.add('click'));
+        document.addEventListener('mouseup', () => cursor.classList.remove('click'));
+
+        // ============================================
+        // 🧲 MAGNETIC BUTTON EFFECT
+        // ============================================
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+
+        magneticBtns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        // ============================================
+        // 🌐 BILINGUAL SUPPORT
+        // ============================================
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-en][data-cn]').forEach(el => {
+                const text = lang === 'cn' ? el.dataset.cn : el.dataset.en;
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = text;
+                } else {
+                    el.textContent = text;
+                }
+            });
+
+            document.documentElement.lang = lang === 'cn' ? 'zh-CN' : 'en';
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        // Initialize language
+        setLanguage(currentLang);
+    </script>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-item" data-page="index">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Home" data-cn="首页">Home</span>
+            </a>
+            <a href="projects.html" class="nav-item" data-page="projects">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Projects" data-cn="作品">Projects</span>
+            </a>
+            <a href="about.html" class="nav-item" data-page="about">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                </span>
+                <span class="label" data-en="About" data-cn="关于">About</span>
+            </a>
+            <a href="contact.html" class="nav-item" data-page="contact">
+                <span class="icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                </span>
+                <span class="label" data-en="Contact" data-cn="联系">Contact</span>
+            </a>
+            <div class="nav-indicator"></div>
+        </div>
+    </nav>
+    <script src="js/mobile-nav.js"></script>
+</body>
+
+</html>

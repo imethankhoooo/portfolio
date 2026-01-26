@@ -1,0 +1,78 @@
+{
+    "nav": {
+        "home": "首页",
+        "projects": "作品",
+        "about": "关于",
+        "contact": "联系"
+    },
+    "hero": {
+        "status": "开放合作中",
+        "greeting": "你好，我是 Ethan,",
+        "name": "全栈开发者",
+        "title": "& 系统架构师",
+        "tagline": "将创意转化为数字现实",
+        "description": "自由职业开发者，专注于构建高性能 Web 应用与企业级系统。从前端交互到后端架构，从 ERP 系统到 AI 集成，用代码创造价值。",
+        "cta_projects": "查看作品",
+        "cta_contact": "联系我"
+    },
+    "card": {
+        "name": "Ethan Khoo",
+        "role": "全栈开发者",
+        "location": "马来西亚",
+        "years": "10+",
+        "years_label": "项目",
+        "projects": "3",
+        "projects_label": "上线网站",
+        "skills": "∞",
+        "skills_label": "热情"
+    },
+    "featured": {
+        "title": "精选项目",
+        "description": "展示我在 Web 开发、企业系统和 AI 集成方面的最佳作品",
+        "view_all": "查看全部项目"
+    },
+    "skills": {
+        "title": "技能专长",
+        "description": "我使用的技术和工具"
+    },
+    "projects": {
+        "title": "精选作品",
+        "subtitle": "从上线网站到企业系统，从 AI 集成到底层汇编，探索我的技术之旅",
+        "filter_all": "全部",
+        "filter_live": "上线项目",
+        "filter_internal": "企业系统",
+        "filter_academic": "学术项目",
+        "badge_live": "上线",
+        "badge_internal": "内部",
+        "badge_academic": "学术",
+        "view_project": "查看项目",
+        "back_to_projects": "返回项目"
+    },
+    "about": {
+        "title": "关于我",
+        "subtitle": "热爱技术，致力于将想法变为现实",
+        "education_title": "教育背景",
+        "experience_title": "工作经历",
+        "skills_title": "核心技能",
+        "technologies_title": "技术栈",
+        "frontend": "前端",
+        "backend": "后端",
+        "tools": "工具"
+    },
+    "contact": {
+        "title": "联系我",
+        "subtitle": "有项目想法？让我们一起将创意变为现实。",
+        "email": "邮箱",
+        "phone": "WhatsApp",
+        "location": "位置",
+        "linkedin": "领英",
+        "github": "GitHub"
+    },
+    "footer": {
+        "copyright": "© 2024 Ethan Khoo. 保留所有权利。"
+    },
+    "common": {
+        "scroll_down": "向下滚动",
+        "loading": "加载中..."
+    }
+}
