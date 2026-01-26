@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import './About.css'
 
 export default function About() {
-    const { t, i18n } = useTranslation()
+    const { i18n } = useTranslation()
     const lang: 'en' | 'zh' = i18n.language?.startsWith('zh') ? 'zh' : 'en'
 
     const education = [
