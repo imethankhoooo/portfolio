@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Scramble from '../components/Scramble'
-import { Capabilities, Numbers } from '../components/Capabilities'
+import { Capabilities } from '../components/Capabilities'
 import { timeline } from '../data/profile'
 import { useLang } from '../lib/lang'
 import { useTitle } from '../lib/useTitle'
@@ -56,9 +56,6 @@ export default function About() {
                 <Capabilities compact />
             </section>
 
-            <section className="section about-numbers">
-                <Numbers />
-            </section>
         </main>
     )
 }

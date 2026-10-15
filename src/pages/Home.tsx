@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import Scramble from '../components/Scramble'
 import ProjectCard from '../components/ProjectCard'
-import { Capabilities, Numbers } from '../components/Capabilities'
+import { Capabilities } from '../components/Capabilities'
 import { TLink } from '../components/Transition'
 import PillArrow from '../components/PillArrow'
 import { getFeaturedProjects, projects } from '../data/projects'
@@ -40,7 +40,8 @@ export default function Home() {
     const grid = useRef<HTMLDivElement>(null)
     const lenis = useLenis()
     const featured = getFeaturedProjects()
-    const more = projects.filter((p) => !p.featured)
+    // Coursework lives on the Work page only, so it doesn't dilute the home page.
+    const more = projects.filter((p) => !p.featured && p.type !== 'academic')
     const numberOf = (id: string) => String(projects.findIndex((p) => p.id === id) + 1).padStart(2, '0')
     useTitle()
 
@@ -68,10 +69,10 @@ export default function Home() {
         const el = grid.current
         if (!el || reducedMotion()) return
         const ctx = gsap.context(() => {
-            gsap.utils.toArray<HTMLElement>('.pcard').forEach((card) => {
+            gsap.utils.toArray<HTMLElement>('.pcard-body').forEach((card) => {
                 gsap.from(card, {
                     opacity: 0,
-                    y: 40,
+                    y: 24,
                     duration: 1,
                     ease: 'expo.out',
                     scrollTrigger: { trigger: card, start: 'top 92%', once: true },
@@ -133,7 +134,7 @@ export default function Home() {
                     <SectionHead no="01" id="SELECTED_WORK" title={t('home.selected')} count={featured.length} />
                     <div className="work-featured">
                         {featured.map((p) => (
-                            <ProjectCard key={p.id} project={p} no={numberOf(p.id)} />
+                            <ProjectCard key={p.id} project={p} no={numberOf(p.id)} eager />
                         ))}
                     </div>
                 </section>
@@ -162,7 +163,6 @@ export default function Home() {
             <section className="section home-stack" data-shape="helix">
                 <SectionHead no="03" id="STACK" title={t('home.capabilities')} />
                 <Capabilities compact />
-                <Numbers />
             </section>
         </main>
     )

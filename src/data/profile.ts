@@ -59,10 +59,3 @@ export const capabilities = [
         items: ['RAG', 'Vector DB', 'LoRA fine-tuning', 'n8n agents', 'MCP', 'LangChain', 'Llama'],
     },
 ]
-
-export const numbers = [
-    { value: 3, pad: 2, label: { en: 'Production sites live', zh: '个线上运行的网站' } },
-    { value: 2783, pad: 0, label: { en: 'Lines of x86 assembly, by hand', zh: '行手写 x86 汇编' } },
-    { value: 8, pad: 0, suffix: 'B', label: { en: 'Parameter model, running offline', zh: '参数模型，离线运行' } },
-    { value: 9, pad: 2, label: { en: 'Projects in this index', zh: '个项目收录于此' } },
-]

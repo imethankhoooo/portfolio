@@ -1,6 +1,5 @@
-import { capabilities, numbers } from '../data/profile'
+import { capabilities } from '../data/profile'
 import { useLang } from '../lib/lang'
-import Counter from './Counter'
 import Scramble from './Scramble'
 import './Capabilities.css'
 
@@ -27,21 +26,5 @@ export function Capabilities({ compact = false }: { compact?: boolean }) {
                 </div>
             ))}
         </div>
-    )
-}
-
-export function Numbers() {
-    const lang = useLang()
-    return (
-        <dl className="numbers">
-            {numbers.map((n) => (
-                <div className="number" key={n.label.en}>
-                    <dt className="number-value">
-                        <Counter value={n.value} pad={n.pad} suffix={n.suffix} />
-                    </dt>
-                    <dd className="number-label">{n.label[lang]}</dd>
-                </div>
-            ))}
-        </dl>
     )
 }

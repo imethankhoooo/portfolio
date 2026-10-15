@@ -89,30 +89,27 @@
     opacity: 1;
 }
 
-.pcard-status,
-.pcard-demo {
-    position: absolute;
-    z-index: 1;
-    top: 12px;
+.pcard-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--dim);
+}
+
+.pcard-status {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 5px 9px;
-    background: rgba(4, 7, 11, 0.82);
-    backdrop-filter: blur(6px);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--fg);
 }
 
-.pcard-status {
-    left: 12px;
-}
-
 .pcard-demo {
-    right: 12px;
+    margin-left: auto;
     color: var(--cyan);
 }
 

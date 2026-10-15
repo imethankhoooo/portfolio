@@ -12,7 +12,7 @@ import './ProjectCard.css'
  * A project at a glance: screenshot first, then name, one line, stack.
  * Projects with a demo recording play it (muted) while hovered.
  */
-export default function ProjectCard({ project: p, size = 'lg', no }: { project: Project; size?: 'lg' | 'sm'; no?: string }) {
+export default function ProjectCard({ project: p, size = 'lg', no, eager = false }: { project: Project; size?: 'lg' | 'sm'; no?: string; eager?: boolean }) {
     const { t } = useTranslation()
     const lang = useLang()
     const video = useRef<HTMLVideoElement>(null)
@@ -35,7 +35,7 @@ export default function ProjectCard({ project: p, size = 'lg', no }: { project: 
         <article className={`pcard pcard-${size}`} onPointerEnter={play} onPointerLeave={stop}>
             <TLink to={`/projects/${p.id}`} label={p.title[lang]} className="pcard-link" data-cursor={t('cursor.view')}>
                 <div className="pcard-media" style={{ background: p.tone }}>
-                    <Cover project={p} size={size === 'lg' ? 'lg' : 'sm'} />
+                    <Cover project={p} size={size === 'lg' ? 'lg' : 'sm'} eager={eager} />
                     {p.video && (
                         <video
                             ref={video}
@@ -50,13 +50,16 @@ export default function ProjectCard({ project: p, size = 'lg', no }: { project: 
                             aria-hidden="true"
                         />
                     )}
-                    <span className={`pcard-status is-${p.type}`}>
-                        <i /> {t(`type.${p.type}`)}
-                    </span>
-                    {p.video && <span className="pcard-demo">▶ {t('project.demo')}</span>}
                 </div>
 
                 <div className="pcard-body">
+                    <div className="pcard-meta">
+                        <span className={`pcard-status is-${p.type}`}>
+                            <i /> {t(`type.${p.type}`)}
+                        </span>
+                        <span className="pcard-context">{p.context[lang]}</span>
+                        {p.video && <span className="pcard-demo">▶ {t('project.demo_hover')}</span>}
+                    </div>
                     <div className="pcard-head">
                         {no && <span className="pcard-no">{no}</span>}
                         <h3 className="pcard-title">{p.title[lang]}</h3>

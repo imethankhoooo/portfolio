@@ -18,8 +18,8 @@
     },
     "type": {
         "live": "上线网站",
-        "internal": "企业系统",
-        "academic": "学术项目"
+        "internal": "内部系统",
+        "academic": "课程作业"
     },
     "index": {
         "project": "项目",
@@ -52,36 +52,14 @@
         ]
     },
     "home": {
-        "manifesto_label": "方法",
-        "manifesto": [
-            {
-                "text": "我的大部分作品都在"
-            },
-            {
-                "text": "登录界面之后",
-                "accent": true
-            },
-            {
-                "text": "——那些真实团队每天依赖的 ERP、CRM 和短信网关。我在意没人截图的部分：数据模型、缓存，以及在用户之前发现问题的测试。最近，我在教这些系统"
-            },
-            {
-                "text": "思考。",
-                "accent": true
-            }
-        ],
         "selected": "精选作品",
-        "selected_note": "四个项目，从寺院官网到无需联网的大模型。",
-        "index": "索引",
-        "index_note": "全部项目，包括课程作业。",
         "all_work": "全部作品",
         "capabilities": "技术栈",
-        "numbers": "数字",
         "more": "更多项目"
     },
     "work": {
         "title": "作品",
         "intro": "上线网站、企业系统、AI 工具与课程作业。",
-        "label": "项目索引",
         "all": "全部",
         "list": "列表",
         "grid": "网格"
@@ -98,17 +76,19 @@
         "demo": "演示",
         "next": "下一个项目",
         "pending": "截图即将更新",
-        "not_found": "未找到该项目"
+        "not_found": "未找到该项目",
+        "context": "背景",
+        "built": "我做了什么",
+        "decisions": "关键决策",
+        "result": "结果",
+        "code": "源代码",
+        "private": "源码未公开，可当面讲解",
+        "demo_hover": "悬停预览"
     },
     "about": {
         "title": "关于",
         "label": "简介",
-        "intro": "来自马来西亚的全栈开发者，信息系统专业在读，同时为真实客户开发软件。",
-        "story": [
-            "我和大多数开发者一样从网站起步，然后一路向下：Laravel 后端、MySQL 表结构、Redis 缓存、AWS 部署，还曾用 x86 汇编写过一整套俱乐部管理系统。",
-            "之后交付的大部分作品都在登录之后：ERP、服务工单 CRM、短信平台。不起眼，但承重。这正是我最喜欢的工作。",
-            "现在我把同样的习惯用在 AI 上 —— 检索管线、智能体工作流、模型微调，以及小到能在断网笔记本上运行的模型。"
-        ],
+        "intro": "我是 Ethan（Tsui Ern）Khoo，来自马来西亚的全栈开发者，信息系统专业在读，同时为真实客户开发软件。",
         "timeline": "教育与经历",
         "capabilities": "我做什么",
         "now": "目前",

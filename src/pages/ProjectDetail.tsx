@@ -79,8 +79,8 @@ export default function ProjectDetail() {
                         <span>{project.role[lang]}</span>
                     </div>
                     <div>
-                        <span className="pd-meta-k">{t('project.category')}</span>
-                        <span>{t(`type.${project.type}`)}</span>
+                        <span className="pd-meta-k">{t('project.context')}</span>
+                        <span>{project.context[lang]}</span>
                     </div>
                     <div>
                         <span className="pd-meta-k">{t('project.stack')}</span>
@@ -88,10 +88,18 @@ export default function ProjectDetail() {
                     </div>
                     <div className="pd-meta-cta">
                         {project.link && (
-                            <a className="pill" href={project.link} target="_blank" rel="noopener noreferrer">
+                            <a className="pill pill-solid" href={project.link} target="_blank" rel="noopener noreferrer">
                                 {t('project.visit')} — {domain}
                                 <PillArrow />
                             </a>
+                        )}
+                        {project.repo ? (
+                            <a className="pill" href={project.repo} target="_blank" rel="noopener noreferrer">
+                                {t('project.code')}
+                                <PillArrow />
+                            </a>
+                        ) : (
+                            project.type !== 'academic' && <span className="pd-private">{t('project.private')}</span>
                         )}
                     </div>
                 </div>
@@ -109,15 +117,30 @@ export default function ProjectDetail() {
                 <span className="eyebrow">{t('project.overview')}</span>
                 <p className="pd-desc">{project.description[lang]}</p>
 
-                <span className="eyebrow pd-hl-label">{t('project.highlights')}</span>
-                <ol className="pd-highlights">
-                    {project.highlights[lang].map((h, i) => (
-                        <li key={h}>
-                            <span className="mono">{String(i + 1).padStart(2, '0')}</span>
-                            {h}
-                        </li>
+                <span className="eyebrow">{t('project.built')}</span>
+                <ul className="pd-list">
+                    {project.highlights[lang].map((h) => (
+                        <li key={h}>{h}</li>
                     ))}
-                </ol>
+                </ul>
+
+                {project.decisions && (
+                    <>
+                        <span className="eyebrow">{t('project.decisions')}</span>
+                        <ul className="pd-list">
+                            {project.decisions[lang].map((h) => (
+                                <li key={h}>{h}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {project.result && (
+                    <>
+                        <span className="eyebrow">{t('project.result')}</span>
+                        <p className="pd-result">{project.result[lang]}</p>
+                    </>
+                )}
             </section>
 
             {project.video && (
@@ -133,6 +156,7 @@ export default function ProjectDetail() {
                         preload="none"
                         data-cursor={t('cursor.play')}
                     />
+                    <p className="pd-caption">{project.video.caption[lang]}</p>
                 </section>
             )}
 
@@ -141,6 +165,7 @@ export default function ProjectDetail() {
                     <span className="eyebrow">
                         {t('project.gallery')} ({String(project.gallery.length).padStart(2, '0')})
                     </span>
+                    {project.galleryNote && <p className="pd-caption">{project.galleryNote[lang]}</p>}
                     <div className="pd-shots">
                         {shots.map((name) => (
                             <figure className="pd-shot" key={name}>

@@ -18,8 +18,8 @@
     },
     "type": {
         "live": "Live site",
-        "internal": "Enterprise",
-        "academic": "Academic"
+        "internal": "Internal system",
+        "academic": "Coursework"
     },
     "index": {
         "project": "Project",
@@ -52,36 +52,14 @@
         ]
     },
     "home": {
-        "manifesto_label": "Approach",
-        "manifesto": [
-            {
-                "text": "Most of my work lives "
-            },
-            {
-                "text": "behind a login screen",
-                "accent": true
-            },
-            {
-                "text": " — ERPs, CRMs and SMS gateways that real teams depend on every day. I care about the parts nobody screenshots: the data model, the cache, the test that catches it before users do. Lately, I teach those systems to "
-            },
-            {
-                "text": "think.",
-                "accent": true
-            }
-        ],
         "selected": "Selected work",
-        "selected_note": "Four projects, from a temple's website to an LLM that runs without the internet.",
-        "index": "Index",
-        "index_note": "Everything, including coursework.",
         "all_work": "All work",
         "capabilities": "Stack",
-        "numbers": "By the numbers",
         "more": "More projects"
     },
     "work": {
         "title": "Work",
         "intro": "Live sites, enterprise systems, AI tools and coursework.",
-        "label": "Index of projects",
         "all": "All",
         "list": "List",
         "grid": "Grid"
@@ -98,17 +76,19 @@
         "demo": "Demo",
         "next": "Next project",
         "pending": "Screenshots coming soon",
-        "not_found": "Project not found"
+        "not_found": "Project not found",
+        "context": "Context",
+        "built": "What I built",
+        "decisions": "Key decisions",
+        "result": "Result",
+        "code": "Source code",
+        "private": "Source code is private — happy to walk through it",
+        "demo_hover": "Hover to preview"
     },
     "about": {
         "title": "About",
         "label": "Profile",
-        "intro": "Full-stack developer from Malaysia, studying Information Systems and building software for real clients.",
-        "story": [
-            "I started where most developers start — websites — and kept going down the stack: Laravel back-ends, MySQL schemas, Redis caches, AWS deploys, and once, an entire club management system in x86 assembly.",
-            "Most of what I've shipped since lives behind a login: an ERP, a service-ticket CRM, an SMS platform. Unglamorous, load-bearing software. That's the work I like most.",
-            "Now I'm pointing the same habits at AI — retrieval pipelines, agent workflows, fine-tuning, and models small enough to run on a laptop with no internet."
-        ],
+        "intro": "I'm Ethan (Tsui Ern) Khoo — a full-stack developer from Malaysia, studying Information Systems and building software for real clients.",
         "timeline": "Education & experience",
         "capabilities": "What I do",
         "now": "Currently",

@@ -22,9 +22,9 @@
 
 .pd-title {
     margin: 0;
-    max-width: 16ch;
+    max-width: 22ch;
     font-family: var(--font-display);
-    font-size: clamp(3rem, 10vw, 11.5rem);
+    font-size: clamp(2.4rem, 5.6vw, 5.6rem);
     font-weight: 800;
     font-stretch: 100%;
     line-height: 0.84;
@@ -89,6 +89,15 @@
 /* Code and pending covers already fill their frame: no plate, no float. */
 .pd-plate.is-fill {
     padding: 0;
+    aspect-ratio: auto;
+}
+
+.pd-plate.is-fill .cover-code {
+    min-height: 0;
+}
+
+.pd-plate.is-fill .cover-code pre {
+    mask-image: none;
 }
 
 .pd-plate.is-fill .pd-plate-shot {
@@ -266,5 +275,74 @@
         width: 100%;
         clip-path: none;
         translate: none;
+    }
+}
+
+/* ---------- Structured case sections ---------- */
+
+.pd-list {
+    grid-column: 4 / span 7;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pd-list li {
+    position: relative;
+    padding: 12px 0 12px 22px;
+    border-top: 1px solid var(--line);
+    line-height: 1.55;
+}
+
+.pd-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 1.15em;
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--cyan);
+    transform: rotate(45deg);
+}
+
+.pd-result {
+    grid-column: 4 / span 7;
+    max-width: 62ch;
+    margin: 0;
+    padding: 16px 18px;
+    border-left: 2px solid var(--amber);
+    background: rgba(255, 176, 46, 0.06);
+    line-height: 1.65;
+}
+
+.pd-caption {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dim);
+}
+
+.pd-meta-cta {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    align-items: center !important;
+}
+
+.pd-private {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dim);
+}
+
+@media (max-width: 800px) {
+    .pd-list,
+    .pd-result {
+        grid-column: 1 / -1;
+    }
+
+    .pd-plate {
+        padding: 12px 12px 0 !important;
+        aspect-ratio: auto !important;
     }
 }
