@@ -29,7 +29,7 @@
     order: -1;
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
     color: var(--cyan);
 }
 
@@ -42,7 +42,7 @@
     display: block;
     font-family: var(--font-display);
     font-weight: 800;
-    font-stretch: 75%;
+    font-stretch: 100%;
     font-size: clamp(3.2rem, 11vw, 11rem);
     line-height: 0.9;
     text-transform: uppercase;

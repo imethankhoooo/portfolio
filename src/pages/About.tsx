@@ -17,7 +17,7 @@ export default function About() {
 
     return (
         <main className="page about">
-            <header className="page-hero" data-shape="sphere">
+            <header className="page-hero" data-shape="helix">
                 <Scramble as="h1" className="page-title" text={t('about.title')} trigger="mount" duration={1000} delay={250} />
                 <div className="page-intro grid-12">
                     <span className="eyebrow">{t('about.label')}</span>
@@ -25,7 +25,7 @@ export default function About() {
                 </div>
             </header>
 
-            <section className="section about-story grid-12" data-shape="sphere">
+            <section className="section about-story grid-12" data-shape="helix">
                 <div className="about-now">
                     <span className="eyebrow">{t('about.now')}</span>
                     <ul>

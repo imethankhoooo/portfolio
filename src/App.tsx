@@ -74,7 +74,6 @@ function Shell() {
                 </Routes>
                 {pathname !== '/contact' && <Footer />}
                 <Cursor />
-                <div className="scanlines" aria-hidden="true" />
             </TransitionProvider>
         </IntroContext.Provider>
     )

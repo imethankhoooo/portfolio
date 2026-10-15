@@ -21,7 +21,6 @@
     font-size: clamp(9px, 0.95vw, 13px);
     line-height: 1.65;
     white-space: pre;
-    text-shadow: 0 0 10px rgba(111, 227, 255, 0.35);
     mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
@@ -47,7 +46,7 @@
 .cover-type-tags {
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--cyan);
 }
@@ -56,8 +55,7 @@
     font-family: var(--font-display);
     font-size: 9cqi;
     font-weight: 600;
-    font-stretch: 75%;
+    font-stretch: 100%;
     line-height: 0.95;
     white-space: nowrap;
-    text-shadow: 0 0 30px rgba(111, 227, 255, 0.35);
 }

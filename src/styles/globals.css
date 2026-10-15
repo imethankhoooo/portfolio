@@ -7,8 +7,8 @@
     --void: #04070b;
     --void-2: #08101a;
     --panel: rgba(8, 18, 28, 0.62);
-    --fg: #dbe9f0;
-    --dim: rgba(170, 200, 215, 0.58);
+    --fg: #e6f0f5;
+    --dim: rgba(196, 216, 228, 0.76);
     --cyan: #6fe3ff;
     --amber: #ffb02e;
     --line: rgba(111, 227, 255, 0.12);
@@ -22,13 +22,13 @@
     --mute: var(--dim);
     --line-dark: var(--line);
 
-    --font-display: 'Tektur', 'Noto Sans SC', system-ui, sans-serif;
+    --font-display: 'Saira', 'Noto Sans SC', system-ui, sans-serif;
     --font-body: 'IBM Plex Sans', 'Noto Sans SC', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', 'Noto Sans SC', ui-monospace, monospace;
     --font-dot: 'Doto', 'JetBrains Mono', monospace;
     --font-serif: var(--font-display);
 
-    --fs-mono: 11px;
+    --fs-mono: 12px;
     --gutter: clamp(16px, 2.6vw, 40px);
     --col-gap: clamp(12px, 1.6vw, 24px);
 
@@ -70,8 +70,8 @@ body {
     background-attachment: fixed;
     color: var(--fg);
     font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.55;
+    font-size: 17px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -113,18 +113,6 @@ video {
     margin-bottom: -0.08em;
 }
 
-/* CRT scanlines + vignette over everything */
-.scanlines {
-    position: fixed;
-    inset: 0;
-    z-index: 800;
-    pointer-events: none;
-    background:
-        repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.07) 3px 4px),
-        radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
-    mix-blend-mode: multiply;
-}
-
 /* ============================================================
    Shared layout pieces
    ============================================================ */
@@ -152,7 +140,7 @@ video {
     gap: 10px;
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--dim);
 }
@@ -175,7 +163,7 @@ video {
     margin-bottom: 14px;
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     color: var(--cyan);
 }
 
@@ -184,7 +172,7 @@ video {
     font-family: var(--font-display);
     font-size: clamp(2.4rem, 6.4vw, 6.6rem);
     font-weight: 700;
-    font-stretch: 75%;
+    font-stretch: 100%;
     line-height: 0.92;
     letter-spacing: 0.01em;
     text-transform: uppercase;
@@ -195,7 +183,7 @@ video {
     font-family: var(--font-mono);
     font-size: 0.16em;
     font-weight: 400;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
     vertical-align: top;
     color: var(--cyan);
 }
@@ -268,7 +256,7 @@ video {
     border: 1px solid var(--line-strong);
     font-family: var(--font-mono);
     font-size: 12px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     background: transparent;
     color: var(--fg);
@@ -332,11 +320,10 @@ video {
     font-family: var(--font-display);
     font-size: clamp(3.4rem, 12vw, 13rem);
     font-weight: 800;
-    font-stretch: 75%;
+    font-stretch: 100%;
     line-height: 0.86;
     letter-spacing: 0.01em;
     text-transform: uppercase;
-    text-shadow: 0 0 40px rgba(111, 227, 255, 0.18);
 }
 
 .page-title sup {

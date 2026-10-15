@@ -16,7 +16,7 @@ export default function ScrubText({ parts, className = '' }: { parts: Part[]; cl
         const ctx = gsap.context(() => {
             gsap.fromTo(
                 el.querySelectorAll('.scrub-token'),
-                { opacity: 0.14 },
+                { opacity: 0.32 },
                 {
                     opacity: 1,
                     ease: 'none',

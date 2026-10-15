@@ -68,10 +68,10 @@ type Pose = { x: number; y: number; rx: number; rz: number; spin: number; o?: nu
 /** Where each shape sits in the frame. Desktop puts the hero sphere to the right of the name. */
 const POSES: Record<ShapeName, (wide: boolean) => Pose> = {
     sphere: (w) => ({ x: w ? 2.3 : 0, y: w ? 0.15 : 0.9, rx: 0.25, rz: 0.12, spin: 0.06 }),
-    wave: () => ({ x: 0, y: 0.2, rx: 0.42, rz: 0, spin: 0, o: 0.75 }),
-    lattice: (w) => ({ x: w ? 2.4 : 0, y: 0, rx: 0.5, rz: 0.3, spin: 0.09, o: 0.55 }),
-    helix: () => ({ x: 0, y: 0, rx: 0.2, rz: -0.18, spin: 0, o: 0.6 }),
-    ring: () => ({ x: 0, y: -0.2, rx: 1.12, rz: 0.08, spin: 0.05 }),
+    wave: () => ({ x: 0, y: 0.2, rx: 0.42, rz: 0, spin: 0, o: 0.45 }),
+    lattice: (w) => ({ x: w ? 2.4 : 0, y: 0, rx: 0.5, rz: 0.3, spin: 0.09, o: 0.32 }),
+    helix: () => ({ x: 0, y: 0, rx: 0.2, rz: -0.18, spin: 0, o: 0.38 }),
+    ring: () => ({ x: 0, y: -0.2, rx: 1.12, rz: 0.08, spin: 0.05, o: 0.6 }),
 }
 
 /**

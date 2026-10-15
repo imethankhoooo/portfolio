@@ -31,7 +31,8 @@ export default function ProjectDetail() {
                 ease: 'expo.inOut',
                 delay: 0.5,
             })
-            gsap.fromTo('.pd-plate:not(.is-fill) .pd-plate-shot', { yPercent: 10 }, {
+            const floating = el.querySelector('.pd-plate:not(.is-fill) .pd-plate-shot')
+            if (floating) gsap.fromTo(floating, { yPercent: 10 }, {
                 yPercent: -4,
                 ease: 'none',
                 scrollTrigger: { trigger: '.pd-cover', start: 'top bottom', end: 'bottom top', scrub: true },

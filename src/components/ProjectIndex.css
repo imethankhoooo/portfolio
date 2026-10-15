@@ -15,7 +15,7 @@
     border-bottom: 1px solid var(--line-strong);
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--cyan);
 }
@@ -79,16 +79,14 @@
     font-family: var(--font-display);
     font-size: clamp(1.5rem, 3vw, 3rem);
     font-weight: 700;
-    font-stretch: 75%;
+    font-stretch: 100%;
     line-height: 1.02;
-    text-transform: uppercase;
     transition: transform 0.5s var(--ease-out), color 0.3s, text-shadow 0.3s;
 }
 
 .pindex-row:hover .pindex-title {
     transform: translateX(12px);
     color: var(--cyan);
-    text-shadow: 0 0 20px rgba(111, 227, 255, 0.45);
 }
 
 .pindex-arrow {
@@ -129,7 +127,7 @@
     padding-bottom: 6px;
     font-family: var(--font-mono);
     font-size: 10px;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
     color: var(--cyan);
     opacity: 0;
     transition: opacity 0.3s;
@@ -152,14 +150,6 @@
 
 .pindex-preview.is-on .pindex-preview-inner {
     clip-path: inset(0 0 0 0);
-}
-
-.pindex-preview-inner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.1) 3px 4px);
-    pointer-events: none;
 }
 
 .pindex-slide {

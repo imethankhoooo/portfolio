@@ -62,7 +62,7 @@
 .boot-granted {
     margin-top: 14px;
     color: var(--amber);
-    letter-spacing: 0.3em;
+    letter-spacing: 0.1em;
     opacity: 0;
 }
 
@@ -101,7 +101,7 @@
 .boot-label {
     margin-bottom: calc(1.4vw - 5px);
     color: var(--dim);
-    letter-spacing: 0.14em;
+    letter-spacing: 0.06em;
 }
 
 @media (max-width: 700px) {

@@ -51,6 +51,8 @@
     bottom: 14px;
     display: flex;
     gap: 18px;
+    padding: 3px 8px;
+    background: rgba(4, 7, 11, 0.8);
     font-variant-numeric: tabular-nums;
 }
 
@@ -59,8 +61,8 @@
     color: var(--cyan);
 }
 
-.hud-bl { left: 34px; }
-.hud-br { right: 34px; }
+.hud-bl { left: 26px; }
+.hud-br { right: 26px; }
 
 .hud-bl span:first-child::before {
     content: '';

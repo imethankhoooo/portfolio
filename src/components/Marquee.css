@@ -27,7 +27,7 @@
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 3.6vw, 3.8rem);
     font-weight: 700;
-    font-stretch: 75%;
+    font-stretch: 100%;
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
