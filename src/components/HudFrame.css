@@ -1,0 +1,82 @@
+.hud {
+    position: fixed;
+    inset: 0;
+    z-index: 450;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+}
+
+.hud-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--line-strong);
+    border-style: solid;
+    border-width: 0;
+}
+
+.hud-corner.tl { top: 8px; left: 8px; border-top-width: 1px; border-left-width: 1px; }
+.hud-corner.tr { top: 8px; right: 8px; border-top-width: 1px; border-right-width: 1px; }
+.hud-corner.bl { bottom: 8px; left: 8px; border-bottom-width: 1px; border-left-width: 1px; }
+.hud-corner.br { bottom: 8px; right: 8px; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* Tick marks that slide as you scroll, like an altimeter tape */
+.hud-ruler {
+    position: absolute;
+    top: 25%;
+    bottom: 25%;
+    left: 10px;
+    width: 10px;
+    overflow: hidden;
+    mask-image: linear-gradient(transparent, #000 20%, #000 80%, transparent);
+}
+
+.hud-ruler-track {
+    position: absolute;
+    inset: -40px 0;
+    background:
+        repeating-linear-gradient(to bottom, var(--line-strong) 0 1px, transparent 1px 8px),
+        repeating-linear-gradient(to bottom, var(--cyan) 0 1px, transparent 1px 40px);
+    background-size: 5px 100%, 10px 100%;
+    background-repeat: repeat-y;
+    opacity: 0.7;
+    will-change: transform;
+}
+
+.hud-telemetry {
+    position: absolute;
+    bottom: 14px;
+    display: flex;
+    gap: 18px;
+    font-variant-numeric: tabular-nums;
+}
+
+.hud-telemetry b {
+    font-weight: 400;
+    color: var(--cyan);
+}
+
+.hud-bl { left: 34px; }
+.hud-br { right: 34px; }
+
+.hud-bl span:first-child::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+    vertical-align: 1px;
+}
+
+@media (max-width: 800px) {
+    .hud-telemetry,
+    .hud-ruler {
+        display: none;
+    }
+}

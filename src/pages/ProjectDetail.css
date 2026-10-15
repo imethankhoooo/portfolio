@@ -157,7 +157,7 @@
 
 .pd-video {
     width: 100%;
-    background: #000;
+    background: var(--void);
     border: 1px solid var(--line);
 }
 

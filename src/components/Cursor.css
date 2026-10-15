@@ -6,43 +6,79 @@
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s;
-    mix-blend-mode: difference;
 }
 
 .cursor.is-visible {
     opacity: 1;
 }
 
+/* Reticle: a ring with four ticks and a centre dot */
 .cursor-body {
     position: absolute;
     top: 0;
     left: 0;
     display: grid;
     place-items: center;
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: #fff;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(111, 227, 255, 0.55);
+    border-radius: 50%;
     translate: -50% -50%;
     transition:
-        width 0.45s var(--ease-out),
-        height 0.45s var(--ease-out),
+        width 0.4s var(--ease-out),
+        height 0.4s var(--ease-out),
+        border-radius 0.4s var(--ease-out),
+        border-color 0.3s,
+        background 0.3s,
         scale 0.2s var(--ease-out);
 }
 
+.cursor-body::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan);
+}
+
+.cursor-body::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    background:
+        linear-gradient(var(--cyan), var(--cyan)) top / 1px 5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) bottom / 1px 5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) left / 5px 1px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) right / 5px 1px no-repeat;
+    opacity: 0.8;
+    transition: opacity 0.3s, transform 0.5s var(--ease-out);
+}
+
 .cursor[data-state='link'] .cursor-body {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
+    border-color: var(--cyan);
 }
 
-.cursor[data-state='label'] {
-    mix-blend-mode: normal;
+.cursor[data-state='link'] .cursor-body::after {
+    transform: rotate(45deg);
 }
 
+/* Over a labelled target the reticle becomes a bracketed tag: [ VIEW ] */
 .cursor[data-state='label'] .cursor-body {
-    width: 92px;
-    height: 92px;
-    background: var(--signal);
+    width: 96px;
+    height: 34px;
+    border-radius: 0;
+    border-color: var(--cyan);
+    background: rgba(4, 8, 14, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+.cursor[data-state='label'] .cursor-body::before,
+.cursor[data-state='label'] .cursor-body::after {
+    opacity: 0;
 }
 
 .cursor.is-down .cursor-body {
@@ -51,14 +87,17 @@
 
 .cursor-text {
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--cyan);
     opacity: 0;
     transition: opacity 0.2s;
     white-space: nowrap;
 }
+
+.cursor-text::before { content: '[ '; }
+.cursor-text::after { content: ' ]'; }
 
 .cursor[data-state='label'] .cursor-text {
     opacity: 1;

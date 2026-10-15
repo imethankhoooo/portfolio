@@ -12,11 +12,12 @@
 
 .pindex-head {
     padding: 0 0 12px;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-strong);
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--mute);
+    color: var(--cyan);
 }
 
 .pindex-list {
@@ -27,32 +28,28 @@
 
 .pindex-row {
     position: relative;
-    padding: clamp(18px, 2.2vw, 30px) 0;
+    padding: clamp(16px, 2vw, 26px) 0;
     border-bottom: 1px solid var(--line);
     isolation: isolate;
-    transition: color 0.45s var(--ease-out);
+    transition: color 0.35s;
 }
 
-/* A paper panel wipes up from the baseline on hover. */
+/* Hover: a cyan scan sweeps across the row, with a bright bar on its left edge */
 .pindex-row::before {
     content: '';
     position: absolute;
-    inset: 0 calc(var(--gutter) * -1);
+    inset: 0 calc(var(--gutter) * -0.5);
     z-index: -1;
-    background: var(--paper);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.55s var(--ease-out);
-}
-
-.pindex-row:hover,
-.pindex-row:focus-visible {
-    color: var(--ink);
+    background: linear-gradient(90deg, rgba(111, 227, 255, 0.14), rgba(111, 227, 255, 0.02) 70%);
+    border-left: 2px solid var(--cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s var(--ease-out);
 }
 
 .pindex-row:hover::before,
 .pindex-row:focus-visible::before {
-    transform: scaleY(1);
+    transform: scaleX(1);
 }
 
 .pindex-no,
@@ -60,52 +57,56 @@
 .pindex-stack {
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
 .pindex-no {
-    color: var(--mute);
-    transition: color 0.45s;
+    color: var(--dim);
+    transition: color 0.3s;
 }
 
 .pindex-row:hover .pindex-no {
-    color: var(--signal);
+    color: var(--cyan);
+}
+
+.pindex-cat,
+.pindex-stack {
+    color: var(--dim);
 }
 
 .pindex-title {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3.4vw, 3.4rem);
+    font-size: clamp(1.5rem, 3vw, 3rem);
     font-weight: 700;
-    font-stretch: 78%;
-    line-height: 1;
-    letter-spacing: -0.015em;
+    font-stretch: 75%;
+    line-height: 1.02;
     text-transform: uppercase;
-    transition: transform 0.6s var(--ease-out);
+    transition: transform 0.5s var(--ease-out), color 0.3s, text-shadow 0.3s;
 }
 
 .pindex-row:hover .pindex-title {
-    transform: translateX(14px);
+    transform: translateX(12px);
+    color: var(--cyan);
+    text-shadow: 0 0 20px rgba(111, 227, 255, 0.45);
 }
 
 .pindex-arrow {
     justify-self: end;
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    transition:
-        transform 0.5s var(--ease-out),
-        background 0.3s,
-        color 0.3s;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--line-strong);
+    color: var(--dim);
+    transition: transform 0.5s var(--ease-out), background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .pindex-row:hover .pindex-arrow {
     transform: rotate(45deg);
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--ink);
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--void);
 }
 
 /* ---------- Floating preview ---------- */
@@ -121,28 +122,52 @@
     translate: 0 -50%;
 }
 
+.pindex-preview-label {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    padding-bottom: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--cyan);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.pindex-preview.is-on .pindex-preview-label {
+    opacity: 1;
+}
+
 .pindex-preview-inner {
     position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    clip-path: inset(50% 50% 50% 50%);
-    transition: clip-path 0.6s var(--ease-out);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 40px rgba(111, 227, 255, 0.25);
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.55s var(--ease-out);
 }
 
 .pindex-preview.is-on .pindex-preview-inner {
     clip-path: inset(0 0 0 0);
 }
 
+.pindex-preview-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.1) 3px 4px);
+    pointer-events: none;
+}
+
 .pindex-slide {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transform: scale(1.15);
-    transition:
-        opacity 0.35s,
-        transform 0.8s var(--ease-out);
+    transform: scale(1.12);
+    transition: opacity 0.3s, transform 0.8s var(--ease-out);
 }
 
 .pindex-slide.is-active {

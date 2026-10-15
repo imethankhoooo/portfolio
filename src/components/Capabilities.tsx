@@ -1,7 +1,7 @@
 import { capabilities, numbers } from '../data/profile'
 import { useLang } from '../lib/lang'
 import Counter from './Counter'
-import Reveal from './Reveal'
+import Scramble from './Scramble'
 import './Capabilities.css'
 
 export function Capabilities() {
@@ -10,10 +10,13 @@ export function Capabilities() {
         <div className="caps">
             {capabilities.map((c) => (
                 <div className="cap" key={c.no}>
-                    <span className="cap-no">{c.no}</span>
-                    <Reveal as="h3" className="cap-title" key={lang}>
-                        {c.title[lang]}
-                    </Reveal>
+                    <div className="cap-top">
+                        <span className="cap-no">MOD_{c.no}</span>
+                        <span className="cap-status">
+                            <i /> ONLINE
+                        </span>
+                    </div>
+                    <Scramble as="h3" className="cap-title" text={c.title[lang]} trigger="view" duration={900} />
                     <p className="cap-body">{c.body[lang]}</p>
                     <ul className="cap-items">
                         {c.items.map((item) => (

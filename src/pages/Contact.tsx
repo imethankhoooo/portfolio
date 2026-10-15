@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Reveal from '../components/Reveal'
+import Scramble from '../components/Scramble'
 import Clock from '../components/Clock'
 import { profile } from '../data/profile'
-import { useLang } from '../lib/lang'
 import { useTitle } from '../lib/useTitle'
 import './Contact.css'
 
 export default function Contact() {
     const { t } = useTranslation()
-    const lang = useLang()
     const [copied, setCopied] = useState(false)
     useTitle(t('contact.title'))
 
@@ -25,10 +23,8 @@ export default function Contact() {
 
     return (
         <main className="page contact">
-            <header className="page-hero">
-                <Reveal as="h1" className="page-title" immediate delay={0.2} key={lang}>
-                    {t('contact.title')}
-                </Reveal>
+            <header className="page-hero" data-shape="ring">
+                <Scramble as="h1" className="page-title" text={t('contact.title')} trigger="mount" duration={1000} delay={250} />
                 <div className="page-intro grid-12">
                     <span className="eyebrow">{t('contact.label')}</span>
                     <p>{t('contact.intro')}</p>

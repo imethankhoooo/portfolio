@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import SmoothScroll, { useLenis } from './components/SmoothScroll'
@@ -7,6 +7,7 @@ import Preloader from './components/Preloader'
 import Header from './components/Header'
 import Cursor from './components/Cursor'
 import Footer from './components/Footer'
+import HudFrame from './components/HudFrame'
 import Home from './pages/Home'
 import Work from './pages/Work'
 import ProjectDetail from './pages/ProjectDetail'
@@ -14,6 +15,9 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import { IntroContext } from './lib/intro'
 import { ScrollTrigger } from './lib/gsap'
+
+// three.js is the heaviest dependency: load it after the page shell is up.
+const ParticleField = lazy(() => import('./components/ParticleField'))
 
 /** Reset scroll and re-measure scroll triggers whenever the route changes (incl. back/forward). */
 function RouteEffects() {
@@ -53,6 +57,10 @@ function Shell() {
         <IntroContext.Provider value={introDone}>
             <TransitionProvider>
                 <RouteEffects />
+                <Suspense fallback={null}>
+                    <ParticleField />
+                </Suspense>
+                <HudFrame />
                 <Preloader onDone={() => setIntroDone(true)} />
                 <Header />
                 <Routes>
@@ -66,7 +74,7 @@ function Shell() {
                 </Routes>
                 {pathname !== '/contact' && <Footer />}
                 <Cursor />
-                <div className="grain" aria-hidden="true" />
+                <div className="scanlines" aria-hidden="true" />
             </TransitionProvider>
         </IntroContext.Provider>
     )

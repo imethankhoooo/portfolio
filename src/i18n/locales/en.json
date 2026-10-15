@@ -1,23 +1,73 @@
 {
-    "nav": { "home": "Home", "projects": "Work", "about": "About", "contact": "Contact" },
-    "header": { "status": "Available for work", "menu": "Menu", "close": "Close" },
-    "cursor": { "view": "View", "open": "Open case", "write": "Write", "play": "Play" },
-    "type": { "live": "Live site", "internal": "Enterprise", "academic": "Academic" },
-    "index": { "project": "Project", "category": "Category", "stack": "Stack" },
+    "nav": {
+        "home": "Home",
+        "projects": "Work",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "header": {
+        "status": "Available for work",
+        "menu": "Menu",
+        "close": "Close"
+    },
+    "cursor": {
+        "view": "View",
+        "open": "Open case",
+        "write": "Write",
+        "play": "Play"
+    },
+    "type": {
+        "live": "Live site",
+        "internal": "Enterprise",
+        "academic": "Academic"
+    },
+    "index": {
+        "project": "Project",
+        "category": "Category",
+        "stack": "Stack"
+    },
     "hero": {
-        "role": "Full-stack developer\n& system builder",
-        "based": "Based in Malaysia\nFreelance & full-time",
+        "role": "Laravel · React · AI agents · RAG · Local LLMs",
+        "based": "Based in Malaysia · Freelance & full-time",
         "focus": "Laravel · React · AI agents\nRAG · Local LLMs",
         "lead": "I build the systems businesses run on — ERPs, CRMs, SMS gateways — and the AI that makes them smarter.",
-        "scroll": "Scroll"
+        "scroll": "Scroll to explore",
+        "tag": "Full-stack developer · System builder",
+        "cta_work": "View work",
+        "cta_contact": "Open channel",
+        "callouts_label": "Focus areas",
+        "callouts": [
+            {
+                "k": "Module // Web",
+                "v": "Laravel · React · Node.js"
+            },
+            {
+                "k": "Module // Systems",
+                "v": "ERP · CRM · SMS gateways"
+            },
+            {
+                "k": "Module // AI",
+                "v": "RAG · Agents · Offline LLMs"
+            }
+        ]
     },
     "home": {
         "manifesto_label": "Approach",
         "manifesto": [
-            { "text": "Most of my work lives " },
-            { "text": "behind a login screen", "accent": true },
-            { "text": " — ERPs, CRMs and SMS gateways that real teams depend on every day. I care about the parts nobody screenshots: the data model, the cache, the test that catches it before users do. Lately, I teach those systems to " },
-            { "text": "think.", "accent": true }
+            {
+                "text": "Most of my work lives "
+            },
+            {
+                "text": "behind a login screen",
+                "accent": true
+            },
+            {
+                "text": " — ERPs, CRMs and SMS gateways that real teams depend on every day. I care about the parts nobody screenshots: the data model, the cache, the test that catches it before users do. Lately, I teach those systems to "
+            },
+            {
+                "text": "think.",
+                "accent": true
+            }
         ],
         "selected": "Selected work",
         "selected_note": "Four projects, from a temple's website to an LLM that runs without the internet.",
@@ -77,9 +127,9 @@
         "copied": "Copied"
     },
     "footer": {
-        "label": "Next step",
+        "label": "Transmission",
         "reply": "Freelance & full-time",
-        "title": "Have a system in mind?",
+        "title": "Open a channel.",
         "elsewhere": "Elsewhere",
         "local": "Local time",
         "location": "Malaysia (MYT)",

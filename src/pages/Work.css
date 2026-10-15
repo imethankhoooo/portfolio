@@ -23,7 +23,7 @@
     gap: 4px;
     padding: 10px 16px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 0;
     font-family: var(--font-mono);
     font-size: 12px;
     text-transform: uppercase;
@@ -40,13 +40,14 @@
 }
 
 .chip:hover {
-    border-color: var(--paper);
+    border-color: var(--cyan);
 }
 
 .chip.is-active {
-    background: var(--paper);
-    color: var(--ink);
-    border-color: var(--paper);
+    background: rgba(111, 227, 255, 0.12);
+    color: var(--cyan);
+    border-color: var(--cyan);
+    box-shadow: 0 0 16px rgba(111, 227, 255, 0.2);
 }
 
 .work-view {
@@ -66,7 +67,7 @@
 }
 
 .work-view button.is-active {
-    color: var(--paper);
+    color: var(--cyan);
     text-decoration: underline;
     text-underline-offset: 5px;
 }
@@ -96,8 +97,18 @@
 }
 
 .wgrid-media {
+    position: relative;
     aspect-ratio: 16 / 10;
     overflow: hidden;
+    border: 1px solid var(--line-strong);
+}
+
+.wgrid-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.06) 3px 4px);
+    pointer-events: none;
 }
 
 .wgrid-media > * {

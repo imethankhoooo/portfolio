@@ -3,17 +3,17 @@
     top: 0;
     height: 100vh;
     height: 100svh;
-    padding: 64px var(--gutter) var(--gutter);
+    padding: 76px var(--gutter) var(--gutter);
 }
 
 .case-inner {
-    position: relative;
     display: grid;
     grid-template-rows: auto auto 1fr;
     height: 100%;
     padding: clamp(18px, 2.4vw, 36px);
     overflow: hidden;
-    border: 1px solid var(--line);
+    border-color: var(--line-strong);
+    backdrop-filter: blur(10px);
     transform-origin: 50% 0%;
     will-change: transform, filter;
 }
@@ -21,10 +21,50 @@
 .case-top {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--line-strong);
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--mute);
+    color: var(--dim);
+}
+
+.case-file {
+    color: var(--cyan);
+}
+
+.case-file em {
+    font-style: normal;
+    color: var(--dim);
+}
+
+.case-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: center;
+    padding: 4px 10px;
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+}
+
+.case-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dim);
+}
+
+.case-status.is-live i {
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+}
+
+.case-status.is-internal i {
+    background: var(--amber);
+    box-shadow: 0 0 8px var(--amber);
 }
 
 .case-role {
@@ -32,14 +72,18 @@
 }
 
 .case-title {
-    margin: clamp(16px, 2.5vw, 36px) 0 0;
+    margin: clamp(16px, 2.4vw, 32px) 0 0;
     font-family: var(--font-display);
-    font-size: clamp(2.8rem, 8.4vw, 9.5rem);
+    font-size: clamp(2.6rem, 7.2vw, 8rem);
     font-weight: 800;
-    font-stretch: 68%;
-    line-height: 0.84;
-    letter-spacing: -0.02em;
+    font-stretch: 75%;
+    line-height: 0.9;
     text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(111, 227, 255, 0.18);
+}
+
+:lang(zh) .case-title {
+    line-height: 1.08;
 }
 
 .case-body {
@@ -60,9 +104,10 @@
 
 .case-summary {
     margin: 0;
-    max-width: 30ch;
-    font-size: clamp(1rem, 1.3vw, 1.25rem);
-    line-height: 1.4;
+    max-width: 32ch;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.45;
 }
 
 .case-stack {
@@ -75,12 +120,14 @@
 }
 
 .case-stack li {
-    padding: 5px 10px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
+    padding: 5px 9px;
+    border: 1px solid var(--line-strong);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    color: var(--cyan);
+    background: rgba(111, 227, 255, 0.05);
 }
 
 .case-media {
@@ -88,9 +135,10 @@
     flex-direction: column;
     height: 100%;
     min-height: 0;
-    max-height: 62vh;
-    border: 1px solid var(--line);
-    background: var(--ink);
+    max-height: 60vh;
+    border: 1px solid var(--line-strong);
+    background: var(--void);
+    box-shadow: 0 0 60px rgba(111, 227, 255, 0.08);
 }
 
 .case-chrome {
@@ -101,14 +149,14 @@
     border-bottom: 1px solid var(--line);
     font-family: var(--font-mono);
     font-size: 10px;
-    color: var(--mute);
+    letter-spacing: 0.08em;
+    color: var(--dim);
 }
 
 .case-chrome i {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--line);
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--line-strong);
 }
 
 .case-chrome span {
@@ -122,27 +170,42 @@
     overflow: hidden;
 }
 
+/* Scanlines and a slow sweep over the screenshot */
+.case-media-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom, transparent 0%, rgba(111, 227, 255, 0.1) 50%, transparent 52%) 0 -100% / 100% 200% no-repeat,
+        repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.06) 3px 4px);
+    animation: sweep 5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes sweep {
+    to { background-position: 0 100%, 0 0; }
+}
+
 .case-media-inner {
     position: absolute;
     inset: -8% 0;
 }
 
-:lang(zh) .case-title {
-    line-height: 1.05;
-    letter-spacing: 0;
-}
-
 @media (max-width: 800px) {
     .case {
-        padding-top: 58px;
+        padding-top: 70px;
     }
 
     .case-top {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr auto;
     }
 
     .case-role {
         display: none;
+    }
+
+    .case-status {
+        justify-self: end;
     }
 
     .case-body {
@@ -156,7 +219,6 @@
         min-height: 200px;
     }
 
-    /* Narrow frames: show the full width of the screenshot instead of cropping its sides. */
     .case-media-inner {
         inset: 0;
     }

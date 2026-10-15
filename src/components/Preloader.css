@@ -1,60 +1,117 @@
-.preloader {
+.boot {
     position: fixed;
     inset: 0;
     z-index: 950;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 18px var(--gutter) var(--gutter);
-    background: var(--ink);
-    color: var(--paper);
+    padding: clamp(70px, 10vh, 120px) var(--gutter) var(--gutter);
+    background: var(--void);
+    color: var(--fg);
     clip-path: inset(0 0 0 0);
-}
-
-.preloader-top {
-    display: flex;
-    justify-content: space-between;
     font-family: var(--font-mono);
-    font-size: var(--fs-mono);
-    text-transform: uppercase;
+    font-size: 13px;
 }
 
-.preloader-mask {
-    display: block;
-    overflow: hidden;
+.boot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(111, 227, 255, 0.04) 2px 3px);
+    pointer-events: none;
 }
 
-.preloader-row {
-    display: block;
+.boot-log {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 640px;
 }
 
-.preloader-bottom {
+.boot-line {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    opacity: 0;
+    color: var(--dim);
+}
+
+.boot-line:first-child {
+    color: var(--fg);
+}
+
+.boot-prompt {
+    color: var(--cyan);
+}
+
+.boot-dots {
+    flex: 1;
+    min-width: 20px;
+    border-bottom: 1px dotted var(--line-strong);
+    transform: translateY(-4px);
+}
+
+.boot-line:first-child .boot-dots {
+    border: 0;
+}
+
+.boot-ok {
+    color: var(--cyan);
+}
+
+.boot-granted {
+    margin-top: 14px;
+    color: var(--amber);
+    letter-spacing: 0.3em;
+    opacity: 0;
+}
+
+.boot-foot {
     display: flex;
     align-items: flex-end;
     gap: var(--gutter);
 }
 
-.preloader-count {
-    font-family: var(--font-display);
-    font-size: clamp(6rem, 22vw, 20rem);
-    font-weight: 800;
-    font-stretch: 65%;
+.boot-count {
+    font-family: var(--font-dot);
+    font-size: clamp(5rem, 18vw, 15rem);
+    font-weight: 700;
     line-height: 0.8;
-    letter-spacing: -0.03em;
+    color: var(--cyan);
+    text-shadow: 0 0 24px rgba(111, 227, 255, 0.45);
     font-variant-numeric: tabular-nums;
 }
 
-.preloader-bar {
+.boot-bar {
     flex: 1;
-    height: 1px;
-    margin-bottom: 1.2vw;
+    height: 2px;
+    margin-bottom: 1.4vw;
     background: var(--line);
 }
 
-.preloader-bar i {
+.boot-bar i {
     display: block;
     height: 100%;
-    background: var(--signal);
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
     transform: scaleX(0);
     transform-origin: left;
+}
+
+.boot-label {
+    margin-bottom: calc(1.4vw - 5px);
+    color: var(--dim);
+    letter-spacing: 0.14em;
+}
+
+@media (max-width: 700px) {
+    .boot-label {
+        display: none;
+    }
+
+    .boot-line span:nth-child(2) {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

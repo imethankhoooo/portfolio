@@ -52,15 +52,18 @@ export default function StackedCases({ items }: { items: Project[] }) {
                     <TLink
                         to={`/projects/${p.id}`}
                         label={p.title[lang]}
-                        className="case-inner"
-                        style={{ background: p.tone }}
+                        className="case-inner frame"
+                        style={{ background: `linear-gradient(135deg, ${p.tone}e6, rgba(4, 7, 11, 0.92) 70%)` }}
                         data-cursor={t('cursor.open')}
                     >
                         <header className="case-top">
-                            <span>
-                                {String(i + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
+                            <span className="case-file">
+                                FILE_{String(i + 1).padStart(2, '0')}
+                                <em>/{String(items.length).padStart(2, '0')}</em>
                             </span>
-                            <span>{t(`type.${p.type}`)}</span>
+                            <span className={`case-status is-${p.type}`}>
+                                <i /> {t(`type.${p.type}`)}
+                            </span>
                             <span className="case-role">{p.role[lang]}</span>
                         </header>
 

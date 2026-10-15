@@ -4,95 +4,191 @@
     position: relative;
     height: 100vh;
     height: 100svh;
-    min-height: 560px;
-    overflow: hidden;
-}
-
-/* Visible 12-column grid, like a layout sheet left in on purpose. */
-.hero-grid {
-    position: absolute;
-    inset: 0 var(--gutter);
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-}
-
-.hero-grid i {
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--line) 20%, var(--line) 80%, transparent);
-    opacity: 0.55;
+    min-height: 620px;
 }
 
 .hero-inner {
     position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1fr auto;
+    column-gap: var(--col-gap);
+    height: 100%;
+    padding: 110px var(--gutter) 42px;
+}
+
+.hero-copy {
+    grid-column: 1 / span 7;
+    align-self: center;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 0 var(--gutter) clamp(14px, 2vw, 28px);
+    align-items: flex-start;
+    gap: clamp(18px, 2.4vw, 30px);
 }
 
-.hero-meta {
-    padding-top: clamp(90px, 12vh, 140px);
-}
-
-.hero-meta-col {
-    grid-column: span 3;
-    margin: 0;
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
-    line-height: 1.6;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    color: var(--cyan);
 }
 
-.hero-meta-col:first-child {
-    color: var(--paper);
+.hero-tag i {
+    width: 22px;
+    height: 1px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan);
 }
 
-.hero-meta-col:not(:first-child) {
-    color: var(--mute);
+.hero-name {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(4.2rem, 13.5vw, 13.5rem);
+    font-weight: 800;
+    font-stretch: 75%;
+    line-height: 0.84;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    text-shadow: 0 0 50px rgba(111, 227, 255, 0.22);
 }
 
-.hero-meta-col:nth-child(2) {
-    grid-column: 5 / span 3;
-}
-
-.hero-meta-col:nth-child(3) {
-    grid-column: 9 / span 4;
-}
-
-.hero-mask {
+.hero-name-line {
     display: block;
-    overflow: hidden;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
 
-.hero-rise {
-    display: block;
-}
-
-.hero-mid {
-    flex: 1;
-    align-items: end;
-    padding-bottom: clamp(18px, 3vh, 40px);
+/* Second line drawn as a wireframe */
+.hero-name-line.is-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--cyan);
+    text-shadow: none;
+    filter: drop-shadow(0 0 14px rgba(111, 227, 255, 0.35));
 }
 
 .hero-lead {
-    grid-column: 5 / span 5;
+    max-width: 34ch;
     margin: 0;
-    font-size: clamp(1.1rem, 1.65vw, 1.6rem);
-    line-height: 1.32;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
+    font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--fg);
+}
+
+.hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pill-solid {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    box-shadow: 0 0 20px rgba(111, 227, 255, 0.12) inset;
+}
+
+/* Annotation callouts that point at the particle planet */
+.hero-callouts {
+    grid-column: 9 / span 4;
+    align-self: center;
+    position: relative;
+    height: 60vh;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+}
+
+.hero-callout {
+    position: absolute;
+    right: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 10px;
+    align-items: center;
+    width: min(260px, 100%);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.hero-callout.c0 { top: 4%; }
+.hero-callout.c1 { top: 46%; right: -2%; }
+.hero-callout.c2 { bottom: 4%; }
+
+.hero-callout-line {
+    grid-row: span 2;
+    width: 46px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--cyan));
+    transform-origin: right;
+}
+
+.hero-callout-k {
+    color: var(--cyan);
+}
+
+.hero-callout-k,
+.hero-callout-v {
+    justify-self: start;
+    padding: 2px 6px;
+    background: rgba(4, 7, 11, 0.7);
+}
+
+.hero-callout-v {
+    grid-column: 2;
+    color: var(--fg);
+}
+
+.hero-bottom {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
 }
 
 .hero-scroll {
-    grid-column: 12;
-    justify-self: end;
-    font-family: var(--font-mono);
-    font-size: var(--fs-mono);
-    text-transform: uppercase;
-    color: var(--mute);
-    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--fg);
+}
+
+.hero-scroll i {
+    position: relative;
+    width: 1px;
+    height: 22px;
+    overflow: hidden;
+    background: var(--line-strong);
+}
+
+.hero-scroll i::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -50%;
+    width: 1px;
+    height: 50%;
+    background: var(--cyan);
+    animation: scroll-cue 1.6s var(--ease-inout) infinite;
+}
+
+@keyframes scroll-cue {
+    to { top: 100%; }
 }
 
 /* ---------- Manifesto ---------- */
@@ -104,7 +200,7 @@
 .manifesto-label {
     grid-column: 1 / span 3;
     align-self: start;
-    padding-top: 0.9em;
+    padding-top: 1em;
 }
 
 .manifesto-text {
@@ -115,17 +211,6 @@
 
 .section-head-wrap {
     padding-bottom: 0;
-}
-
-.section-note {
-    max-width: 30ch;
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: var(--fs-mono);
-    line-height: 1.6;
-    text-transform: uppercase;
-    color: var(--mute);
-    text-align: right;
 }
 
 .selected {
@@ -141,48 +226,32 @@
 .home-numbers {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 22px;
     padding-top: 0;
 }
 
-@media (max-width: 800px) {
-    .hero-meta {
-        row-gap: 14px;
+@media (max-width: 900px) {
+    .hero-inner {
+        grid-template-rows: 1fr auto;
+        padding-top: 96px;
     }
 
-    .hero-meta-col,
-    .hero-meta-col:nth-child(2),
-    .hero-meta-col:nth-child(3) {
-        grid-column: span 6;
+    .hero-copy {
+        grid-column: 1 / -1;
+        align-self: end;
+        padding-bottom: 28px;
     }
 
-    .hero-meta-col:nth-child(3) {
+    .hero-callouts {
         display: none;
     }
 
-    .hero-lead {
-        grid-column: 1 / span 10;
-    }
-
-    .hero-scroll {
-        display: none;
-    }
-
-    .hero-grid i:nth-child(odd) {
+    .hero-bottom span:last-child {
         display: none;
     }
 
     .manifesto-label,
     .manifesto-text {
         grid-column: 1 / -1;
-    }
-
-    .section-head {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .section-note {
-        text-align: left;
     }
 }

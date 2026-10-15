@@ -1,15 +1,13 @@
 import { useTranslation } from 'react-i18next'
 import { profile } from '../data/profile'
-import { useLang } from '../lib/lang'
 import { useLenis } from './SmoothScroll'
 import Clock from './Clock'
 import Magnetic from './Magnetic'
-import Reveal from './Reveal'
+import Scramble from './Scramble'
 import './Footer.css'
 
 export default function Footer() {
     const { t } = useTranslation()
-    const lang = useLang()
     const lenis = useLenis()
 
     const toTop = () => {
@@ -18,19 +16,19 @@ export default function Footer() {
     }
 
     return (
-        <footer className="footer">
+        <footer className="footer" data-shape="ring">
             <div className="footer-inner">
                 <div className="footer-label">
-                    <span>({t('footer.label')})</span>
+                    <span className="footer-label-k">[06] // {t('footer.label')}</span>
                     <span>{t('footer.reply')}</span>
                 </div>
 
-                <Reveal as="h2" className="footer-title" key={lang}>
-                    {t('footer.title')}
-                </Reveal>
+                <Scramble as="h2" className="footer-title" text={t('footer.title')} trigger="view" duration={1200} />
 
                 <a className="footer-mail" href={`mailto:${profile.email}`} data-cursor={t('cursor.write')}>
+                    <span className="footer-mail-prompt" aria-hidden="true">&gt; mailto:</span>
                     <span className="footer-mail-text">{profile.email}</span>
+                    <i className="footer-mail-caret" aria-hidden="true" />
                     <span className="footer-mail-arrow" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25">
                             <path d="M7 17 17 7M8 7h9v9" />

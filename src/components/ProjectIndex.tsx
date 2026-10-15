@@ -5,6 +5,7 @@ import { gsap, isTouch } from '../lib/gsap'
 import { useLang } from '../lib/lang'
 import { TLink } from './Transition'
 import Cover from './Cover'
+import Scramble from './Scramble'
 import './ProjectIndex.css'
 
 /**
@@ -57,7 +58,7 @@ export default function ProjectIndex({ items, numbering }: { items: Project[]; n
                             onPointerEnter={() => setActive(p.id)}
                         >
                             <span className="pindex-no">{numbering ? numbering(p) : String(i + 1).padStart(2, '0')}</span>
-                            <span className="pindex-title">{p.title[lang]}</span>
+                            <Scramble className="pindex-title" text={p.title[lang]} trigger="hover" duration={500} />
                             <span className="pindex-cat">{t(`type.${p.type}`)}</span>
                             <span className="pindex-stack">{p.stack.slice(0, 3).join(', ')}</span>
                             <span className="pindex-arrow" aria-hidden="true">
@@ -71,6 +72,7 @@ export default function ProjectIndex({ items, numbering }: { items: Project[]; n
             </ul>
 
             <div className={`pindex-preview${active ? ' is-on' : ''}`} ref={preview} aria-hidden="true">
+                <span className="pindex-preview-label">PREVIEW // {items.find((p) => p.id === active)?.id.toUpperCase() ?? ''}</span>
                 <div className="pindex-preview-inner">
                     {items.map((p) => (
                         <div key={p.id} className={`pindex-slide${active === p.id ? ' is-active' : ''}`}>

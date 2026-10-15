@@ -58,7 +58,7 @@ export default function ProjectDetail() {
 
     return (
         <main className="page pd" ref={root} key={project.id}>
-            <header className="pd-hero">
+            <header className="pd-hero" data-shape="ring">
                 <div className="pd-top">
                     <TLink to="/projects" label={t('nav.projects')} className="pd-back">
                         ← {t('project.back')}
@@ -104,7 +104,7 @@ export default function ProjectDetail() {
                 </div>
             </div>
 
-            <section className="section pd-overview grid-12">
+            <section className="section pd-overview grid-12" data-shape="wave">
                 <span className="eyebrow">{t('project.overview')}</span>
                 <p className="pd-desc">{project.description[lang]}</p>
 

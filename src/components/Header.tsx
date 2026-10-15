@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { TLink } from './Transition'
 import Clock from './Clock'
+import Scramble from './Scramble'
 import { useLang } from '../lib/lang'
 import { useLenis } from './SmoothScroll'
 import './Header.css'
@@ -36,7 +37,9 @@ export default function Header() {
         <>
             <header className="header">
                 <TLink to="/" label="Ethan Khoo" className="header-brand">
-                    Ethan Khoo<sup>©26</sup>
+                    <i className="brand-mark" aria-hidden="true" />
+                    <Scramble text="ETHAN.KHOO" trigger="hover" duration={500} />
+                    <i className="brand-caret" aria-hidden="true" />
                 </TLink>
 
                 <div className="header-meta">
@@ -57,8 +60,8 @@ export default function Header() {
                             label={t(item.key)}
                             className={`header-link${active(item.to) ? ' is-active' : ''}`}
                         >
-                            <span className="roll" data-text={t(item.key)}>{t(item.key)}</span>
-                            <sup>{item.no}</sup>
+                            <span className="header-link-no">[{item.no}]</span>
+                            <Scramble text={t(item.key)} trigger="hover" duration={450} />
                         </TLink>
                     ))}
                     <button className="lang-toggle" onClick={toggleLang} aria-label="Switch language">

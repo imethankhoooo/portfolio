@@ -1,13 +1,36 @@
+/* Route change: a dark panel sweeps up with a scan line on its leading edge. */
 .curtain {
     position: fixed;
     inset: 0;
     z-index: 900;
     display: none;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 14px;
     padding: var(--gutter);
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--void);
+    color: var(--fg);
     will-change: transform;
+}
+
+.curtain::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 24px 4px rgba(111, 227, 255, 0.6);
+}
+
+.curtain::after {
+    content: 'LOADING ROUTE';
+    order: -1;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.2em;
+    color: var(--cyan);
 }
 
 .curtain-label-mask {
@@ -19,9 +42,8 @@
     display: block;
     font-family: var(--font-display);
     font-weight: 800;
-    font-stretch: 70%;
-    font-size: clamp(3.5rem, 13vw, 13rem);
-    line-height: 0.85;
-    letter-spacing: -0.02em;
+    font-stretch: 75%;
+    font-size: clamp(3.2rem, 11vw, 11rem);
+    line-height: 0.9;
     text-transform: uppercase;
 }

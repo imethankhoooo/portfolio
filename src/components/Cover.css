@@ -12,7 +12,7 @@
 .cover-code {
     overflow: hidden;
     padding: clamp(16px, 3vw, 40px);
-    color: var(--paper);
+    color: var(--cyan);
 }
 
 .cover-code pre {
@@ -21,8 +21,8 @@
     font-size: clamp(9px, 0.95vw, 13px);
     line-height: 1.65;
     white-space: pre;
-    opacity: 0.8;
-    mask-image: linear-gradient(to bottom, #000 60%, transparent);
+    text-shadow: 0 0 10px rgba(111, 227, 255, 0.35);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 
 .cover-code code {
@@ -36,28 +36,28 @@
     flex-direction: column;
     justify-content: space-between;
     padding: clamp(16px, 3vw, 40px);
-    color: var(--paper);
+    color: var(--fg);
     background-image:
         linear-gradient(var(--line) 1px, transparent 1px),
         linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 48px 48px;
+    background-size: 40px 40px;
 }
 
 .cover-type-domain,
 .cover-type-tags {
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    opacity: 0.7;
+    color: var(--cyan);
 }
 
 .cover-type-title {
     font-family: var(--font-display);
-    font-size: 11cqi;
+    font-size: 9cqi;
+    font-weight: 600;
+    font-stretch: 75%;
+    line-height: 0.95;
     white-space: nowrap;
-    font-weight: 300;
-    font-stretch: 72%;
-    line-height: 0.9;
-    letter-spacing: -0.02em;
-    overflow-wrap: anywhere;
+    text-shadow: 0 0 30px rgba(111, 227, 255, 0.35);
 }

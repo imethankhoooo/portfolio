@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Reveal from '../components/Reveal'
+import Scramble from '../components/Scramble'
 import ProjectIndex from '../components/ProjectIndex'
 import Cover from '../components/Cover'
 import { TLink } from '../components/Transition'
@@ -45,10 +45,8 @@ export default function Work() {
 
     return (
         <main className="page work">
-            <header className="page-hero">
-                <Reveal as="h1" className="page-title" immediate delay={0.2} key={lang}>
-                    {t('work.title')}
-                </Reveal>
+            <header className="page-hero" data-shape="lattice">
+                <Scramble as="h1" className="page-title" text={t('work.title')} trigger="mount" duration={1000} delay={250} />
                 <div className="page-intro grid-12">
                     <span className="eyebrow">{t('work.label')} ({String(projects.length).padStart(2, '0')})</span>
                     <p>{t('work.intro')}</p>

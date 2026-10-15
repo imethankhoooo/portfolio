@@ -1,23 +1,73 @@
 {
-    "nav": { "home": "首页", "projects": "作品", "about": "关于", "contact": "联系" },
-    "header": { "status": "开放合作中", "menu": "菜单", "close": "关闭" },
-    "cursor": { "view": "查看", "open": "打开案例", "write": "写信", "play": "播放" },
-    "type": { "live": "上线网站", "internal": "企业系统", "academic": "学术项目" },
-    "index": { "project": "项目", "category": "类别", "stack": "技术栈" },
+    "nav": {
+        "home": "首页",
+        "projects": "作品",
+        "about": "关于",
+        "contact": "联系"
+    },
+    "header": {
+        "status": "开放合作中",
+        "menu": "菜单",
+        "close": "关闭"
+    },
+    "cursor": {
+        "view": "查看",
+        "open": "打开案例",
+        "write": "写信",
+        "play": "播放"
+    },
+    "type": {
+        "live": "上线网站",
+        "internal": "企业系统",
+        "academic": "学术项目"
+    },
+    "index": {
+        "project": "项目",
+        "category": "类别",
+        "stack": "技术栈"
+    },
     "hero": {
-        "role": "全栈开发者\n& 系统构建者",
-        "based": "常驻马来西亚\n自由职业 & 全职",
+        "role": "Laravel · React · AI 智能体 · RAG · 本地大模型",
+        "based": "常驻马来西亚 · 自由职业 & 全职",
         "focus": "Laravel · React · AI 智能体\nRAG · 本地大模型",
         "lead": "我构建企业每天赖以运转的系统 —— ERP、CRM、短信网关 —— 以及让它们更聪明的 AI。",
-        "scroll": "向下滚动"
+        "scroll": "向下滚动探索",
+        "tag": "全栈开发者 · 系统构建者",
+        "cta_work": "查看作品",
+        "cta_contact": "建立联系",
+        "callouts_label": "专注领域",
+        "callouts": [
+            {
+                "k": "模块 // WEB",
+                "v": "Laravel · React · Node.js"
+            },
+            {
+                "k": "模块 // 系统",
+                "v": "ERP · CRM · 短信网关"
+            },
+            {
+                "k": "模块 // AI",
+                "v": "RAG · 智能体 · 离线大模型"
+            }
+        ]
     },
     "home": {
         "manifesto_label": "方法",
         "manifesto": [
-            { "text": "我的大部分作品都在" },
-            { "text": "登录界面之后", "accent": true },
-            { "text": "——那些真实团队每天依赖的 ERP、CRM 和短信网关。我在意没人截图的部分：数据模型、缓存，以及在用户之前发现问题的测试。最近，我在教这些系统" },
-            { "text": "思考。", "accent": true }
+            {
+                "text": "我的大部分作品都在"
+            },
+            {
+                "text": "登录界面之后",
+                "accent": true
+            },
+            {
+                "text": "——那些真实团队每天依赖的 ERP、CRM 和短信网关。我在意没人截图的部分：数据模型、缓存，以及在用户之前发现问题的测试。最近，我在教这些系统"
+            },
+            {
+                "text": "思考。",
+                "accent": true
+            }
         ],
         "selected": "精选作品",
         "selected_note": "四个项目，从寺院官网到无需联网的大模型。",
@@ -77,9 +127,9 @@
         "copied": "已复制"
     },
     "footer": {
-        "label": "下一步",
+        "label": "通讯",
         "reply": "自由职业 & 全职",
-        "title": "有系统想做吗？",
+        "title": "建立通讯频道。",
         "elsewhere": "其他渠道",
         "local": "本地时间",
         "location": "马来西亚（MYT）",

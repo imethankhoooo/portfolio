@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Reveal from '../components/Reveal'
+import Scramble from '../components/Scramble'
 import { Capabilities, Numbers } from '../components/Capabilities'
 import { timeline } from '../data/profile'
 import { useLang } from '../lib/lang'
@@ -16,17 +17,15 @@ export default function About() {
 
     return (
         <main className="page about">
-            <header className="page-hero">
-                <Reveal as="h1" className="page-title" immediate delay={0.2} key={lang}>
-                    {t('about.title')}
-                </Reveal>
+            <header className="page-hero" data-shape="sphere">
+                <Scramble as="h1" className="page-title" text={t('about.title')} trigger="mount" duration={1000} delay={250} />
                 <div className="page-intro grid-12">
                     <span className="eyebrow">{t('about.label')}</span>
                     <p>{t('about.intro')}</p>
                 </div>
             </header>
 
-            <section className="section about-story grid-12">
+            <section className="section about-story grid-12" data-shape="sphere">
                 <div className="about-now">
                     <span className="eyebrow">{t('about.now')}</span>
                     <ul>
@@ -44,7 +43,7 @@ export default function About() {
                 </div>
             </section>
 
-            <section className="section">
+            <section className="section" data-shape="wave">
                 <div className="section-head">
                     <h2 className="section-title">{t('about.timeline')}</h2>
                 </div>
@@ -59,7 +58,7 @@ export default function About() {
                 </ol>
             </section>
 
-            <section className="section">
+            <section className="section" data-shape="helix">
                 <div className="section-head">
                     <h2 className="section-title">{t('about.capabilities')}</h2>
                 </div>

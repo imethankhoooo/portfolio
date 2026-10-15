@@ -1,89 +1,91 @@
 # Portfolio 重设计 · 设计笔记
 
-> 目标：炫酷、专业、**没有 AI 模板感**。
-> 方法：先拆解 2025–2026 年获奖 / 被广泛引用的 portfolio，找出"为什么好看"，再融合成一套属于 Ethan 自己的设计语言。
+> v2 方向：**科技 / 科幻（Mission Control）**。
+> v1 的"编辑排版"方向被否决（太像杂志），本版改为 FUI/HUD 驱动的科幻界面，同时保持专业、可读，避免廉价的霓虹赛博朋克模板感。
 
 ---
 
-## 1. 参考样本 & 拆解
+## 1. 参考与拆解
 
-| 参考 | 结构 | 为什么好看（可迁移的原则） |
-|---|---|---|
-| **Mat Voyce**（Awwwards SOTD / FWA SOTD，GSAP SOTY 2025 提名） | 三个板块各用不同布局，而不是一套模板套到底；动态字体（kinetic type）作为主视觉 | **字体本身就是视觉**，不靠插图和渐变。不同内容用不同版式，节奏感强 |
-| **Joffrey Spitzer**（Codrops 2026.02 案例） | Astro + GSAP；SplitText 按行遮罩显示文字、Flip 过渡、Lenis 平滑滚动 | "克制、精确"：极简 + 一点粗野主义的硬边。动效小而准，全部服务于阅读顺序 |
-| **Dennis Snellenberg**（被大量模仿的 portfolio） | 大号名字 + 作品索引列表 + hover 浮动预览图 + 磁吸按钮 + 页面切换幕布 | **交互细节**决定高级感：鼠标对名字有反应、按钮有磁性、页面之间有过渡 |
-| **Rauno Freiberg**（Vercel Staff Design Engineer） | 暗色界面，像一个操作系统（dock、音效、横向画廊） | 工程师 portfolio 的高级感来自"**像一个精心打磨的产品**"，而不是一张海报 |
-| **Bruno Simon** 等 3D/WebGL 站 | 整个站是一个可交互世界 | 记忆点极强，但成本高、对招聘方不友好；**只借"一个记忆点"的思路，不照搬 3D** |
-| 2026 趋势文章（Tactile Brutalism / 编辑排版） | 视口级大字、1px 细线、可见网格、胶片颗粒、等宽字体进入编辑排版 | 柔和玻璃拟态（Soft UI）正在退潮，**锐利几何 + 细线 + 颗粒**成为高级感新信号 |
+| 参考 | 可迁移的原则 |
+|---|---|
+| **FUI（Fantasy User Interface，电影/游戏界面设计）** | 界面元素来自真实的雷达、驾驶舱、医疗、工业读数，再改造成"讲故事的道具"。词汇：遥测数据、准星、网格、扫描、半透明叠层。 |
+| **FUI 配色惯例** | 半透明的青 / 琥珀 / 绿叠在深蓝黑上；红色只留给锁定、危险、失败状态。 |
+| **WebGL 粒子作品集**（Awwwards 上的 Julie Guzal、Salt and Pepper 的粒子 Hero、Equinox 太空主题站） | 一个"可交互的 3D 主角"就足以撑起整站的科幻感；粒子随鼠标反应让页面"活着"。 |
+| **Codrops 2026 案例**（Joffrey Spitzer / Thibault Guignand） | 动效要克制精准：文字遮罩显现、clip-path 擦除、平滑滚动，服务阅读顺序。 |
+| **v1 中保留下来的**（Dennis Snellenberg 式交互） | 项目索引 + 浮动预览、磁吸按钮、页面切换幕布、上下文光标。 |
 
-### 共同点（它们为什么"不像模板"）
-
-1. **一个主角**：要么是字体，要么是作品，绝不是渐变背景 + 玻璃卡片。
-2. **信息以"索引 / 目录"呈现**：像杂志、像档案（No. / Title / Category / Stack），显得有体系。
-3. **少色**：黑白灰 + 1 个强调色，色彩只用来指路。
-4. **细节交互**：自定义光标带上下文标签、磁吸按钮、hover 预览、页面过渡。
-5. **真实内容**：具体的系统、具体的数字，而不是"Passionate developer turning ideas into reality"。
+### 为什么这些站"科幻但不廉价"
+1. **一个主角**：一个会变形的粒子星球，而不是满屏霓虹。
+2. **信息即装饰**：坐标、时钟、滚动深度、路由——每个 HUD 元素都显示真实数据。
+3. **克制配色**：冰青为主，琥珀只标记"企业系统/内部"状态，没有紫粉渐变。
+4. **可读性优先**：正文用 IBM Plex Sans，HUD 字体只用于标签和标题。
 
 ---
 
-## 2. 旧版问题诊断（为什么有 AI 模板感）
-
-- 蓝紫粉渐变 + 模糊光斑背景 + 玻璃拟态卡片 → 2023–2024 年 AI 生成站点的标志性组合
-- `gradient-text` 渐变文字、emoji 图标（🎓 🤖 🚀）
-- "Hi, I'm Ethan" + 头像卡片 + 三列统计（`10+ / 3 / ∞`）——"∞ Passion" 这类数据是空的
-- 圆角卡片三列网格，每个区块长得一样，没有节奏
-- 文案泛泛："Building Ideas into Digital Reality"
-
----
-
-## 3. 新设计语言：**"Systems Editorial"**
-
-> 定位：Ethan 做的是 ERP、CRM、SMS 网关、离线 AI——**别人看不见、但每天在跑的系统**。
-> 所以视觉 = 杂志式编辑排版（专业、可信）+ 工程蓝图细节（网格线、坐标、等宽标注）。
+## 2. 设计语言：Mission Control
 
 ### 色彩
 | Token | 值 | 用途 |
 |---|---|---|
-| `--ink` | `#0D0D0C` | 主背景（暖黑，不是纯黑） |
-| `--paper` | `#ECEAE4` | 主文字 / Footer 反色背景（纸张白） |
-| `--signal` | `#FF4F1F` | 唯一强调色（信号橙）——只用于状态点、hover、关键词 |
-| `--line` | paper 14% | 1px 细线、网格 |
+| `--void` | `#04070b` | 深蓝黑背景 |
+| `--fg` | `#dbe9f0` | 冷白正文 |
+| `--cyan` | `#6fe3ff` | 冰青遥测色：强调、交互、粒子 |
+| `--amber` | `#ffb02e` | 状态标记（企业系统）、少量琥珀粒子 |
+| `--line` / `--line-strong` | 青色 12% / 32% | 细线、面板边框、角标 |
 
 ### 字体
-- **Archivo（可变字体，wdth 62–125 / wght 100–900）**：标题。窄体 + 大字号 = 杂志感；鼠标靠近名字时字母的**字重和字宽实时变化**（动态字体，借鉴 Mat Voyce）。
-- **Instrument Serif Italic**：只用来点缀极少数词（如 "behind a login screen"），制造编辑排版的反差。
-- **JetBrains Mono**：所有标注、编号、元数据——工程师身份的暗示。
-- **Noto Sans SC**：中文。
+- **Tektur**（可变宽度/字重）：标题。棱角分明的工程感字形，不是 Orbitron 那种俗套科幻字。
+- **IBM Plex Sans**：正文。工程背景、可读性强。
+- **JetBrains Mono**：所有 HUD 标签、编号、遥测数据。
+- **Doto**：点阵数字（计数器、本地时钟），像设备上的 LED 屏。
+
+### 签名元素：会变形的粒子场（three.js）
+固定在页面背后的 9000 个粒子（手机 4200 个），**每个区块用 `data-shape` 声明自己的形态**，滚动时粒子会溶解并重组：
+
+| 区块 | 形态 | 含义 |
+|---|---|---|
+| Hero | 带轨道环的星球 | "系统本身" |
+| 宣言 | 起伏的地形网格 | 数据底层 |
+| 作品 / 索引 | 3×3×3 晶格立方体 | 结构化系统 |
+| 能力 / 数字 | 双螺旋 | 模块 / 构建块 |
+| 页脚 | 星环 / 传送门 | "建立通讯" |
+
+- 粒子在鼠标附近被推开；镜头随鼠标轻微视差；滚动速度会加快旋转。
+- 主要区块之外粒子自动变暗，不干扰阅读。
+- three.js 懒加载（单独 chunk），首屏不被阻塞；标签页隐藏时暂停渲染。
+
+### HUD 层
+- **开机序列**：终端日志逐行输出 + 点阵计数器 000→100 + CRT"开机"收束动画（仅每次会话首次）。
+- **解码文字**：标题、导航、项目名在出现或悬停时随机字符滚动后锁定。
+- **固定 HUD 框**：四角括号、左侧随滚动移动的刻度尺、实时鼠标坐标、滚动深度、当前路由。
+- **准星光标**：圆环 + 四刻度；悬停项目时变成 `[ VIEW ]` 标签框。
+- **CRT 扫描线 + 暗角**：极轻的全局叠层。
+- **页面切换**：带扫描光边的深色面板上扫，显示 `LOADING ROUTE` 和目标页名。
 
 ### 结构（首页）
-1. **Preloader**：等宽计数 000→100，幕布上拉（仅首次访问）。
-2. **Hero**：满屏宽的 `ETHAN KHOO`（字母跟随鼠标改变粗细/宽度）+ 12 栏元信息（身份 / 地点 / 状态 / 本地时间）。背景是可见的 12 栏网格线 + 十字坐标。
-3. **Manifesto**：一大段宣言，**随滚动逐词点亮**。
-4. **Selected Work**：4 个精选项目以**全屏卡片堆叠**（sticky stack），后一张盖上前一张时前一张缩小变暗。
-5. **Index**：全部 9 个项目的档案式列表，hover 时**浮动预览图跟随光标**并按速度倾斜。
-6. **Capabilities + 数字**：真实数据（2,783 行 x86 汇编、8B 参数本地模型、3 个上线站点），滚动计数。
-7. **Footer**：反色纸张背景 + 巨型邮箱链接 + 磁吸按钮 + 本地时间（GMT+8）。
+1. Hero：左侧 `ETHAN` 实心 + `KHOO` 线框字，右侧粒子星球与三个模块标注
+2. `[01]` 宣言：滚动逐词点亮
+3. 技术栈跑马灯（描边字 + 速度响应）
+4. `[02]` 精选作品：`FILE_01/04` 任务档案卡片堆叠，状态灯（上线=青，企业=琥珀）
+5. `[03]` 档案索引：数据表 + 悬停解码 + 扫描线预览
+6. `[04]` 模块：BUILD / SHIP / AUTOMATE 三个面板
+7. `[05]` 数字：点阵 LED 计数
+8. `[06]` 通讯：`> mailto:` 终端式邮箱、点阵本地时钟
 
-### 交互细节
-- Lenis 平滑滚动 + GSAP ScrollTrigger（同步 ticker）
-- SplitText 按行遮罩显示标题
-- 自定义光标：小圆点，hover 项目时展开成带 "View" / "Open" 标签的胶囊（mix-blend-mode: difference）
-- 页面切换：幕布覆盖 → 显示目标页名称 → 揭开
-- 胶片颗粒覆盖层（SVG noise）
-- `prefers-reduced-motion`：关闭平滑滚动、preloader、所有 scrub 动画，直接显示终态
-
-### 性能
-- 原始 PNG（约 45 MB）→ WebP（1.4 MB，大图 1920w + 小图 880w）
-- 演示视频重新编码为 720p 静音 H.264 faststart（1.1 MB / 2.6 MB），`preload="none"` + poster
+### 无障碍与性能
+- `prefers-reduced-motion`：跳过开机序列和解码动画，粒子静止，所有过渡为 0s。
+- 无 WebGL 时自动降级为纯背景，页面照常可用。
+- 图片 WebP（约 45 MB PNG → 1.4 MB），演示视频 720p 静音 faststart。
 
 ---
 
-## 4. 参考来源
-- Awwwards Portfolio 获奖列表：https://www.awwwards.com/websites/portfolio/
-- Hon Tran（Awwwards 2026 评委）· 10 Best Award-Winning Websites of 2026：https://www.hontran.dev/blog/best-award-winning-websites-2026
-- Mat Voyce 案例：https://www.hontran.dev/blog/mat-voyce-case-study-award-winning-portfolio
-- Codrops · Joffrey Spitzer Portfolio（2026.02）：https://tympanus.net/codrops/2026/02/18/joffrey-spitzer-portfolio-a-minimalist-astro-gsap-build-with-reveals-flip-transitions-and-subtle-motion/
-- Codrops · From Shader Uniforms to Clip-Path Wipes（2026.05）：https://tympanus.net/codrops/2026/05/06/from-shader-uniforms-to-clip-path-wipes-how-gsap-drives-my-portfolio/
-- Rauno Freiberg 介绍：https://uiuxshowcase.com/portfolio/rauno-freiberg/
-- 2026 趋势（Tactile Brutalism）：https://fireart.studio/blog/the-best-web-design-trends/
-- Brutalist Web Design 2026：https://brainy.ink/paper/brutalist-web-design-2026
+## 3. 参考来源
+- FUI/HUD 设计趋势：https://trends.daisyui.com/trend/fui-hud/
+- 未来感/推测式 UI 趋势：https://trends.daisyui.com/futuristic-speculative-ui/
+- FUI 叙事（No Film School）：https://nofilmschool.com/storytelling-through-fantasy-user-interfaces
+- Awwwards · Julie Guzal 粒子作品集：https://www.awwwards.com/inspiration/julie-guzal-portfolio-reactive-cursor-animation-particles
+- Awwwards · Interactive WebGL particles on Hero：https://www.awwwards.com/inspiration/interactive-webgl-particles-on-hero-image-salt-and-pepper
+- Best Three.js Portfolio Examples (2026)：https://www.creativedevjobs.com/blog/best-threejs-portfolio-examples-2025
+- Codrops · Joffrey Spitzer Portfolio：https://tympanus.net/codrops/2026/02/18/joffrey-spitzer-portfolio-a-minimalist-astro-gsap-build-with-reveals-flip-transitions-and-subtle-motion/
+- Codrops · From Shader Uniforms to Clip-Path Wipes：https://tympanus.net/codrops/2026/05/06/from-shader-uniforms-to-clip-path-wipes-how-gsap-drives-my-portfolio/
