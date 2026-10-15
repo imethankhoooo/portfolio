@@ -2,11 +2,9 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Scramble from '../components/Scramble'
 import ProjectIndex from '../components/ProjectIndex'
-import Cover from '../components/Cover'
-import { TLink } from '../components/Transition'
+import ProjectCard from '../components/ProjectCard'
 import { projects, type ProjectType } from '../data/projects'
 import { gsap, ScrollTrigger, reducedMotion } from '../lib/gsap'
-import { useLang } from '../lib/lang'
 import { useTitle } from '../lib/useTitle'
 import './Work.css'
 
@@ -17,9 +15,8 @@ const FILTERS: Filter[] = ['all', 'live', 'internal', 'academic']
 
 export default function Work() {
     const { t } = useTranslation()
-    const lang = useLang()
     const [filter, setFilter] = useState<Filter>('all')
-    const [view, setView] = useState<View>('list')
+    const [view, setView] = useState<View>('grid')
     const results = useRef<HTMLDivElement>(null)
     useTitle(t('work.title'))
 
@@ -34,7 +31,7 @@ export default function Work() {
         ScrollTrigger.refresh()
         if (reducedMotion()) return
         const tween = gsap.fromTo(
-            el.querySelectorAll('.pindex-row, .wgrid-card'),
+            el.querySelectorAll('.pindex-row, .pcard'),
             { opacity: 0, y: 24 },
             { opacity: 1, y: 0, duration: 0.8, ease: 'expo.out', stagger: 0.04 },
         )
@@ -46,11 +43,10 @@ export default function Work() {
     return (
         <main className="page work">
             <header className="page-hero" data-shape="lattice">
-                <Scramble as="h1" className="page-title" text={t('work.title')} trigger="mount" duration={1000} delay={250} />
-                <div className="page-intro grid-12">
-                    <span className="eyebrow">{t('work.label')} ({String(projects.length).padStart(2, '0')})</span>
-                    <p>{t('work.intro')}</p>
-                </div>
+                <h1 className="page-title">
+                    <Scramble text={t('work.title')} trigger="mount" duration={1000} delay={250} />
+                    <sup>({String(projects.length).padStart(2, '0')})</sup>
+                </h1>
             </header>
 
             <section className="section work-body">
@@ -70,7 +66,7 @@ export default function Work() {
                         ))}
                     </div>
                     <div className="work-view">
-                        {(['list', 'grid'] as View[]).map((v) => (
+                        {(['grid', 'list'] as View[]).map((v) => (
                             <button key={v} className={view === v ? 'is-active' : ''} onClick={() => setView(v)}>
                                 {t(`work.${v}`)}
                             </button>
@@ -84,23 +80,7 @@ export default function Work() {
                     ) : (
                         <div className="wgrid">
                             {items.map((p) => (
-                                <TLink
-                                    key={p.id}
-                                    to={`/projects/${p.id}`}
-                                    label={p.title[lang]}
-                                    className="wgrid-card"
-                                    data-cursor={t('cursor.view')}
-                                >
-                                    <div className="wgrid-media" style={{ background: p.tone }}>
-                                        <Cover project={p} size="sm" />
-                                    </div>
-                                    <div className="wgrid-meta">
-                                        <span className="mono">{numberOf(p.id)}</span>
-                                        <h3>{p.title[lang]}</h3>
-                                        <span className="mono wgrid-type">{t(`type.${p.type}`)}</span>
-                                    </div>
-                                    <p className="wgrid-summary">{p.summary[lang]}</p>
-                                </TLink>
+                                <ProjectCard key={p.id} project={p} no={numberOf(p.id)} />
                             ))}
                         </div>
                     )}

@@ -30,11 +30,11 @@
         "role": "Laravel · React · AI 智能体 · RAG · 本地大模型",
         "based": "常驻马来西亚 · 自由职业 & 全职",
         "focus": "Laravel · React · AI 智能体\nRAG · 本地大模型",
-        "lead": "我构建企业每天赖以运转的系统 —— ERP、CRM、短信网关 —— 以及让它们更聪明的 AI。",
+        "lead": "全栈开发者。我开发企业每天在用的 ERP、CRM 和 AI 工具。",
         "scroll": "向下滚动探索",
-        "tag": "全栈开发者 · 系统构建者",
-        "cta_work": "查看作品",
-        "cta_contact": "建立联系",
+        "tag": "作品集 · 2026",
+        "cta_work": "查看项目",
+        "cta_contact": "联系我",
         "callouts_label": "专注领域",
         "callouts": [
             {
@@ -74,12 +74,13 @@
         "index": "索引",
         "index_note": "全部项目，包括课程作业。",
         "all_work": "全部作品",
-        "capabilities": "能力",
-        "numbers": "数字"
+        "capabilities": "技术栈",
+        "numbers": "数字",
+        "more": "更多项目"
     },
     "work": {
         "title": "作品",
-        "intro": "上线网站、运行在登录之后的企业系统、AI 实验和底层课程作业 —— 全部收录在这份索引里。",
+        "intro": "上线网站、企业系统、AI 工具与课程作业。",
         "label": "项目索引",
         "all": "全部",
         "list": "列表",
@@ -102,7 +103,7 @@
     "about": {
         "title": "关于",
         "label": "简介",
-        "intro": "我是 Ethan，来自马来西亚的全栈开发者，一边攻读信息系统学位，一边为真实客户开发软件。",
+        "intro": "来自马来西亚的全栈开发者，信息系统专业在读，同时为真实客户开发软件。",
         "story": [
             "我和大多数开发者一样从网站起步，然后一路向下：Laravel 后端、MySQL 表结构、Redis 缓存、AWS 部署，还曾用 x86 汇编写过一整套俱乐部管理系统。",
             "之后交付的大部分作品都在登录之后：ERP、服务工单 CRM、短信平台。不起眼，但承重。这正是我最喜欢的工作。",
@@ -120,7 +121,7 @@
     "contact": {
         "title": "联系",
         "label": "取得联系",
-        "intro": "有一个系统想做，或者有一个系统需要修？告诉我它应该做什么。",
+        "intro": "有项目想法？发邮件给我。",
         "email": "邮箱",
         "elsewhere": "其他渠道",
         "copy": "复制",
@@ -129,7 +130,7 @@
     "footer": {
         "label": "通讯",
         "reply": "自由职业 & 全职",
-        "title": "建立通讯频道。",
+        "title": "一起做点什么。",
         "elsewhere": "其他渠道",
         "local": "本地时间",
         "location": "马来西亚（MYT）",

@@ -19,7 +19,7 @@ export default function Footer() {
         <footer className="footer" data-shape="ring">
             <div className="footer-inner">
                 <div className="footer-label">
-                    <span className="footer-label-k">[06] // {t('footer.label')}</span>
+                    <span className="footer-label-k">[04] // {t('footer.label')}</span>
                     <span>{t('footer.reply')}</span>
                 </div>
 

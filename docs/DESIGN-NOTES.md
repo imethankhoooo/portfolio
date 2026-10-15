@@ -5,6 +5,32 @@
 
 ---
 
+## 0. 作品集的核心规则（v2.2 起优先级最高）
+
+调研结论：招聘方/客户第一轮只花 **10–90 秒** 扫一个作品集（各来源估计不一，但都很短），所以网站的唯一任务是**让人最快看到项目**。
+
+| 规则 | 来源依据 | 本站做法 |
+|---|---|---|
+| 作品要在第一屏或滚一下就能看到 | 3–4 个强项目最好不滚动就可见（DEV 清单、Slategit） | Hero 缩到约 74% 屏高，下面直接是项目网格；按钮直接滚到作品 |
+| 少而精：3–5 个精选 | “3 个强项目胜过 20 个教程克隆”；首页只放最强作品（Hostinger、Elementor） | 首页 4 个精选大卡片 + 5 个小卡片 |
+| 每个项目一眼看懂：截图 + 名称 + 一句话 + 技术栈 | Brittany Chiang 式：缩略图、简短说明、标签、链接 | `ProjectCard`：截图在上，标题、一行摘要、技术标签在下 |
+| 有在线演示就直接给链接 | 只有 GitHub 没有 demo 的项目，招聘方通常直接跳过 | 上线项目卡片下方直接有「访问网站 ↗」 |
+| 演示比文字有说服力 | 视频/动态首页更能展示作品（Contra、Awwwards 视频首页案例） | 有录屏的项目悬停自动播放静音预览 |
+| 文字可略读 | 每个项目一句话结论，细节放到详情页（UX Tools 等） | 删除长宣言、长自述；详情页描述改为正常正文大小 |
+| 联系方式随手可得 | 邮箱放在页脚，最好首屏也有（DEV 清单） | 首屏「联系我」按钮 + 每页页脚邮箱 |
+| 手机 + 速度 | 招聘方会用手机看，加载慢会影响整体印象 | 单列卡片；WebP 图片；3D 背景懒加载 |
+
+参考：
+- https://dev.to/_d7eb1c1703182e3ce1782/developer-portfolio-checklist-20-things-hiring-managers-look-for-388p
+- https://slategit.com/blog/developer-portfolio-examples-that-got-hired
+- https://remoteworks.pro/blog/frontend-developer-portfolio-guide
+- https://www.hostinger.com/tutorials/portfolio-website-examples/
+- https://elementor.com/blog/best-web-developer-portfolio-examples/
+- https://www.uxtools.co/blog/5-principles-of-exceptional-case-studies-in-ux-portfolios
+- https://contra.com/p/ccZUYqUo-no-face-studio-website-design-and
+
+---
+
 ## 1. 参考与拆解
 
 | 参考 | 可迁移的原则 |

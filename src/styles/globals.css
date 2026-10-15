@@ -124,7 +124,7 @@ video {
 
 .section {
     position: relative;
-    padding: clamp(80px, 11vw, 170px) var(--gutter);
+    padding: clamp(64px, 8vw, 120px) var(--gutter);
 }
 
 .grid-12 {
@@ -155,7 +155,7 @@ video {
     align-items: flex-end;
     justify-content: space-between;
     gap: 24px;
-    margin-bottom: clamp(32px, 5vw, 72px);
+    margin-bottom: clamp(24px, 3vw, 44px);
 }
 
 .section-index {
@@ -170,7 +170,7 @@ video {
 .section-title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 6.4vw, 6.6rem);
+    font-size: clamp(2rem, 3.6vw, 3.4rem);
     font-weight: 700;
     font-stretch: 100%;
     line-height: 0.92;
@@ -312,13 +312,13 @@ video {
 
 /* Page header used by inner pages */
 .page-hero {
-    padding: clamp(120px, 16vw, 210px) var(--gutter) clamp(40px, 6vw, 80px);
+    padding: clamp(110px, 12vw, 170px) var(--gutter) clamp(28px, 4vw, 56px);
 }
 
 .page-title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(3.4rem, 12vw, 13rem);
+    font-size: clamp(3rem, 8vw, 8rem);
     font-weight: 800;
     font-stretch: 100%;
     line-height: 0.86;

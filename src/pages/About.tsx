@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import Reveal from '../components/Reveal'
 import Scramble from '../components/Scramble'
 import { Capabilities, Numbers } from '../components/Capabilities'
 import { timeline } from '../data/profile'
@@ -12,7 +11,6 @@ export default function About() {
     const lang = useLang()
     useTitle(t('about.title'))
 
-    const story = t('about.story', { returnObjects: true }) as string[]
     const now = t('about.now_items', { returnObjects: true }) as string[]
 
     return (
@@ -33,13 +31,6 @@ export default function About() {
                             <li key={item}>{item}</li>
                         ))}
                     </ul>
-                </div>
-                <div className="about-copy">
-                    {story.map((para, i) => (
-                        <Reveal as="p" key={`${lang}-${i}`}>
-                            {para}
-                        </Reveal>
-                    ))}
                 </div>
             </section>
 
@@ -62,7 +53,7 @@ export default function About() {
                 <div className="section-head">
                     <h2 className="section-title">{t('about.capabilities')}</h2>
                 </div>
-                <Capabilities />
+                <Capabilities compact />
             </section>
 
             <section className="section about-numbers">

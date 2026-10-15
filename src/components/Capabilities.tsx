@@ -4,10 +4,11 @@ import Counter from './Counter'
 import Scramble from './Scramble'
 import './Capabilities.css'
 
-export function Capabilities() {
+/** `compact` drops the descriptions and keeps just the module names and their tools. */
+export function Capabilities({ compact = false }: { compact?: boolean }) {
     const lang = useLang()
     return (
-        <div className="caps">
+        <div className={`caps${compact ? ' is-compact' : ''}`}>
             {capabilities.map((c) => (
                 <div className="cap" key={c.no}>
                     <div className="cap-top">
@@ -17,7 +18,7 @@ export function Capabilities() {
                         </span>
                     </div>
                     <Scramble as="h3" className="cap-title" text={c.title[lang]} trigger="view" duration={900} />
-                    <p className="cap-body">{c.body[lang]}</p>
+                    {!compact && <p className="cap-body">{c.body[lang]}</p>}
                     <ul className="cap-items">
                         {c.items.map((item) => (
                             <li key={item}>{item}</li>

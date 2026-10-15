@@ -46,38 +46,7 @@
     will-change: transform;
 }
 
-.hud-telemetry {
-    position: absolute;
-    bottom: 14px;
-    display: flex;
-    gap: 18px;
-    padding: 3px 8px;
-    background: rgba(4, 7, 11, 0.8);
-    font-variant-numeric: tabular-nums;
-}
-
-.hud-telemetry b {
-    font-weight: 400;
-    color: var(--cyan);
-}
-
-.hud-bl { left: 26px; }
-.hud-br { right: 26px; }
-
-.hud-bl span:first-child::before {
-    content: '';
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    margin-right: 7px;
-    border-radius: 50%;
-    background: var(--cyan);
-    box-shadow: 0 0 8px var(--cyan);
-    vertical-align: 1px;
-}
-
 @media (max-width: 800px) {
-    .hud-telemetry,
     .hud-ruler {
         display: none;
     }

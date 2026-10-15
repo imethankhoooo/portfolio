@@ -30,11 +30,11 @@
         "role": "Laravel · React · AI agents · RAG · Local LLMs",
         "based": "Based in Malaysia · Freelance & full-time",
         "focus": "Laravel · React · AI agents\nRAG · Local LLMs",
-        "lead": "I build the systems businesses run on — ERPs, CRMs, SMS gateways — and the AI that makes them smarter.",
+        "lead": "Full-stack developer. I build ERPs, CRMs and AI tools that teams use every day.",
         "scroll": "Scroll to explore",
-        "tag": "Full-stack developer · System builder",
-        "cta_work": "View work",
-        "cta_contact": "Open channel",
+        "tag": "Portfolio · 2026",
+        "cta_work": "View projects",
+        "cta_contact": "Contact me",
         "callouts_label": "Focus areas",
         "callouts": [
             {
@@ -74,12 +74,13 @@
         "index": "Index",
         "index_note": "Everything, including coursework.",
         "all_work": "All work",
-        "capabilities": "Capabilities",
-        "numbers": "By the numbers"
+        "capabilities": "Stack",
+        "numbers": "By the numbers",
+        "more": "More projects"
     },
     "work": {
         "title": "Work",
-        "intro": "Live websites, enterprise systems running behind logins, AI experiments and low-level coursework — all in one index.",
+        "intro": "Live sites, enterprise systems, AI tools and coursework.",
         "label": "Index of projects",
         "all": "All",
         "list": "List",
@@ -102,7 +103,7 @@
     "about": {
         "title": "About",
         "label": "Profile",
-        "intro": "I'm Ethan — a full-stack developer from Malaysia, finishing a degree in Information Systems while building software for real clients.",
+        "intro": "Full-stack developer from Malaysia, studying Information Systems and building software for real clients.",
         "story": [
             "I started where most developers start — websites — and kept going down the stack: Laravel back-ends, MySQL schemas, Redis caches, AWS deploys, and once, an entire club management system in x86 assembly.",
             "Most of what I've shipped since lives behind a login: an ERP, a service-ticket CRM, an SMS platform. Unglamorous, load-bearing software. That's the work I like most.",
@@ -120,7 +121,7 @@
     "contact": {
         "title": "Contact",
         "label": "Get in touch",
-        "intro": "Have a system in mind — or one that needs fixing? Tell me what it should do.",
+        "intro": "Have a project in mind? Email me.",
         "email": "Email",
         "elsewhere": "Elsewhere",
         "copy": "Copy",
@@ -129,7 +130,7 @@
     "footer": {
         "label": "Transmission",
         "reply": "Freelance & full-time",
-        "title": "Open a channel.",
+        "title": "Let's build something.",
         "elsewhere": "Elsewhere",
         "local": "Local time",
         "location": "Malaysia (MYT)",

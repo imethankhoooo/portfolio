@@ -6,8 +6,10 @@
     grid-template-columns: repeat(12, 1fr);
     column-gap: var(--col-gap);
     align-items: center;
-    padding: 20px var(--gutter) 30px;
-    background: linear-gradient(to bottom, rgba(4, 7, 11, 0.85), rgba(4, 7, 11, 0));
+    padding: 16px var(--gutter);
+    background: rgba(4, 7, 11, 0.86);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
     font-family: var(--font-mono);
     font-size: var(--fs-mono);
     letter-spacing: 0.06em;
