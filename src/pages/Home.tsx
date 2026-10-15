@@ -40,8 +40,8 @@ export default function Home() {
     const grid = useRef<HTMLDivElement>(null)
     const lenis = useLenis()
     const featured = getFeaturedProjects()
-    // Coursework lives on the Work page only, so it doesn't dilute the home page.
-    const more = projects.filter((p) => !p.featured && p.type !== 'academic')
+    // Coursework and projects still waiting for screenshots live on the Work page only.
+    const more = projects.filter((p) => !p.featured && p.type !== 'academic' && (p.gallery.length > 0 || p.code))
     const numberOf = (id: string) => String(projects.findIndex((p) => p.id === id) + 1).padStart(2, '0')
     useTitle()
 
@@ -162,7 +162,7 @@ export default function Home() {
 
             <section className="section home-stack" data-shape="helix">
                 <SectionHead no="03" id="STACK" title={t('home.capabilities')} />
-                <Capabilities compact />
+                <Capabilities />
             </section>
         </main>
     )

@@ -231,3 +231,17 @@
     color: var(--cyan);
     border-color: var(--cyan);
 }
+
+.pcard-demo .on-touch {
+    display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .pcard-demo .on-hover {
+        display: none;
+    }
+
+    .pcard-demo .on-touch {
+        display: inline;
+    }
+}

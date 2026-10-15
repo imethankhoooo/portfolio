@@ -55,7 +55,8 @@
         "selected": "精选作品",
         "all_work": "全部作品",
         "capabilities": "技术栈",
-        "more": "更多项目"
+        "more": "更多项目",
+        "also_used": "也用过："
     },
     "work": {
         "title": "作品",
@@ -75,15 +76,15 @@
         "gallery": "界面",
         "demo": "演示",
         "next": "下一个项目",
-        "pending": "截图即将更新",
         "not_found": "未找到该项目",
         "context": "背景",
-        "built": "我做了什么",
+        "built": "主要功能",
         "decisions": "关键决策",
         "result": "结果",
         "code": "源代码",
         "private": "源码未公开，可当面讲解",
-        "demo_hover": "悬停预览"
+        "demo_hover": "悬停预览",
+        "demo_touch": "演示视频"
     },
     "about": {
         "title": "关于",

@@ -185,3 +185,18 @@
 .caps + .numbers {
     margin-top: var(--col-gap);
 }
+
+.caps-also {
+    margin: 18px 0 0;
+    font-size: 0.95rem;
+    color: var(--dim);
+}
+
+.caps-also span {
+    margin-right: 6px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cyan);
+}

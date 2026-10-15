@@ -55,7 +55,8 @@
         "selected": "Selected work",
         "all_work": "All work",
         "capabilities": "Stack",
-        "more": "More projects"
+        "more": "More projects",
+        "also_used": "Also worked with:"
     },
     "work": {
         "title": "Work",
@@ -75,15 +76,15 @@
         "gallery": "Screens",
         "demo": "Demo",
         "next": "Next project",
-        "pending": "Screenshots coming soon",
         "not_found": "Project not found",
         "context": "Context",
-        "built": "What I built",
+        "built": "What it does",
         "decisions": "Key decisions",
         "result": "Result",
         "code": "Source code",
         "private": "Source code is private — happy to walk through it",
-        "demo_hover": "Hover to preview"
+        "demo_hover": "Hover to preview",
+        "demo_touch": "Demo video"
     },
     "about": {
         "title": "About",

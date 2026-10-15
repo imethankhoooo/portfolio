@@ -346,3 +346,27 @@
         aspect-ratio: auto !important;
     }
 }
+
+.pd-cover .pd-caption {
+    margin-top: 12px;
+}
+
+.pd-shot.has-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 0;
+    background: none;
+}
+
+.pd-shot.has-caption img {
+    border: 1px solid var(--line);
+}
+
+/* A tall, narrow close-up (e.g. a side panel) shouldn't stretch across the page */
+.pd-shot img {
+    max-height: 80vh;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+}

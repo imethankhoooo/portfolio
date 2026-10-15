@@ -33,29 +33,20 @@ export const timeline = [
 export const capabilities = [
     {
         no: '01',
-        title: { en: 'Build', zh: '构建' },
-        body: {
-            en: 'Business systems people log into every day — ERPs, CRMs, ticketing, SMS gateways — and the websites in front of them.',
-            zh: '每天有人登录使用的业务系统 —— ERP、CRM、工单、短信网关 —— 以及它们前面的网站。',
-        },
-        items: ['Laravel', 'React', 'Node.js', 'Flutter', 'MySQL', 'REST APIs'],
+        title: { en: 'Web & business systems', zh: 'Web 与业务系统' },
+        items: ['Laravel', 'PHP', 'MySQL', 'React', 'Node.js', 'HTML / CSS / JS', 'REST APIs'],
     },
     {
         no: '02',
-        title: { en: 'Ship', zh: '交付' },
-        body: {
-            en: 'Getting it into production and keeping it there: cloud deploys, caching, and tests that run before users do.',
-            zh: '把系统送上线并让它稳定运行：云端部署、缓存，以及在用户之前跑完的测试。',
-        },
-        items: ['AWS', 'Redis', 'Laravel Dusk', 'Cloudflare', 'Git'],
+        title: { en: 'Deploy & test', zh: '部署与测试' },
+        items: ['AWS', 'Redis', 'Laravel Dusk'],
     },
     {
         no: '03',
-        title: { en: 'Automate', zh: '智能化' },
-        body: {
-            en: 'Teaching those systems to think: retrieval-augmented answers, agent workflows, and models small enough to run offline.',
-            zh: '让系统学会思考：检索增强问答、智能体工作流，以及能离线运行的小模型。',
-        },
-        items: ['RAG', 'Vector DB', 'LoRA fine-tuning', 'n8n agents', 'MCP', 'LangChain', 'Llama'],
+        title: { en: 'AI', zh: 'AI' },
+        items: ['Python', 'RAG', 'Vector DB', 'Llama 8B (local)', 'GLM', 'MinerU'],
     },
 ]
+
+/** Tools Ethan has worked with that aren't shown in a project on this site. */
+export const alsoUsed = ['Flutter', 'LangChain', 'n8n', 'MCP', 'LoRA fine-tuning', 'Java', 'x86 Assembly']

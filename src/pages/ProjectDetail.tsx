@@ -54,7 +54,9 @@ export default function ProjectDetail() {
 
     const next = getNextProject(project.id)
     const no = String(projects.indexOf(project) + 1).padStart(2, '0')
+    // The first screenshot is the hero unless the page opens on the demo video.
     const shots = project.gallery.slice(1)
+    const heroCaption = !project.heroVideo && project.gallery[0] ? project.captions?.[project.gallery[0]] : undefined
     const domain = project.link ? new URL(project.link).hostname.replace(/^www\./, '') : null
 
     return (
@@ -106,11 +108,30 @@ export default function ProjectDetail() {
             </header>
 
             <div className="pd-cover">
-                <div className={`pd-plate${coverOf(project) ? '' : ' is-fill'}`} style={{ background: project.tone }}>
-                    <div className="pd-plate-shot">
-                        <Cover project={project} eager />
-                    </div>
-                </div>
+                {project.heroVideo && project.video ? (
+                    <>
+                        <video
+                            className="pd-video"
+                            src={asset(project.video.src)}
+                            poster={asset(project.video.poster)}
+                            controls
+                            muted
+                            playsInline
+                            preload="metadata"
+                            data-cursor={t('cursor.play')}
+                        />
+                        <p className="pd-caption">{project.video.caption[lang]}</p>
+                    </>
+                ) : (
+                    <>
+                        <div className={`pd-plate${coverOf(project) ? '' : ' is-fill'}`} style={{ background: project.tone }}>
+                            <div className="pd-plate-shot">
+                                <Cover project={project} eager />
+                            </div>
+                        </div>
+                        {heroCaption && <p className="pd-caption">{heroCaption[lang]}</p>}
+                    </>
+                )}
             </div>
 
             <section className="section pd-overview grid-12" data-shape="wave">
@@ -137,13 +158,13 @@ export default function ProjectDetail() {
 
                 {project.result && (
                     <>
-                        <span className="eyebrow">{t('project.result')}</span>
+                        <span className="eyebrow">{(project.resultLabel ?? { en: t('project.result'), zh: t('project.result') })[lang]}</span>
                         <p className="pd-result">{project.result[lang]}</p>
                     </>
                 )}
             </section>
 
-            {project.video && (
+            {project.video && !project.heroVideo && (
                 <section className="section pd-demo">
                     <span className="eyebrow">{t('project.demo')}</span>
                     <video
@@ -163,29 +184,25 @@ export default function ProjectDetail() {
             {shots.length > 0 && (
                 <section className="section pd-gallery">
                     <span className="eyebrow">
-                        {t('project.gallery')} ({String(project.gallery.length).padStart(2, '0')})
+                        {t('project.gallery')} ({String(shots.length).padStart(2, '0')})
                     </span>
                     {project.galleryNote && <p className="pd-caption">{project.galleryNote[lang]}</p>}
                     <div className="pd-shots">
                         {shots.map((name) => (
-                            <figure className="pd-shot" key={name}>
+                            <figure className={`pd-shot${project.captions?.[name] ? ' has-caption' : ''}`} key={name}>
                                 <img
                                     src={asset(`media/${project.id}/${name}.webp`)}
-                                    alt={`${project.title[lang]} — ${name}`}
+                                    alt={project.captions?.[name]?.[lang] ?? `${project.title[lang]} — ${name}`}
                                     loading="lazy"
                                     decoding="async"
                                 />
+                                {project.captions?.[name] && <figcaption className="pd-caption">{project.captions[name][lang]}</figcaption>}
                             </figure>
                         ))}
                     </div>
                 </section>
             )}
 
-            {!coverOf(project) && !project.code && (
-                <section className="section pd-pending">
-                    <span className="mono">{t('project.pending')}</span>
-                </section>
-            )}
 
             <TLink to={`/projects/${next.id}`} label={next.title[lang]} className="pd-next" data-cursor={t('cursor.view')}>
                 <span className="eyebrow">{t('project.next')}</span>

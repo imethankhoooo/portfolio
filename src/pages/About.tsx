@@ -53,7 +53,7 @@ export default function About() {
                 <div className="section-head">
                     <h2 className="section-title">{t('about.capabilities')}</h2>
                 </div>
-                <Capabilities compact />
+                <Capabilities />
             </section>
 
         </main>
