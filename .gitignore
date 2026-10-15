@@ -1,2 +1,5 @@
 /.agent
 /node_modules
+# Copied from public/ on every build; the sources are tracked there
+/dist/img
+/dist/media
