@@ -1,0 +1,177 @@
+.pindex {
+    position: relative;
+}
+
+.pindex-head,
+.pindex-row {
+    display: grid;
+    grid-template-columns: 0.8fr 6fr 2fr 2.6fr 0.6fr;
+    column-gap: var(--col-gap);
+    align-items: center;
+}
+
+.pindex-head {
+    padding: 0 0 12px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.pindex-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pindex-row {
+    position: relative;
+    padding: clamp(18px, 2.2vw, 30px) 0;
+    border-bottom: 1px solid var(--line);
+    isolation: isolate;
+    transition: color 0.45s var(--ease-out);
+}
+
+/* A paper panel wipes up from the baseline on hover. */
+.pindex-row::before {
+    content: '';
+    position: absolute;
+    inset: 0 calc(var(--gutter) * -1);
+    z-index: -1;
+    background: var(--paper);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.55s var(--ease-out);
+}
+
+.pindex-row:hover,
+.pindex-row:focus-visible {
+    color: var(--ink);
+}
+
+.pindex-row:hover::before,
+.pindex-row:focus-visible::before {
+    transform: scaleY(1);
+}
+
+.pindex-no,
+.pindex-cat,
+.pindex-stack {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    text-transform: uppercase;
+}
+
+.pindex-no {
+    color: var(--mute);
+    transition: color 0.45s;
+}
+
+.pindex-row:hover .pindex-no {
+    color: var(--signal);
+}
+
+.pindex-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.4vw, 3.4rem);
+    font-weight: 700;
+    font-stretch: 78%;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    transition: transform 0.6s var(--ease-out);
+}
+
+.pindex-row:hover .pindex-title {
+    transform: translateX(14px);
+}
+
+.pindex-arrow {
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    transition:
+        transform 0.5s var(--ease-out),
+        background 0.3s,
+        color 0.3s;
+}
+
+.pindex-row:hover .pindex-arrow {
+    transform: rotate(45deg);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+
+/* ---------- Floating preview ---------- */
+
+.pindex-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 300;
+    width: clamp(260px, 26vw, 420px);
+    aspect-ratio: 16 / 10;
+    pointer-events: none;
+    translate: 0 -50%;
+}
+
+.pindex-preview-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    clip-path: inset(50% 50% 50% 50%);
+    transition: clip-path 0.6s var(--ease-out);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.pindex-preview.is-on .pindex-preview-inner {
+    clip-path: inset(0 0 0 0);
+}
+
+.pindex-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.15);
+    transition:
+        opacity 0.35s,
+        transform 0.8s var(--ease-out);
+}
+
+.pindex-slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (hover: none), (pointer: coarse) {
+    .pindex-preview {
+        display: none;
+    }
+}
+
+@media (max-width: 800px) {
+    .pindex-head {
+        display: none;
+    }
+
+    .pindex-row {
+        grid-template-columns: 2.4rem 1fr auto;
+        grid-template-areas:
+            'no title arrow'
+            'no meta arrow';
+        row-gap: 8px;
+    }
+
+    .pindex-no { grid-area: no; align-self: start; padding-top: 4px; }
+    .pindex-title { grid-area: title; }
+    .pindex-cat { grid-area: meta; }
+    .pindex-stack { display: none; }
+    .pindex-arrow { grid-area: arrow; width: 34px; height: 34px; }
+}

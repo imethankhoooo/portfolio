@@ -1,0 +1,60 @@
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 950;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 18px var(--gutter) var(--gutter);
+    background: var(--ink);
+    color: var(--paper);
+    clip-path: inset(0 0 0 0);
+}
+
+.preloader-top {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    text-transform: uppercase;
+}
+
+.preloader-mask {
+    display: block;
+    overflow: hidden;
+}
+
+.preloader-row {
+    display: block;
+}
+
+.preloader-bottom {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--gutter);
+}
+
+.preloader-count {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 22vw, 20rem);
+    font-weight: 800;
+    font-stretch: 65%;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+
+.preloader-bar {
+    flex: 1;
+    height: 1px;
+    margin-bottom: 1.2vw;
+    background: var(--line);
+}
+
+.preloader-bar i {
+    display: block;
+    height: 100%;
+    background: var(--signal);
+    transform: scaleX(0);
+    transform-origin: left;
+}

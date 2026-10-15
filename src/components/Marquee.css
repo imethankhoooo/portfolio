@@ -1,0 +1,40 @@
+.marquee {
+    overflow: hidden;
+    padding: clamp(14px, 1.6vw, 22px) 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+}
+
+.marquee-row {
+    display: flex;
+    flex: none;
+}
+
+.marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: clamp(18px, 2.4vw, 40px);
+    padding-right: clamp(18px, 2.4vw, 40px);
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4.4vw, 4.6rem);
+    font-weight: 300;
+    font-stretch: 75%;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.marquee-item:nth-child(odd) {
+    font-weight: 800;
+}
+
+.marquee-item i {
+    width: 0.22em;
+    height: 0.22em;
+    background: var(--signal);
+}

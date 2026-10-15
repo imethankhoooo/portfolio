@@ -1,0 +1,27 @@
+.curtain {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: none;
+    align-items: flex-end;
+    padding: var(--gutter);
+    background: var(--paper);
+    color: var(--ink);
+    will-change: transform;
+}
+
+.curtain-label-mask {
+    display: block;
+    overflow: hidden;
+}
+
+.curtain-label {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 70%;
+    font-size: clamp(3.5rem, 13vw, 13rem);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+}

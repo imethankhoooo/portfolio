@@ -1,0 +1,129 @@
+.caps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+}
+
+.cap {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: clamp(20px, 2.4vw, 36px) var(--col-gap) 0 0;
+}
+
+.cap + .cap {
+    padding-left: var(--col-gap);
+    border-left: 1px solid var(--line);
+}
+
+.cap-no {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    color: var(--signal);
+}
+
+.cap-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 5.2rem);
+    font-weight: 800;
+    font-stretch: 70%;
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+.cap-body {
+    max-width: 34ch;
+    margin: 0;
+    color: var(--mute);
+    font-size: 1.02rem;
+    line-height: 1.5;
+}
+
+.cap-items {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cap-items li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.cap-items li::after {
+    content: '+';
+    color: var(--mute);
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.number {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+    min-height: clamp(180px, 20vw, 280px);
+    padding: 20px var(--col-gap) 20px 0;
+}
+
+.number + .number {
+    padding-left: var(--col-gap);
+    border-left: 1px solid var(--line);
+}
+
+.number-value {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 7.5rem);
+    font-weight: 300;
+    font-stretch: 70%;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.number-label {
+    margin: 0;
+    max-width: 18ch;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+@media (max-width: 900px) {
+    .caps {
+        grid-template-columns: 1fr;
+    }
+
+    .cap,
+    .cap + .cap {
+        padding: 28px 0 36px;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+    }
+
+    .numbers {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .number:nth-child(3) {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    .number:nth-child(n + 3) {
+        border-top: 1px solid var(--line);
+    }
+}

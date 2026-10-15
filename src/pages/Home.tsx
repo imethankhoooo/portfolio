@@ -1,142 +1,142 @@
+import { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { getFeaturedProjects } from '../data/projects'
+import KineticName from '../components/KineticName'
+import ScrubText, { type Part } from '../components/ScrubText'
+import StackedCases from '../components/StackedCases'
+import ProjectIndex from '../components/ProjectIndex'
+import Marquee from '../components/Marquee'
+import Reveal from '../components/Reveal'
+import { Capabilities, Numbers } from '../components/Capabilities'
+import { TLink } from '../components/Transition'
+import PillArrow from '../components/PillArrow'
+import { getFeaturedProjects, projects } from '../data/projects'
+import { gsap, reducedMotion } from '../lib/gsap'
+import { useIntroDone } from '../lib/intro'
+import { useLang } from '../lib/lang'
+import { useTitle } from '../lib/useTitle'
 import './Home.css'
 
+const MARQUEE = ['Laravel', 'React', 'Node.js', 'Python', 'MySQL', 'Redis', 'AWS', 'RAG', 'LLM agents', 'MCP', 'Flutter', 'x86']
+
 export default function Home() {
-    const { t, i18n } = useTranslation()
-    const featuredProjects = getFeaturedProjects()
-    // Handle language codes like 'en-US' or 'zh-CN' by extracting the base language
-    const lang: 'en' | 'zh' = i18n.language?.startsWith('zh') ? 'zh' : 'en'
+    const { t } = useTranslation()
+    const lang = useLang()
+    const ready = useIntroDone()
+    const hero = useRef<HTMLElement>(null)
+    const featured = getFeaturedProjects()
+    useTitle()
 
+    // Meta lines rise in once the preloader lifts; the hero drifts and fades as you leave it.
+    useLayoutEffect(() => {
+        const el = hero.current
+        if (!el) return
+        const ctx = gsap.context(() => {
+            const meta = el.querySelectorAll('.hero-rise')
+            if (!ready) {
+                gsap.set(meta, { yPercent: 120 })
+                return
+            }
+            gsap.fromTo(meta, { yPercent: 120 }, {
+                yPercent: 0,
+                duration: reducedMotion() ? 0 : 1.2,
+                ease: 'expo.out',
+                stagger: 0.05,
+                delay: 0.35,
+            })
+            if (reducedMotion()) return
+            gsap.to('.hero-inner', {
+                yPercent: 18,
+                opacity: 0.2,
+                ease: 'none',
+                scrollTrigger: { trigger: el, start: 'top top', end: 'bottom top', scrub: true },
+            })
+        }, el)
+        return () => ctx.revert()
+    }, [ready, lang])
 
-    const techStack = [
-        'Laravel', 'React', 'Flutter', 'Node.js', 'Python',
-        'AI Coding', 'MCP', 'LangChain', 'n8n Agents'
-    ]
+    const lines = (key: string) =>
+        t(key).split('\n').map((line) => (
+            <span className="hero-mask" key={line}>
+                <span className="hero-rise">{line}</span>
+            </span>
+        ))
 
     return (
-        <main>
-            {/* Hero Section */}
-            <section className="hero">
-                <div className="hero-container">
-                    <div className="hero-content">
-                        <div className="hero-tag">
-                            <span className="status-dot" />
-                            <span>{t('hero.status')}</span>
-                        </div>
-
-                        <h1 className="hero-title">
-                            <span className="line"><span>{t('hero.greeting')}</span></span>
-                            <span className="line"><span className="gradient-text">{t('hero.name')}</span></span>
-                            <span className="line"><span>{t('hero.title')}</span></span>
-                        </h1>
-
-                        <p className="hero-tagline">{t('hero.tagline')}</p>
-                        <p className="hero-description">{t('hero.description')}</p>
-
-                        <div className="cta-group">
-                            <Link to="/projects" className="btn btn-primary">
-                                <span>{t('hero.cta_projects')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </Link>
-                            <Link to="/contact" className="btn btn-glass">
-                                <span>{t('hero.cta_contact')}</span>
-                            </Link>
-                        </div>
-                    </div>
-
-                    <div className="hero-card glass-card">
-                        <div className="card-header">
-                            <div className="avatar-ring">
-                                <div className="avatar">E</div>
-                            </div>
-                            <div className="card-info">
-                                <h3>{t('card.name')}</h3>
-                                <p>{t('card.role')}</p>
-                                <div className="location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>{t('card.location')}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="tech-stack">
-                            {techStack.map((tech) => (
-                                <span key={tech} className="tech-item">{tech}</span>
-                            ))}
-                        </div>
-
-                        <div className="card-stats">
-                            <div className="stat">
-                                <div className="stat-value">{t('card.years')}</div>
-                                <div className="stat-label">{t('card.years_label')}</div>
-                            </div>
-                            <div className="stat">
-                                <div className="stat-value">{t('card.projects')}</div>
-                                <div className="stat-label">{t('card.projects_label')}</div>
-                            </div>
-                            <div className="stat">
-                                <div className="stat-value">{t('card.skills')}</div>
-                                <div className="stat-label">{t('card.skills_label')}</div>
-                            </div>
-                        </div>
-                    </div>
+        <main className="page home">
+            <section className="hero" ref={hero}>
+                <div className="hero-grid" aria-hidden="true">
+                    {Array.from({ length: 13 }, (_, i) => <i key={i} />)}
                 </div>
 
-                <div className="scroll-indicator">
-                    <span className="scroll-text">{t('common.scroll_down')}</span>
-                    <div className="scroll-line" />
+                <div className="hero-inner">
+                    <div className="hero-meta grid-12">
+                        <p className="hero-meta-col">{lines('hero.role')}</p>
+                        <p className="hero-meta-col">{lines('hero.based')}</p>
+                        <p className="hero-meta-col">{lines('hero.focus')}</p>
+                    </div>
+
+                    <div className="hero-mid grid-12">
+                        <p className="hero-lead">
+                            <span className="hero-mask"><span className="hero-rise">{t('hero.lead')}</span></span>
+                        </p>
+                        <span className="hero-scroll">
+                            <span className="hero-mask"><span className="hero-rise">↓ {t('hero.scroll')}</span></span>
+                        </span>
+                    </div>
+
+                    <KineticName text="Ethan Khoo" play={ready} />
                 </div>
             </section>
 
-            {/* Featured Projects Section */}
-            <section className="featured-section">
-                <div className="section-container">
-                    <h2 className="section-heading">{t('featured.title')}</h2>
-                    <p className="section-desc">{t('featured.description')}</p>
+            <section className="section manifesto grid-12">
+                <span className="eyebrow manifesto-label">{t('home.manifesto_label')}</span>
+                <ScrubText
+                    className="manifesto-text"
+                    parts={t('home.manifesto', { returnObjects: true }) as Part[]}
+                />
+            </section>
 
-                    <div className="featured-grid">
-                        {featuredProjects.map((project) => (
-                            <Link
-                                key={project.id}
-                                to={`/projects/${project.id}`}
-                                className="featured-card"
-                            >
-                                <div className="featured-image" style={{ background: project.gradient }}>
-                                    {project.image ? (
-                                        <img src={project.image} alt={project.title[lang]} />
-                                    ) : (
-                                        <div className="featured-image-bg">{project.title[lang].charAt(0)}</div>
-                                    )}
-                                </div>
-                                <div className="featured-content">
-                                    <div className="featured-tags">
-                                        {project.tags.slice(0, 3).map((tag) => (
-                                            <span key={tag} className="tech-tag">{tag}</span>
-                                        ))}
-                                    </div>
-                                    <h3 className="featured-title">{project.title[lang]}</h3>
-                                    <p className="featured-desc">{project.description[lang]}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+            <Marquee items={MARQUEE} />
 
-                    <div className="featured-cta">
-                        <Link to="/projects" className="btn btn-glass">
-                            {t('featured.view_all')}
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </Link>
+            <section className="selected">
+                <div className="section section-head-wrap">
+                    <div className="section-head">
+                        <Reveal as="h2" className="section-title" key={`s-${lang}`}>
+                            {t('home.selected')}
+                        </Reveal>
+                        <p className="section-note">{t('home.selected_note')}</p>
                     </div>
                 </div>
+                <StackedCases items={featured} />
+            </section>
+
+            <section className="section">
+                <div className="section-head">
+                    <h2 className="section-title">
+                        {t('home.index')}
+                        <sup>({String(projects.length).padStart(2, '0')})</sup>
+                    </h2>
+                    <p className="section-note">{t('home.index_note')}</p>
+                </div>
+                <ProjectIndex items={projects} />
+                <div className="home-more">
+                    <TLink to="/projects" label={t('nav.projects')} className="pill">
+                        {t('home.all_work')}
+                        <PillArrow />
+                    </TLink>
+                </div>
+            </section>
+
+            <section className="section">
+                <div className="section-head">
+                    <h2 className="section-title">{t('home.capabilities')}</h2>
+                </div>
+                <Capabilities />
+            </section>
+
+            <section className="section home-numbers">
+                <span className="eyebrow">{t('home.numbers')}</span>
+                <Numbers />
             </section>
         </main>
     )
