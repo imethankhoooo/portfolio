@@ -37,6 +37,8 @@ export interface Project {
      * To add screenshots: drop the files in and append the names here.
      */
     gallery: string[]
+    /** Optional card-ratio crop used on project cards instead of the first screenshot */
+    cardCover?: string
     video?: { src: string; poster: string; caption: L10n }
     /** Note shown under the screenshots (e.g. "test data") */
     galleryNote?: L10n
@@ -106,6 +108,7 @@ export const projects: Project[] = [
         },
         stack: ['Laravel', 'MySQL', 'Redis', 'AWS', 'Laravel Dusk'],
         gallery: ['04', '03', '02', '01'],
+        cardCover: 'card',
         captions: {
             '04': {
                 en: 'Lens specs (spherical degree, refractive index, lens type) are category parameters defined in the admin — not hard-coded fields.',
@@ -351,5 +354,7 @@ export const getNextProject = (id: string) => {
     return projects[(i + 1) % projects.length]
 }
 
-export const coverOf = (p: Project, size: 'lg' | 'sm' = 'lg') =>
-    p.gallery.length ? `media/${p.id}/${p.gallery[0]}${size === 'sm' ? '-sm' : ''}.webp` : undefined
+export const coverOf = (p: Project, size: 'lg' | 'sm' = 'lg', card = false) => {
+    const name = card && p.cardCover ? p.cardCover : p.gallery[0]
+    return name ? `media/${p.id}/${name}${size === 'sm' ? '-sm' : ''}.webp` : undefined
+}

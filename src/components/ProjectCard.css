@@ -109,8 +109,22 @@
 }
 
 .pcard-demo {
-    margin-left: auto;
+    position: absolute;
+    z-index: 1;
+    left: 12px;
+    bottom: 12px;
+    padding: 5px 9px;
+    background: rgba(4, 7, 11, 0.85);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
     color: var(--cyan);
+    transition: opacity 0.3s;
+}
+
+.pcard:hover .pcard-demo {
+    opacity: 0;
 }
 
 .pcard-status i {

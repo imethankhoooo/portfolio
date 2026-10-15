@@ -35,7 +35,7 @@ export default function ProjectCard({ project: p, size = 'lg', no, eager = false
         <article className={`pcard pcard-${size}`} onPointerEnter={play} onPointerLeave={stop}>
             <TLink to={`/projects/${p.id}`} label={p.title[lang]} className="pcard-link" data-cursor={t('cursor.view')}>
                 <div className="pcard-media" style={{ background: p.tone }}>
-                    <Cover project={p} size={size === 'lg' ? 'lg' : 'sm'} eager={eager} />
+                    <Cover project={p} size={size === 'lg' ? 'lg' : 'sm'} eager={eager} card />
                     {p.video && (
                         <video
                             ref={video}
@@ -50,6 +50,12 @@ export default function ProjectCard({ project: p, size = 'lg', no, eager = false
                             aria-hidden="true"
                         />
                     )}
+                    {p.video && (
+                        <span className="pcard-demo">
+                            ▶ <span className="on-hover">{t('project.demo_hover')}</span>
+                            <span className="on-touch">{t('project.demo_touch')}</span>
+                        </span>
+                    )}
                 </div>
 
                 <div className="pcard-body">
@@ -58,12 +64,6 @@ export default function ProjectCard({ project: p, size = 'lg', no, eager = false
                             <i /> {t(`type.${p.type}`)}
                         </span>
                         <span className="pcard-context">{p.context[lang]}</span>
-                        {p.video && (
-                            <span className="pcard-demo">
-                                ▶ <span className="on-hover">{t('project.demo_hover')}</span>
-                                <span className="on-touch">{t('project.demo_touch')}</span>
-                            </span>
-                        )}
                     </div>
                     <div className="pcard-head">
                         {no && <span className="pcard-no">{no}</span>}

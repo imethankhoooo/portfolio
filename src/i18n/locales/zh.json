@@ -82,9 +82,10 @@
         "decisions": "关键决策",
         "result": "结果",
         "code": "源代码",
-        "private": "源码未公开，可当面讲解",
         "demo_hover": "悬停预览",
-        "demo_touch": "演示视频"
+        "demo_touch": "演示视频",
+        "source": "源码",
+        "private_short": "未公开，可当面讲解"
     },
     "about": {
         "title": "关于",

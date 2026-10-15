@@ -161,7 +161,7 @@
 
 .work-more {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
     gap: clamp(32px, 4vw, 56px) var(--col-gap);
 }
 
@@ -196,8 +196,3 @@
     }
 }
 
-@media (min-width: 701px) and (max-width: 1100px) {
-    .work-more {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}

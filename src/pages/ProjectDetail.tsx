@@ -88,6 +88,12 @@ export default function ProjectDetail() {
                         <span className="pd-meta-k">{t('project.stack')}</span>
                         <span>{project.stack.join(', ')}</span>
                     </div>
+                    {!project.repo && project.type !== 'academic' && (
+                        <div>
+                            <span className="pd-meta-k">{t('project.source')}</span>
+                            <span>{t('project.private_short')}</span>
+                        </div>
+                    )}
                     <div className="pd-meta-cta">
                         {project.link && (
                             <a className="pill pill-solid" href={project.link} target="_blank" rel="noopener noreferrer">
@@ -100,9 +106,7 @@ export default function ProjectDetail() {
                                 {t('project.code')}
                                 <PillArrow />
                             </a>
-                        ) : (
-                            project.type !== 'academic' && <span className="pd-private">{t('project.private')}</span>
-                        )}
+                        ) : null}
                     </div>
                 </div>
             </header>
@@ -195,6 +199,11 @@ export default function ProjectDetail() {
                                     alt={project.captions?.[name]?.[lang] ?? `${project.title[lang]} — ${name}`}
                                     loading="lazy"
                                     decoding="async"
+                                    onLoad={(e) => {
+                                        const img = e.currentTarget
+                                        // Wide, short screens read better across the full width.
+                                        if (img.naturalWidth / img.naturalHeight > 2.5) img.parentElement?.classList.add('is-wide')
+                                    }}
                                 />
                                 {project.captions?.[name] && <figcaption className="pd-caption">{project.captions[name][lang]}</figcaption>}
                             </figure>
@@ -208,7 +217,7 @@ export default function ProjectDetail() {
                 <span className="eyebrow">{t('project.next')}</span>
                 <span className="pd-next-title">{next.title[lang]}</span>
                 <span className="pd-next-media" style={{ background: next.tone }}>
-                    <Cover project={next} size="sm" />
+                    <Cover project={next} size="sm" card />
                 </span>
             </TLink>
         </main>

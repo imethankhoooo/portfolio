@@ -76,7 +76,7 @@ export default function ProjectIndex({ items, numbering }: { items: Project[]; n
                 <div className="pindex-preview-inner">
                     {items.map((p) => (
                         <div key={p.id} className={`pindex-slide${active === p.id ? ' is-active' : ''}`}>
-                            <Cover project={p} size="sm" />
+                            <Cover project={p} size="sm" card />
                         </div>
                     ))}
                 </div>

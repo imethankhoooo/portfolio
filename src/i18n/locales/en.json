@@ -82,9 +82,10 @@
         "decisions": "Key decisions",
         "result": "Result",
         "code": "Source code",
-        "private": "Source code is private — happy to walk through it",
         "demo_hover": "Hover to preview",
-        "demo_touch": "Demo video"
+        "demo_touch": "Demo video",
+        "source": "Source",
+        "private_short": "Private — happy to walk through it"
     },
     "about": {
         "title": "About",

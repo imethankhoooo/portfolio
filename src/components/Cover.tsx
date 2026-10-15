@@ -7,9 +7,9 @@ import './Cover.css'
  * The visual for a project: its first screenshot, or its source code for
  * projects without a UI, or a typographic card while screenshots are pending.
  */
-export default function Cover({ project, size = 'lg', eager = false }: { project: Project; size?: 'lg' | 'sm'; eager?: boolean }) {
+export default function Cover({ project, size = 'lg', eager = false, card = false }: { project: Project; size?: 'lg' | 'sm'; eager?: boolean; card?: boolean }) {
     const lang = useLang()
-    const src = coverOf(project, size)
+    const src = coverOf(project, size, card)
 
     if (src) {
         return (

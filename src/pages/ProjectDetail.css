@@ -38,7 +38,7 @@
 
 .pd-meta {
     display: grid;
-    grid-template-columns: 2fr 2fr 3fr 5fr;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--col-gap);
     margin-top: clamp(36px, 5vw, 72px);
     padding-top: 16px;
@@ -369,4 +369,8 @@
     width: auto;
     max-width: 100%;
     margin: 0 auto;
+}
+
+.pd-shot.is-wide {
+    grid-column: 1 / -1;
 }
