@@ -256,7 +256,7 @@ export const projects: Project[] = [
             en: 'SMS service platform for the Indonesian market — bulk messaging, an API for business systems, and delivery analytics.',
             zh: '面向印尼市场的短信服务平台——批量发送、供业务系统接入的 API，以及发送数据分析。',
         },
-        context: { en: 'Business messaging platform', zh: '企业短信平台' },
+        context: { en: 'Freelance client project · PrimeSMS, Indonesia', zh: '自由接单客户项目 · 印尼 PrimeSMS' },
         role: { en: 'Sole developer', zh: '独立开发' },
         highlights: {
             en: ['Bulk messaging workflows', 'Integrations with external messaging APIs', 'Activity tracking and usage analytics'],
@@ -279,7 +279,7 @@ export const projects: Project[] = [
             en: 'Service-ticket management with a built-in CRM, dashboard analytics and customer tracking.',
             zh: '服务工单管理系统，集成 CRM、仪表板分析与客户追踪。',
         },
-        context: { en: 'CRM & operations system', zh: 'CRM 与运营系统' },
+        context: { en: 'Freelance client project · MCSON Technology', zh: '自由接单客户项目 · MCSON Technology' },
         role: { en: 'Sole developer', zh: '独立开发' },
         highlights: {
             en: ['Service-ticket workflow with status tracking', 'Customer management (CRM)', 'Dashboard for day-to-day operations', 'Login and roles'],
