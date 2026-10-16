@@ -17,9 +17,10 @@
         "play": "播放"
     },
     "type": {
-        "live": "上线网站",
-        "internal": "内部系统",
-        "academic": "课程作业"
+        "live": "已上线",
+        "internal": "业务系统",
+        "academic": "课程作业",
+        "personal": "个人项目"
     },
     "index": {
         "project": "项目",
@@ -30,26 +31,27 @@
         "role": "Laravel · React · AI 智能体 · RAG · 本地大模型",
         "based": "常驻马来西亚 · 自由职业 & 全职",
         "focus": "Laravel · React · AI 智能体\nRAG · 本地大模型",
-        "lead": "全栈开发者。我开发企业每天在用的 ERP、CRM 和 AI 工具。",
+        "lead": "吉隆坡的全栈与 AI 开发者。3 年以上为客户交付 Web 与 AI 产品——包括已上线的 AI 创作平台 Mage AI Media。",
         "scroll": "向下滚动探索",
-        "tag": "作品集 · 2026",
+        "tag": "全栈 · AI 应用 · 自动化",
         "cta_work": "查看项目",
         "cta_contact": "联系我",
         "callouts_label": "专注领域",
         "callouts": [
             {
-                "k": "模块 // WEB",
-                "v": "Laravel · React · Node.js"
-            },
-            {
-                "k": "模块 // 系统",
-                "v": "ERP · CRM · 短信网关"
+                "k": "模块 // 全栈",
+                "v": "Next.js · TypeScript · Laravel"
             },
             {
                 "k": "模块 // AI",
-                "v": "RAG · 智能体 · 离线大模型"
+                "v": "多模型 API · RAG · 本地大模型"
+            },
+            {
+                "k": "模块 // 云",
+                "v": "Supabase · Inngest · Cloudflare · AWS"
             }
-        ]
+        ],
+        "cv": "下载简历（PDF）"
     },
     "home": {
         "selected": "精选作品",
@@ -78,7 +80,7 @@
         "next": "下一个项目",
         "not_found": "未找到该项目",
         "context": "背景",
-        "built": "主要功能",
+        "built": "我做了什么",
         "decisions": "关键决策",
         "result": "结果",
         "code": "源代码",
@@ -90,15 +92,16 @@
     "about": {
         "title": "关于",
         "label": "简介",
-        "intro": "我是 Ethan（Tsui Ern）Khoo，来自马来西亚的全栈开发者，信息系统专业在读，同时为真实客户开发软件。",
+        "intro": "我是 Ethan（Tsui Ern）Khoo，TAR UMT 信息系统专业大四学生，自 2023 年起从事自由职业全栈与 AI 开发。我端到端地构建产品，并借助 AI（Claude Code、Codex）开发：架构、代码审查与调试由我负责。",
         "timeline": "教育与经历",
         "capabilities": "我做什么",
         "now": "目前",
         "now_items": [
-            "信息系统学士（荣誉）在读",
-            "研究 RAG、智能体与 MCP",
-            "开放自由职业与全职机会"
-        ]
+            "TAR UMT 信息系统学士（荣誉）大四在读",
+            "开发并运营 Mage AI Media——已上线的 AI 创作平台",
+            "开放实习、全职与自由职业项目"
+        ],
+        "cv": "下载简历（PDF）"
     },
     "contact": {
         "title": "联系",

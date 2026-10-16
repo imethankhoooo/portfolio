@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import Scramble from '../components/Scramble'
 import { Capabilities } from '../components/Capabilities'
-import { timeline } from '../data/profile'
+import { profile, timeline } from '../data/profile'
+import { asset } from '../lib/asset'
 import { useLang } from '../lib/lang'
 import { useTitle } from '../lib/useTitle'
 import './About.css'
@@ -31,6 +32,11 @@ export default function About() {
                             <li key={item}>{item}</li>
                         ))}
                     </ul>
+                    {profile.cv && (
+                        <a className="pill pill-solid about-cv" href={asset(profile.cv)} target="_blank" rel="noopener noreferrer">
+                            {t('about.cv')} ↓
+                        </a>
+                    )}
                 </div>
             </section>
 

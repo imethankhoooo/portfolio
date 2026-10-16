@@ -11,7 +11,7 @@ import './Work.css'
 type Filter = 'all' | ProjectType
 type View = 'list' | 'grid'
 
-const FILTERS: Filter[] = ['all', 'live', 'internal', 'academic']
+const FILTERS: Filter[] = ['all', 'live', 'internal', 'personal', 'academic']
 
 export default function Work() {
     const { t } = useTranslation()

@@ -6,6 +6,8 @@ import { Capabilities } from '../components/Capabilities'
 import { TLink } from '../components/Transition'
 import PillArrow from '../components/PillArrow'
 import { getFeaturedProjects, projects } from '../data/projects'
+import { profile } from '../data/profile'
+import { asset } from '../lib/asset'
 import { gsap, reducedMotion } from '../lib/gsap'
 import { useIntroDone } from '../lib/intro'
 import { useLang } from '../lib/lang'
@@ -40,8 +42,8 @@ export default function Home() {
     const grid = useRef<HTMLDivElement>(null)
     const lenis = useLenis()
     const featured = getFeaturedProjects()
-    // Coursework and projects still waiting for screenshots live on the Work page only.
-    const more = projects.filter((p) => !p.featured && p.type !== 'academic' && (p.gallery.length > 0 || p.code))
+    // Archived coursework and projects still waiting for screenshots live on the Work page only.
+    const more = projects.filter((p) => !p.featured && !p.archived && (p.gallery.length > 0 || p.code))
     const numberOf = (id: string) => String(projects.findIndex((p) => p.id === id) + 1).padStart(2, '0')
     useTitle()
 
@@ -114,6 +116,11 @@ export default function Home() {
                             <TLink to="/contact" label={t('nav.contact')} className="pill">
                                 {t('hero.cta_contact')}
                             </TLink>
+                            {profile.cv && (
+                                <a className="pill" href={asset(profile.cv)} target="_blank" rel="noopener noreferrer">
+                                    {t('hero.cv')}
+                                </a>
+                            )}
                         </div>
                     </div>
 

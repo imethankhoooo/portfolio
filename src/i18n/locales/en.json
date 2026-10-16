@@ -17,9 +17,10 @@
         "play": "Play"
     },
     "type": {
-        "live": "Live site",
-        "internal": "Internal system",
-        "academic": "Coursework"
+        "live": "Live",
+        "internal": "Business system",
+        "academic": "Coursework",
+        "personal": "Personal project"
     },
     "index": {
         "project": "Project",
@@ -30,26 +31,27 @@
         "role": "Laravel · React · AI agents · RAG · Local LLMs",
         "based": "Based in Malaysia · Freelance & full-time",
         "focus": "Laravel · React · AI agents\nRAG · Local LLMs",
-        "lead": "Full-stack developer. I build ERPs, CRMs and AI tools that teams use every day.",
+        "lead": "Full-stack & AI developer in Kuala Lumpur. 3+ years shipping web and AI products for clients — including Mage AI Media, a live AI creation platform.",
         "scroll": "Scroll to explore",
-        "tag": "Portfolio · 2026",
+        "tag": "Full-stack · AI applications · Automation",
         "cta_work": "View projects",
         "cta_contact": "Contact me",
         "callouts_label": "Focus areas",
         "callouts": [
             {
-                "k": "Module // Web",
-                "v": "Laravel · React · Node.js"
-            },
-            {
-                "k": "Module // Systems",
-                "v": "ERP · CRM · SMS gateways"
+                "k": "Module // Full-stack",
+                "v": "Next.js · TypeScript · Laravel"
             },
             {
                 "k": "Module // AI",
-                "v": "RAG · Agents · Offline LLMs"
+                "v": "Multi-model APIs · RAG · Local LLMs"
+            },
+            {
+                "k": "Module // Cloud",
+                "v": "Supabase · Inngest · Cloudflare · AWS"
             }
-        ]
+        ],
+        "cv": "Download CV (PDF)"
     },
     "home": {
         "selected": "Selected work",
@@ -78,7 +80,7 @@
         "next": "Next project",
         "not_found": "Project not found",
         "context": "Context",
-        "built": "What it does",
+        "built": "What I built",
         "decisions": "Key decisions",
         "result": "Result",
         "code": "Source code",
@@ -90,15 +92,16 @@
     "about": {
         "title": "About",
         "label": "Profile",
-        "intro": "I'm Ethan (Tsui Ern) Khoo — a full-stack developer from Malaysia, studying Information Systems and building software for real clients.",
+        "intro": "I'm Ethan (Tsui Ern) Khoo — a final-year Information Systems student at TAR UMT and a freelance full-stack & AI developer since 2023. I build products end to end, working AI-assisted (Claude Code, Codex): I own the architecture, the review and the debugging.",
         "timeline": "Education & experience",
         "capabilities": "What I do",
         "now": "Currently",
         "now_items": [
-            "Bachelor of Information Systems (Hons)",
-            "Building with RAG, agents & MCP",
-            "Open to freelance and full-time roles"
-        ]
+            "Final-year Bachelor of Information Systems (Hons), TAR UMT",
+            "Building Mage AI Media — live AI creation platform",
+            "Open to internships, full-time roles and freelance projects"
+        ],
+        "cv": "Download CV (PDF)"
     },
     "contact": {
         "title": "Contact",

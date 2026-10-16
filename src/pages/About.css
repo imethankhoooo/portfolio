@@ -112,3 +112,8 @@
         gap: 8px;
     }
 }
+
+.about-cv {
+    align-self: flex-start;
+    margin-top: 8px;
+}
