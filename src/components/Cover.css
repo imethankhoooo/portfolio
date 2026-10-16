@@ -42,6 +42,10 @@
     background-size: 40px 40px;
 }
 
+.cover-type-tags {
+    margin-top: 0.8em;
+}
+
 .cover-type-domain,
 .cover-type-tags {
     font-family: var(--font-mono);
@@ -56,6 +60,6 @@
     font-size: min(9cqi, 4.5rem);
     font-weight: 600;
     font-stretch: 100%;
-    line-height: 0.95;
+    line-height: 1.15;
     white-space: nowrap;
 }
