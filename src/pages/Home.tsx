@@ -1,142 +1,175 @@
+import { useLayoutEffect, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-import { getFeaturedProjects } from '../data/projects'
+import Scramble from '../components/Scramble'
+import ProjectCard from '../components/ProjectCard'
+import { Capabilities } from '../components/Capabilities'
+import { TLink } from '../components/Transition'
+import PillArrow from '../components/PillArrow'
+import { getFeaturedProjects, projects } from '../data/projects'
+import { profile } from '../data/profile'
+import { asset } from '../lib/asset'
+import { gsap, reducedMotion } from '../lib/gsap'
+import { useIntroDone } from '../lib/intro'
+import { useLang } from '../lib/lang'
+import { useTitle } from '../lib/useTitle'
+import { useLenis } from '../components/SmoothScroll'
 import './Home.css'
 
+type Callout = { k: string; v: string }
+
+function SectionHead({ no, id, title, count, action }: { no: string; id: string; title: string; count?: number; action?: ReactNode }) {
+    return (
+        <div className="section-head">
+            <div>
+                <span className="section-index">
+                    [{no}] // {id}
+                </span>
+                <h2 className="section-title">
+                    <Scramble text={title} trigger="view" duration={900} />
+                    {count !== undefined && <sup>({String(count).padStart(2, '0')})</sup>}
+                </h2>
+            </div>
+            {action}
+        </div>
+    )
+}
+
 export default function Home() {
-    const { t, i18n } = useTranslation()
-    const featuredProjects = getFeaturedProjects()
-    // Handle language codes like 'en-US' or 'zh-CN' by extracting the base language
-    const lang: 'en' | 'zh' = i18n.language?.startsWith('zh') ? 'zh' : 'en'
+    const { t } = useTranslation()
+    const lang = useLang()
+    const ready = useIntroDone()
+    const hero = useRef<HTMLElement>(null)
+    const grid = useRef<HTMLDivElement>(null)
+    const lenis = useLenis()
+    const featured = getFeaturedProjects()
+    // Archived coursework and projects still waiting for screenshots live on the Work page only.
+    const more = projects.filter((p) => !p.featured && !p.archived && (p.gallery.length > 0 || p.code))
+    const numberOf = (id: string) => String(projects.findIndex((p) => p.id === id) + 1).padStart(2, '0')
+    useTitle()
 
+    // Hero UI powers on after the boot screen; cards rise in as they enter the viewport.
+    useLayoutEffect(() => {
+        const el = hero.current
+        if (!el) return
+        const ctx = gsap.context(() => {
+            const parts = el.querySelectorAll('.hero-in')
+            if (!ready) {
+                gsap.set(parts, { opacity: 0 })
+                return
+            }
+            if (reducedMotion()) {
+                gsap.set(parts, { opacity: 1 })
+                return
+            }
+            gsap.fromTo(parts, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out', stagger: 0.08, delay: 0.4 })
+            gsap.fromTo('.hero-callout-line', { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: 'expo.out', stagger: 0.12, delay: 0.9 })
+        }, el)
+        return () => ctx.revert()
+    }, [ready, lang])
 
-    const techStack = [
-        'Laravel', 'React', 'Flutter', 'Node.js', 'Python',
-        'AI Coding', 'MCP', 'LangChain', 'n8n Agents'
-    ]
+    useLayoutEffect(() => {
+        const el = grid.current
+        if (!el || reducedMotion()) return
+        const ctx = gsap.context(() => {
+            gsap.utils.toArray<HTMLElement>('.pcard-body').forEach((card) => {
+                gsap.from(card, {
+                    opacity: 0,
+                    y: 24,
+                    duration: 1,
+                    ease: 'expo.out',
+                    scrollTrigger: { trigger: card, start: 'top 92%', once: true },
+                })
+            })
+        }, el)
+        return () => ctx.revert()
+    }, [])
+
+    const callouts = t('hero.callouts', { returnObjects: true }) as Callout[]
+
+    const toWork = () => {
+        const target = document.getElementById('work')
+        if (!target) return
+        if (lenis) lenis.scrollTo(target, { offset: -40, duration: 1.4 })
+        else target.scrollIntoView({ behavior: 'smooth' })
+    }
 
     return (
-        <main>
-            {/* Hero Section */}
-            <section className="hero">
-                <div className="hero-container">
-                    <div className="hero-content">
-                        <div className="hero-tag">
-                            <span className="status-dot" />
-                            <span>{t('hero.status')}</span>
-                        </div>
+        <main className="page home">
+            <section className="hero" ref={hero} data-shape="sphere">
+                <div className="hero-inner">
+                    <div className="hero-copy">
+                        <span className="hero-tag hero-in">
+                            <i /> {t('hero.tag')}
+                        </span>
 
-                        <h1 className="hero-title">
-                            <span className="line"><span>{t('hero.greeting')}</span></span>
-                            <span className="line"><span className="gradient-text">{t('hero.name')}</span></span>
-                            <span className="line"><span>{t('hero.title')}</span></span>
+                        <h1 className="hero-name" aria-label="Ethan Khoo">
+                            <Scramble text="ETHAN" trigger="mount" play={ready} duration={1100} delay={250} className="hero-name-line" />
+                            <Scramble text="KHOO" trigger="mount" play={ready} duration={1100} delay={450} className="hero-name-line is-accent" />
                         </h1>
 
-                        <p className="hero-tagline">{t('hero.tagline')}</p>
-                        <p className="hero-description">{t('hero.description')}</p>
+                        <p className="hero-lead hero-in">{t('hero.lead')}</p>
 
-                        <div className="cta-group">
-                            <Link to="/projects" className="btn btn-primary">
-                                <span>{t('hero.cta_projects')}</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </Link>
-                            <Link to="/contact" className="btn btn-glass">
-                                <span>{t('hero.cta_contact')}</span>
-                            </Link>
+                        <div className="hero-ctas hero-in">
+                            <button type="button" onClick={toWork} className="pill pill-solid">
+                                {t('hero.cta_work')} ↓
+                            </button>
+                            <TLink to="/contact" label={t('nav.contact')} className="pill">
+                                {t('hero.cta_contact')}
+                            </TLink>
+                            {profile.cv && (
+                                <a className="pill" href={asset(profile.cv)} target="_blank" rel="noopener noreferrer">
+                                    {t('hero.cv')}
+                                </a>
+                            )}
                         </div>
                     </div>
 
-                    <div className="hero-card glass-card">
-                        <div className="card-header">
-                            <div className="avatar-ring">
-                                <div className="avatar">E</div>
-                            </div>
-                            <div className="card-info">
-                                <h3>{t('card.name')}</h3>
-                                <p>{t('card.role')}</p>
-                                <div className="location">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    <span>{t('card.location')}</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="tech-stack">
-                            {techStack.map((tech) => (
-                                <span key={tech} className="tech-item">{tech}</span>
-                            ))}
-                        </div>
-
-                        <div className="card-stats">
-                            <div className="stat">
-                                <div className="stat-value">{t('card.years')}</div>
-                                <div className="stat-label">{t('card.years_label')}</div>
-                            </div>
-                            <div className="stat">
-                                <div className="stat-value">{t('card.projects')}</div>
-                                <div className="stat-label">{t('card.projects_label')}</div>
-                            </div>
-                            <div className="stat">
-                                <div className="stat-value">{t('card.skills')}</div>
-                                <div className="stat-label">{t('card.skills_label')}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="scroll-indicator">
-                    <span className="scroll-text">{t('common.scroll_down')}</span>
-                    <div className="scroll-line" />
+                    <ul className="hero-callouts" aria-label={t('hero.callouts_label')}>
+                        {callouts.map((c, i) => (
+                            <li className={`hero-callout hero-in c${i}`} key={c.k}>
+                                <i className="hero-callout-line" />
+                                <span className="hero-callout-k">{c.k}</span>
+                                <span className="hero-callout-v">{c.v}</span>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </section>
 
-            {/* Featured Projects Section */}
-            <section className="featured-section">
-                <div className="section-container">
-                    <h2 className="section-heading">{t('featured.title')}</h2>
-                    <p className="section-desc">{t('featured.description')}</p>
-
-                    <div className="featured-grid">
-                        {featuredProjects.map((project) => (
-                            <Link
-                                key={project.id}
-                                to={`/projects/${project.id}`}
-                                className="featured-card"
-                            >
-                                <div className="featured-image" style={{ background: project.gradient }}>
-                                    {project.image ? (
-                                        <img src={project.image} alt={project.title[lang]} />
-                                    ) : (
-                                        <div className="featured-image-bg">{project.title[lang].charAt(0)}</div>
-                                    )}
-                                </div>
-                                <div className="featured-content">
-                                    <div className="featured-tags">
-                                        {project.tags.slice(0, 3).map((tag) => (
-                                            <span key={tag} className="tech-tag">{tag}</span>
-                                        ))}
-                                    </div>
-                                    <h3 className="featured-title">{project.title[lang]}</h3>
-                                    <p className="featured-desc">{project.description[lang]}</p>
-                                </div>
-                            </Link>
+            <div ref={grid}>
+                <section className="section home-work" id="work" data-shape="lattice">
+                    <SectionHead no="01" id="SELECTED_WORK" title={t('home.selected')} count={featured.length} />
+                    <div className="work-featured">
+                        {featured.map((p) => (
+                            <ProjectCard key={p.id} project={p} no={numberOf(p.id)} eager />
                         ))}
                     </div>
+                </section>
 
-                    <div className="featured-cta">
-                        <Link to="/projects" className="btn btn-glass">
-                            {t('featured.view_all')}
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                        </Link>
+                <section className="section home-more-work" data-shape="lattice">
+                    <SectionHead
+                        no="02"
+                        id="MORE"
+                        title={t('home.more')}
+                        count={more.length}
+                        action={
+                            <TLink to="/projects" label={t('nav.projects')} className="pill">
+                                {t('home.all_work')}
+                                <PillArrow />
+                            </TLink>
+                        }
+                    />
+                    <div className="work-more">
+                        {more.map((p) => (
+                            <ProjectCard key={p.id} project={p} size="sm" no={numberOf(p.id)} />
+                        ))}
                     </div>
-                </div>
+                </section>
+            </div>
+
+            <section className="section home-stack" data-shape="helix">
+                <SectionHead no="03" id="STACK" title={t('home.capabilities')} />
+                <Capabilities />
             </section>
         </main>
     )

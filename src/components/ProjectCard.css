@@ -1,0 +1,266 @@
+.pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.pcard-link {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pcard-media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.pcard-media > .cover,
+.pcard-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 1s var(--ease-out), opacity 0.4s;
+}
+
+.pcard-video {
+    opacity: 0;
+    background: var(--void);
+}
+
+.pcard:hover .pcard-media {
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan), 0 20px 60px rgba(111, 227, 255, 0.12);
+}
+
+.pcard:hover .pcard-media > .cover {
+    transform: scale(1.04);
+}
+
+.pcard-video.is-playing {
+    opacity: 1;
+}
+
+/* HUD corner ticks that close in on hover */
+.pcard-media::before,
+.pcard-media::after {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    width: 16px;
+    height: 16px;
+    border: 0 solid var(--cyan);
+    transition: inset 0.45s var(--ease-out), opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.pcard-media::before {
+    top: 18px;
+    left: 18px;
+    border-top-width: 2px;
+    border-left-width: 2px;
+}
+
+.pcard-media::after {
+    right: 18px;
+    bottom: 18px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.pcard:hover .pcard-media::before {
+    top: 8px;
+    left: 8px;
+    opacity: 1;
+}
+
+.pcard:hover .pcard-media::after {
+    right: 8px;
+    bottom: 8px;
+    opacity: 1;
+}
+
+.pcard-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--dim);
+}
+
+.pcard-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    text-transform: uppercase;
+    color: var(--fg);
+}
+
+.pcard-demo {
+    position: absolute;
+    z-index: 1;
+    left: 12px;
+    bottom: 12px;
+    padding: 5px 9px;
+    background: rgba(4, 7, 11, 0.85);
+    backdrop-filter: blur(6px);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--cyan);
+    transition: opacity 0.3s;
+}
+
+.pcard:hover .pcard-demo {
+    opacity: 0;
+}
+
+.pcard-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dim);
+}
+
+.pcard-status.is-live i {
+    background: var(--cyan);
+    box-shadow: 0 0 8px var(--cyan);
+}
+
+.pcard-status.is-personal i {
+    background: #b79bff;
+    box-shadow: 0 0 8px #b79bff;
+}
+
+.pcard-status.is-internal i {
+    background: var(--amber);
+    box-shadow: 0 0 8px var(--amber);
+}
+
+.pcard-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pcard-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+}
+
+.pcard-no {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cyan);
+}
+
+.pcard-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+    font-weight: 600;
+    line-height: 1.1;
+    transition: color 0.3s;
+}
+
+.pcard-sm .pcard-title {
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+}
+
+.pcard-arrow {
+    margin-left: auto;
+    color: var(--cyan);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.4s var(--ease-out);
+}
+
+.pcard:hover .pcard-title {
+    color: var(--cyan);
+}
+
+.pcard:hover .pcard-arrow {
+    opacity: 1;
+    transform: none;
+}
+
+.pcard-summary {
+    margin: 0;
+    color: var(--dim);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.pcard-sm .pcard-summary {
+    font-size: 0.92rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pcard-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pcard-tags li {
+    padding: 3px 8px;
+    border: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan);
+}
+
+.pcard-live {
+    align-self: flex-start;
+    display: inline-flex;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--fg);
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.pcard-live span {
+    color: var(--dim);
+}
+
+.pcard-live:hover {
+    color: var(--cyan);
+    border-color: var(--cyan);
+}
+
+.pcard-demo .on-touch {
+    display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+    .pcard-demo .on-hover {
+        display: none;
+    }
+
+    .pcard-demo .on-touch {
+        display: inline;
+    }
+}

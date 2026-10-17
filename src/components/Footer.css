@@ -1,0 +1,222 @@
+.footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--line-strong);
+    background: linear-gradient(to bottom, rgba(4, 7, 11, 0.2), rgba(4, 7, 11, 0.75));
+    color: var(--fg);
+}
+
+.footer-inner {
+    padding: clamp(64px, 8vw, 110px) var(--gutter) 46px;
+}
+
+.footer-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 26px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.footer-label-k {
+    color: var(--cyan);
+}
+
+.footer-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 4.6rem);
+    font-weight: 800;
+    font-stretch: 100%;
+    line-height: 0.9;
+    text-transform: uppercase;
+}
+
+:lang(zh) .footer-title {
+    line-height: 1.1;
+}
+
+.footer-mail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: clamp(24px, 3vw, 40px);
+    padding: 16px clamp(14px, 2vw, 24px);
+    border: 1px solid var(--line-strong);
+    background: var(--panel);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.footer-mail:hover {
+    border-color: var(--cyan);
+    box-shadow: 0 0 40px rgba(111, 227, 255, 0.15);
+}
+
+.footer-mail-prompt {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: clamp(12px, 1.2vw, 16px);
+    color: var(--cyan);
+}
+
+.footer-mail-text {
+    min-width: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+    font-weight: 500;
+    font-stretch: 100%;
+    overflow-wrap: anywhere;
+}
+
+.footer-mail-caret {
+    flex: none;
+    width: 0.5em;
+    height: 1em;
+    font-size: clamp(1.2rem, 2.6vw, 2.4rem);
+    background: var(--cyan);
+    animation: caret 1s steps(1) infinite;
+}
+
+.footer-mail-arrow {
+    flex: none;
+    width: clamp(30px, 4vw, 60px);
+    margin-left: auto;
+    color: var(--cyan);
+    transition: transform 0.6s var(--ease-out);
+}
+
+.footer-mail:hover .footer-mail-arrow {
+    transform: rotate(45deg);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 6fr 4fr 2fr;
+    gap: var(--col-gap);
+    margin-top: clamp(32px, 4vw, 56px);
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.footer-col-title {
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cyan);
+}
+
+.footer-link {
+    display: flex;
+    justify-content: space-between;
+    max-width: 440px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    transition: padding 0.4s var(--ease-out), color 0.3s;
+}
+
+.footer-link:hover {
+    padding-left: 10px;
+    color: var(--cyan);
+}
+
+.footer-link-value {
+    color: var(--dim);
+}
+
+.footer-time {
+    font-family: var(--font-dot);
+    font-size: clamp(2rem, 3.4vw, 3.2rem);
+    font-weight: 800;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+}
+
+.footer-time small {
+    margin-left: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--dim);
+}
+
+.footer-muted {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--dim);
+}
+
+.footer-col-end {
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.round-btn {
+    display: grid;
+    place-items: center;
+    width: 70px;
+    height: 70px;
+    border: 1px solid var(--line-strong);
+    color: var(--cyan);
+    background: none;
+    transform: rotate(45deg);
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.round-btn svg {
+    transform: rotate(-45deg);
+}
+
+.round-btn:hover {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--void);
+}
+
+.footer-base {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: clamp(32px, 4vw, 56px);
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+@media (max-width: 800px) {
+    .footer-mail {
+        flex-wrap: wrap;
+    }
+
+    .footer-mail-caret {
+        display: none;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid .footer-col:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .footer-base {
+        flex-direction: column;
+        gap: 6px;
+    }
+}

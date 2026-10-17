@@ -1,91 +1,225 @@
+import { useLayoutEffect, useRef } from 'react'
+import { Navigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Link, useParams } from 'react-router-dom'
-import { getProjectById } from '../data/projects'
+import Reveal from '../components/Reveal'
+import Cover from '../components/Cover'
+import PillArrow from '../components/PillArrow'
+import { TLink } from '../components/Transition'
+import { coverOf, getNextProject, getProjectById, projects } from '../data/projects'
+import { asset } from '../lib/asset'
+import { gsap, reducedMotion } from '../lib/gsap'
+import { useLang } from '../lib/lang'
+import { useTitle } from '../lib/useTitle'
 import './ProjectDetail.css'
 
 export default function ProjectDetail() {
-    const { t, i18n } = useTranslation()
-    const { id } = useParams<{ id: string }>()
-    const lang: 'en' | 'zh' = i18n.language?.startsWith('zh') ? 'zh' : 'en'
+    const { id = '' } = useParams()
+    const { t } = useTranslation()
+    const lang = useLang()
+    const root = useRef<HTMLElement>(null)
+    const project = getProjectById(id)
+    useTitle(project?.title[lang])
 
-    const project = getProjectById(id || '')
+    useLayoutEffect(() => {
+        const el = root.current
+        if (!el || reducedMotion()) return
+        const ctx = gsap.context(() => {
+            // Cover opens from the bottom edge, then drifts slower than the page.
+            gsap.fromTo('.pd-plate', { clipPath: 'inset(100% 0% 0% 0%)' }, {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 1.4,
+                ease: 'expo.inOut',
+                delay: 0.5,
+            })
+            const floating = el.querySelector('.pd-plate:not(.is-fill) .pd-plate-shot')
+            if (floating) gsap.fromTo(floating, { yPercent: 10 }, {
+                yPercent: -4,
+                ease: 'none',
+                scrollTrigger: { trigger: '.pd-cover', start: 'top bottom', end: 'bottom top', scrub: true },
+            })
+            gsap.utils.toArray<HTMLElement>('.pd-shot').forEach((shot) => {
+                gsap.fromTo(shot, { clipPath: 'inset(12% 6% 12% 6%)', opacity: 0.4 }, {
+                    clipPath: 'inset(0% 0% 0% 0%)',
+                    opacity: 1,
+                    ease: 'none',
+                    scrollTrigger: { trigger: shot, start: 'top 95%', end: 'top 45%', scrub: true },
+                })
+            })
+            gsap.from('.pd-meta > div', { opacity: 0, y: 20, duration: 1, ease: 'expo.out', stagger: 0.06, delay: 0.4 })
+        }, el)
+        return () => ctx.revert()
+    }, [id])
 
-    if (!project) {
-        return (
-            <main className="project-detail-page">
-                <div className="container">
-                    <Link to="/projects" className="back-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                        {t('projects.back_to_projects')}
-                    </Link>
-                    <div className="not-found">
-                        <h1>Project Not Found</h1>
-                        <p>The project you're looking for doesn't exist.</p>
-                    </div>
-                </div>
-            </main>
-        )
-    }
+    if (!project) return <Navigate to="/projects" replace />
+
+    const next = getNextProject(project.id)
+    const no = String(projects.indexOf(project) + 1).padStart(2, '0')
+    // The first screenshot is the hero unless the page opens on the demo video.
+    const shots = project.gallery.slice(1)
+    const heroCaption = !project.heroVideo && project.gallery[0] ? project.captions?.[project.gallery[0]] : undefined
+    const domain = project.link ? new URL(project.link).hostname.replace(/^www\./, '') : null
 
     return (
-        <main className="project-detail-page">
-            <div className="container">
-                <Link to="/projects" className="back-link">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M19 12H5M12 19l-7-7 7-7" />
-                    </svg>
-                    {t('projects.back_to_projects')}
-                </Link>
-
-                <header className="project-header">
-                    <span className={`project-badge badge-${project.type}`}>
-                        {t(`projects.badge_${project.type}`)}
+        <main className="page pd" ref={root} key={project.id}>
+            <header className="pd-hero" data-shape="ring">
+                <div className="pd-top">
+                    <TLink to="/projects" label={t('nav.projects')} className="pd-back">
+                        ← {t('project.back')}
+                    </TLink>
+                    <span className="mono">
+                        {no} / {String(projects.length).padStart(2, '0')}
                     </span>
-                    <h1 className="project-title" style={{
-                        background: project.gradient,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text'
-                    }}>
-                        {project.title[lang]}
-                    </h1>
-                    <p className="project-desc">{project.description[lang]}</p>
-                    <div className="tech-tags">
-                        {project.tags.map((tag) => (
-                            <span key={tag} className="tech-tag">{tag}</span>
-                        ))}
-                    </div>
-                </header>
+                </div>
 
-                <div className="project-content">
-                    <div
-                        className="project-preview"
-                        style={{ background: project.gradient }}
-                    >
-                        <div className="preview-letter">{project.title[lang].charAt(0)}</div>
-                    </div>
+                <Reveal as="h1" className="pd-title" immediate delay={0.25} key={`${project.id}-${lang}`}>
+                    {project.title[lang]}
+                </Reveal>
 
-                    {project.link && (
-                        <div className="project-actions">
-                            <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-primary"
-                            >
-                                {lang === 'zh' ? '访问网站' : 'Visit Website'}
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <line x1="10" y1="14" x2="21" y2="3" />
-                                </svg>
-                            </a>
+                <div className="pd-meta">
+                    <div>
+                        <span className="pd-meta-k">{t('project.role')}</span>
+                        <span>{project.role[lang]}</span>
+                    </div>
+                    <div>
+                        <span className="pd-meta-k">{t('project.context')}</span>
+                        <span>{project.context[lang]}</span>
+                    </div>
+                    <div>
+                        <span className="pd-meta-k">{t('project.stack')}</span>
+                        <span>{project.stack.join(', ')}</span>
+                    </div>
+                    {!project.repo && project.type !== 'academic' && (
+                        <div>
+                            <span className="pd-meta-k">{t('project.source')}</span>
+                            <span>{t('project.private_short')}</span>
                         </div>
                     )}
+                    <div className="pd-meta-cta">
+                        {project.link && (
+                            <a className="pill pill-solid" href={project.link} target="_blank" rel="noopener noreferrer">
+                                {t('project.visit')} — {domain}
+                                <PillArrow />
+                            </a>
+                        )}
+                        {project.repo ? (
+                            <a className="pill" href={project.repo} target="_blank" rel="noopener noreferrer">
+                                {t('project.code')}
+                                <PillArrow />
+                            </a>
+                        ) : null}
+                    </div>
                 </div>
+            </header>
+
+            <div className="pd-cover">
+                {project.heroVideo && project.video ? (
+                    <>
+                        <video
+                            className="pd-video"
+                            src={asset(project.video.src)}
+                            poster={asset(project.video.poster)}
+                            controls
+                            muted
+                            playsInline
+                            preload="metadata"
+                            data-cursor={t('cursor.play')}
+                        />
+                        <p className="pd-caption">{project.video.caption[lang]}</p>
+                    </>
+                ) : (
+                    <>
+                        <div className={`pd-plate${coverOf(project) ? '' : ' is-fill'}`} style={{ background: project.tone }}>
+                            <div className="pd-plate-shot">
+                                <Cover project={project} eager />
+                            </div>
+                        </div>
+                        {heroCaption && <p className="pd-caption">{heroCaption[lang]}</p>}
+                    </>
+                )}
             </div>
+
+            <section className="section pd-overview grid-12" data-shape="wave">
+                <span className="eyebrow">{t('project.overview')}</span>
+                <p className="pd-desc">{project.description[lang]}</p>
+
+                <span className="eyebrow">{t('project.built')}</span>
+                <ul className="pd-list">
+                    {project.highlights[lang].map((h) => (
+                        <li key={h}>{h}</li>
+                    ))}
+                </ul>
+
+                {project.decisions && (
+                    <>
+                        <span className="eyebrow">{t('project.decisions')}</span>
+                        <ul className="pd-list">
+                            {project.decisions[lang].map((h) => (
+                                <li key={h}>{h}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {project.result && (
+                    <>
+                        <span className="eyebrow">{(project.resultLabel ?? { en: t('project.result'), zh: t('project.result') })[lang]}</span>
+                        <p className="pd-result">{project.result[lang]}</p>
+                    </>
+                )}
+            </section>
+
+            {project.video && !project.heroVideo && (
+                <section className="section pd-demo">
+                    <span className="eyebrow">{t('project.demo')}</span>
+                    <video
+                        className="pd-video"
+                        src={asset(project.video.src)}
+                        poster={asset(project.video.poster)}
+                        controls
+                        muted
+                        playsInline
+                        preload="none"
+                        data-cursor={t('cursor.play')}
+                    />
+                    <p className="pd-caption">{project.video.caption[lang]}</p>
+                </section>
+            )}
+
+            {shots.length > 0 && (
+                <section className="section pd-gallery">
+                    <span className="eyebrow">
+                        {t('project.gallery')} ({String(shots.length).padStart(2, '0')})
+                    </span>
+                    {project.galleryNote && <p className="pd-caption">{project.galleryNote[lang]}</p>}
+                    <div className="pd-shots">
+                        {shots.map((name) => (
+                            <figure className={`pd-shot${project.captions?.[name] ? ' has-caption' : ''}`} key={name}>
+                                <img
+                                    src={asset(`media/${project.id}/${name}.webp`)}
+                                    alt={project.captions?.[name]?.[lang] ?? `${project.title[lang]} — ${name}`}
+                                    loading="lazy"
+                                    decoding="async"
+                                    onLoad={(e) => {
+                                        const img = e.currentTarget
+                                        // Wide, short screens read better across the full width.
+                                        if (img.naturalWidth / img.naturalHeight > 2.5) img.parentElement?.classList.add('is-wide')
+                                    }}
+                                />
+                                {project.captions?.[name] && <figcaption className="pd-caption">{project.captions[name][lang]}</figcaption>}
+                            </figure>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+
+            <TLink to={`/projects/${next.id}`} label={next.title[lang]} className="pd-next" data-cursor={t('cursor.view')}>
+                <span className="eyebrow">{t('project.next')}</span>
+                <span className="pd-next-title">{next.title[lang]}</span>
+                <span className="pd-next-media" style={{ background: next.tone }}>
+                    <Cover project={next} size="sm" card />
+                </span>
+            </TLink>
         </main>
     )
 }

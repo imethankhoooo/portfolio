@@ -5,74 +5,121 @@
         "about": "关于",
         "contact": "联系"
     },
-    "hero": {
+    "header": {
         "status": "开放合作中",
-        "greeting": "你好，我是 Ethan,",
-        "name": "全栈开发者",
-        "title": "& 系统架构师",
-        "tagline": "将创意转化为数字现实",
-        "description": "自由职业开发者，专注于构建高性能 Web 应用与企业级系统。从前端交互到后端架构，从 ERP 系统到 AI 集成，用代码创造价值。",
-        "cta_projects": "查看作品",
-        "cta_contact": "联系我"
+        "menu": "菜单",
+        "close": "关闭"
     },
-    "card": {
-        "name": "Ethan Khoo",
-        "role": "全栈开发者",
-        "location": "马来西亚",
-        "years": "10+",
-        "years_label": "项目",
-        "projects": "3",
-        "projects_label": "上线网站",
-        "skills": "∞",
-        "skills_label": "热情"
+    "cursor": {
+        "view": "查看",
+        "open": "打开案例",
+        "write": "写信",
+        "play": "播放"
     },
-    "featured": {
-        "title": "精选项目",
-        "description": "展示我在 Web 开发、企业系统和 AI 集成方面的最佳作品",
-        "view_all": "查看全部项目"
+    "type": {
+        "live": "已上线",
+        "internal": "业务系统",
+        "academic": "课程作业",
+        "personal": "个人项目"
     },
-    "skills": {
-        "title": "技能专长",
-        "description": "我使用的技术和工具"
+    "index": {
+        "project": "项目",
+        "category": "类别",
+        "stack": "技术栈"
     },
-    "projects": {
-        "title": "精选作品",
-        "subtitle": "从上线网站到企业系统，从 AI 集成到底层汇编，探索我的技术之旅",
-        "filter_all": "全部",
-        "filter_live": "上线项目",
-        "filter_internal": "企业系统",
-        "filter_academic": "学术项目",
-        "badge_live": "上线",
-        "badge_internal": "内部",
-        "badge_academic": "学术",
-        "view_project": "查看项目",
-        "back_to_projects": "返回项目"
+    "hero": {
+        "role": "Laravel · React · AI 智能体 · RAG · 本地大模型",
+        "based": "常驻马来西亚 · 自由职业 & 全职",
+        "focus": "Laravel · React · AI 智能体\nRAG · 本地大模型",
+        "lead": "吉隆坡的全栈与 AI 开发者。我开发了已上线、有真实用户与付费的 AI 创作平台 Mage AI Media，并自 2023 年起为客户承接项目。",
+        "scroll": "向下滚动探索",
+        "tag": "全栈 · AI 应用 · 自动化",
+        "cta_work": "查看项目",
+        "cta_contact": "联系我",
+        "callouts_label": "专注领域",
+        "callouts": [
+            {
+                "k": "模块 // 全栈",
+                "v": "Next.js · TypeScript · Laravel"
+            },
+            {
+                "k": "模块 // AI",
+                "v": "多模型 API · RAG · 本地大模型"
+            },
+            {
+                "k": "模块 // 云",
+                "v": "Supabase · Inngest · Cloudflare · AWS"
+            }
+        ],
+        "cv": "下载简历（PDF）"
+    },
+    "home": {
+        "selected": "精选作品",
+        "all_work": "全部作品",
+        "capabilities": "技术栈",
+        "more": "更多项目",
+        "also_used": "也用过："
+    },
+    "work": {
+        "title": "作品",
+        "intro": "上线网站、企业系统、AI 工具与课程作业。",
+        "all": "全部",
+        "list": "列表",
+        "grid": "网格"
+    },
+    "project": {
+        "back": "全部作品",
+        "role": "角色",
+        "category": "类别",
+        "stack": "技术栈",
+        "visit": "访问网站",
+        "overview": "概述",
+        "highlights": "功能",
+        "gallery": "界面",
+        "demo": "演示",
+        "next": "下一个项目",
+        "not_found": "未找到该项目",
+        "context": "背景",
+        "built": "我做了什么",
+        "decisions": "关键决策",
+        "result": "结果",
+        "code": "源代码",
+        "demo_hover": "悬停预览",
+        "demo_touch": "演示视频",
+        "source": "源码",
+        "private_short": "未公开，可当面讲解"
     },
     "about": {
-        "title": "关于我",
-        "subtitle": "热爱技术，致力于将想法变为现实",
-        "education_title": "教育背景",
-        "experience_title": "工作经历",
-        "skills_title": "核心技能",
-        "technologies_title": "技术栈",
-        "frontend": "前端",
-        "backend": "后端",
-        "tools": "工具"
+        "title": "关于",
+        "label": "简介",
+        "intro": "我是 Ethan（Tsui Ern）Khoo，TAR UMT 信息系统专业大四学生，自 2023 年起从事自由职业全栈与 AI 开发。我端到端地构建产品，并借助 AI（Claude Code、Codex）开发：架构、代码审查与调试由我负责。",
+        "timeline": "教育与经历",
+        "capabilities": "我做什么",
+        "now": "目前",
+        "now_items": [
+            "TAR UMT 信息系统学士（荣誉）大四在读——2027 年毕业",
+            "开发并运营已上线的 AI 创作平台 Mage AI Media",
+            "开放毕业前实习（2027 年 1 月起）、毕业生职位与自由职业项目"
+        ],
+        "cv": "下载简历（PDF）"
     },
     "contact": {
-        "title": "联系我",
-        "subtitle": "有项目想法？让我们一起将创意变为现实。",
+        "title": "联系",
+        "label": "取得联系",
+        "intro": "有项目想法？发邮件给我。",
         "email": "邮箱",
-        "phone": "WhatsApp",
-        "location": "位置",
-        "linkedin": "领英",
-        "github": "GitHub"
+        "elsewhere": "其他渠道",
+        "copy": "复制",
+        "copied": "已复制"
     },
     "footer": {
-        "copyright": "© 2024 Ethan Khoo. 保留所有权利。"
-    },
-    "common": {
-        "scroll_down": "向下滚动",
-        "loading": "加载中..."
+        "label": "通讯",
+        "reply": "自由职业 & 全职",
+        "title": "一起做点什么。",
+        "elsewhere": "其他渠道",
+        "local": "本地时间",
+        "location": "马来西亚（MYT）",
+        "top": "回到顶部",
+        "built": "设计与开发于马来西亚"
     }
 }

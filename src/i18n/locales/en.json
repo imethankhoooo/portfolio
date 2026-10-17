@@ -1,78 +1,125 @@
 {
     "nav": {
         "home": "Home",
-        "projects": "Projects",
+        "projects": "Work",
         "about": "About",
         "contact": "Contact"
     },
+    "header": {
+        "status": "Available for work",
+        "menu": "Menu",
+        "close": "Close"
+    },
+    "cursor": {
+        "view": "View",
+        "open": "Open case",
+        "write": "Write",
+        "play": "Play"
+    },
+    "type": {
+        "live": "Live",
+        "internal": "Business system",
+        "academic": "Coursework",
+        "personal": "Personal project"
+    },
+    "index": {
+        "project": "Project",
+        "category": "Category",
+        "stack": "Stack"
+    },
     "hero": {
-        "status": "Available for Projects",
-        "greeting": "Hi, I'm Ethan,",
-        "name": "Full Stack Developer",
-        "title": "& System Architect",
-        "tagline": "Building Ideas into Digital Reality",
-        "description": "Freelance developer specializing in high-performance web applications and enterprise systems. From frontend interactions to backend architecture, from ERP systems to AI integration — turning code into value.",
-        "cta_projects": "View Projects",
-        "cta_contact": "Contact Me"
+        "role": "Laravel · React · AI agents · RAG · Local LLMs",
+        "based": "Based in Malaysia · Freelance & full-time",
+        "focus": "Laravel · React · AI agents\nRAG · Local LLMs",
+        "lead": "Full-stack & AI developer in Kuala Lumpur. I built Mage AI Media — a live AI creation platform with real users and payments — and have freelanced for clients since 2023.",
+        "scroll": "Scroll to explore",
+        "tag": "Full-stack · AI applications · Automation",
+        "cta_work": "View projects",
+        "cta_contact": "Contact me",
+        "callouts_label": "Focus areas",
+        "callouts": [
+            {
+                "k": "Module // Full-stack",
+                "v": "Next.js · TypeScript · Laravel"
+            },
+            {
+                "k": "Module // AI",
+                "v": "Multi-model APIs · RAG · Local LLMs"
+            },
+            {
+                "k": "Module // Cloud",
+                "v": "Supabase · Inngest · Cloudflare · AWS"
+            }
+        ],
+        "cv": "Download CV (PDF)"
     },
-    "card": {
-        "name": "Ethan Khoo",
-        "role": "Full Stack Developer",
-        "location": "Malaysia",
-        "years": "10+",
-        "years_label": "Projects",
-        "projects": "3",
-        "projects_label": "Live Sites",
-        "skills": "∞",
-        "skills_label": "Passion"
+    "home": {
+        "selected": "Selected work",
+        "all_work": "All work",
+        "capabilities": "Stack",
+        "more": "More projects",
+        "also_used": "Also worked with:"
     },
-    "featured": {
-        "title": "Featured Projects",
-        "description": "Showcasing my best work across web development, enterprise systems, and AI integration",
-        "view_all": "View All Projects"
+    "work": {
+        "title": "Work",
+        "intro": "Live sites, enterprise systems, AI tools and coursework.",
+        "all": "All",
+        "list": "List",
+        "grid": "Grid"
     },
-    "skills": {
-        "title": "Skills & Expertise",
-        "description": "Technologies and tools I work with"
-    },
-    "projects": {
-        "title": "Featured Projects",
-        "subtitle": "From live websites to enterprise systems, from AI integration to low-level assembly — explore my technical journey",
-        "filter_all": "All",
-        "filter_live": "Live Sites",
-        "filter_internal": "Enterprise",
-        "filter_academic": "Academic",
-        "badge_live": "LIVE",
-        "badge_internal": "INTERNAL",
-        "badge_academic": "ACADEMIC",
-        "view_project": "View Project",
-        "back_to_projects": "Back to Projects"
+    "project": {
+        "back": "All work",
+        "role": "Role",
+        "category": "Category",
+        "stack": "Stack",
+        "visit": "Visit site",
+        "overview": "Overview",
+        "highlights": "What it does",
+        "gallery": "Screens",
+        "demo": "Demo",
+        "next": "Next project",
+        "not_found": "Project not found",
+        "context": "Context",
+        "built": "What I built",
+        "decisions": "Key decisions",
+        "result": "Result",
+        "code": "Source code",
+        "demo_hover": "Hover to preview",
+        "demo_touch": "Demo video",
+        "source": "Source",
+        "private_short": "Private — happy to walk through it"
     },
     "about": {
-        "title": "About Me",
-        "subtitle": "Passionate about technology, dedicated to turning ideas into reality",
-        "education_title": "Education",
-        "experience_title": "Experience",
-        "skills_title": "Technical Skills",
-        "technologies_title": "Technologies",
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "tools": "Tools & Others"
+        "title": "About",
+        "label": "Profile",
+        "intro": "I'm Ethan (Tsui Ern) Khoo — a final-year Information Systems student at TAR UMT and a freelance full-stack & AI developer since 2023. I build products end to end, working AI-assisted (Claude Code, Codex): I own the architecture, the review and the debugging.",
+        "timeline": "Education & experience",
+        "capabilities": "What I do",
+        "now": "Currently",
+        "now_items": [
+            "Final-year Bachelor of Information Systems (Hons), TAR UMT — graduating 2027",
+            "Building and running Mage AI Media, a live AI creation platform",
+            "Open to a final-year internship (Jan 2027), graduate roles and freelance projects"
+        ],
+        "cv": "Download CV (PDF)"
     },
     "contact": {
-        "title": "Get in Touch",
-        "subtitle": "Have a project in mind? Let's work together to bring your ideas to life.",
+        "title": "Contact",
+        "label": "Get in touch",
+        "intro": "Have a project in mind? Email me.",
         "email": "Email",
-        "phone": "WhatsApp",
-        "location": "Location",
-        "linkedin": "LinkedIn",
-        "github": "GitHub"
+        "elsewhere": "Elsewhere",
+        "copy": "Copy",
+        "copied": "Copied"
     },
     "footer": {
-        "copyright": "© 2024 Ethan Khoo. All rights reserved."
-    },
-    "common": {
-        "scroll_down": "Scroll Down",
-        "loading": "Loading..."
+        "label": "Transmission",
+        "reply": "Freelance & full-time",
+        "title": "Let's build something.",
+        "elsewhere": "Elsewhere",
+        "local": "Local time",
+        "location": "Malaysia (MYT)",
+        "top": "Back to top",
+        "built": "Designed & developed in Malaysia"
     }
 }
